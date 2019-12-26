@@ -299,33 +299,79 @@
                                                 </div>
 
                                                 <div class="col-2 text-center">
-                                                    <label for="diplom_level">Diplom level:</label>
+                                                    <label for="professi">Professi:</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <input type="text" name="diplom_level" value="" v-model="form.diplom_level">
+                                                    <input type="text" name="professi" value="" v-model="form.professi">
                                                 </div>
                                             </div>
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-2 text-center">
-                                                    <label for="start">Start:</label>
+                                                    <label for="start_work">Start:</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="date" name="start" value="" v-model="form.start">
+                                                    <input type="date" name="start_work" value="" v-model="form.start_work">
                                                 </div>
 
                                                 <div class="col-2 text-center">
-                                                    <label for="finish">Finish:</label>
+                                                    <label for="finish_work">Finish:</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="date" name="finish" value="" v-model="form.finish">
+                                                    <input type="date" name="finish_work" value="" v-model="form.finish_work">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-4 text-center">
+                                                    <label for="funktion">Function:</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-10 text-center">
+                                                    <vue-editor v-model="form.funktion"></vue-editor>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-4 text-center">
+                                                    <label for="projects">Project:</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-10 text-center">
+                                                    <vue-editor v-model="form.projects"></vue-editor>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="" class="btn btn-primary" id="education_add">
+                                                <button type="" class="btn btn-primary" id="work_add">
                                                     +ADD
                                                 </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row justify-content-center">
+                                <!-- Hobbis -->
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">Hobbis:</div>
+                                        <div class="card-body">
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-12">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-12 text-center">
+                                                    <input type="text" name="hobbis" v-model="form.hobbis">
+                                                    <button type="" class="btn btn-primary" id="hobbi_add">
+                                                        +ADD
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -348,12 +394,14 @@
 </template>
 
 <script>
-    CKEDITOR.replace( 'summary-ckeditor' );
-</script>
+    import { VueEditor } from "vue2-editor";
 
-<script>
     export default {
-        props: [],
+        components: {
+            VueEditor
+          },
+
+        props: {},
 
         data() {
             return {
@@ -369,8 +417,10 @@
                     language: [],
                     levelLanguage: [],
                     skill: [],
-                    levelSkill: []
-
+                    levelSkill: [],
+                    funktion: '',
+                    projects: '',
+                    hobbis: []
                 }
             };
         },

@@ -24,9 +24,6 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 
-  <!-- CKEditor CDN -->
-  <script src="//cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-
   <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
