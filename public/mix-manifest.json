@@ -1,0 +1,11 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/sb-admin.css": "/css/sb-admin.css",
+    "/js/demo/chart-area-demo.js": "/js/demo/chart-area-demo.js",
+    "/js/demo/chart-bar-demo.js": "/js/demo/chart-bar-demo.js",
+    "/js/demo/chart-pie-demo.js": "/js/demo/chart-pie-demo.js",
+    "/js/demo/datatables-demo.js": "/js/demo/datatables-demo.js",
+    "/js/sb-admin.js": "/js/sb-admin.js",
+    "/js/sb-admin.min.js": "/js/sb-admin.min.js"
+}
