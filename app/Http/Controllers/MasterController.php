@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Igaster\LaravelCities\Geo;
 use App\Models\Level;
 
 class MasterController extends Controller
@@ -25,8 +26,9 @@ class MasterController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $countries = Geo::getCountries();
         //$levels = Level::pluck('level', 'id');
         $levels = Level::all();
-        return view('master', ['levels' => $levels]);
+        return view('master', ['levels' => $levels, 'countries' => $countries]);
     }
 }

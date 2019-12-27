@@ -51,53 +51,53 @@
                                                 <div class="col-2 text-center">
                                                     <label for="country">Country</label>
                                                 </div>
-                                                <div class="col-2 text-center">
+                                                <div class="col-4 text-center">
                                                     <select name="country" id="country" v-model="form.usercountry">
-                                                        <option value="a">A</option>
-                                                        <option value="b">B</option>
-                                                        <option value="c">C</option>
+                                                        <option v-for="country in countries" :value="country.id">{{country.name}}</option>
                                                     </select>
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="region">Region</label>
                                                 </div>
-                                                <div class="col-2 text-center">
+                                                <div class="col-4 text-center">
                                                     <select name="region" id="region" v-model="form.userregion">
                                                         <option value="">A</option>
                                                         <option value="">B</option>
                                                         <option value="">C</option>
                                                     </select>
                                                 </div>
+                                            </div>
 
+                                            <div class="form-group row justify-content-center">
                                                 <div class="col-1 text-center">
                                                     <label for="index">Index</label>
                                                 </div>
                                                 <div class="col-3">
-                                                    <input type="index" id="index" name="index" value="" v-model="form.userindex">
+                                                    <input class="form-control" type="index" id="index" name="index" value="" v-model="form.userindex">
+                                                </div>
+
+                                                <div class="col-1 text-center">
+                                                    <label for="street">Street</label>
+                                                </div>
+                                                <div class="col-3 text-center">
+                                                    <input class="form-control" type="text" id="street" name="street" value="" v-model="form.userstreet">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row justify-content-center">
-                                                <div class="col-2 text-center">
-                                                    <label for="street">Street</label>
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" id="street" name="street" value="" v-model="form.userstreet">
-                                                </div>
-
-                                                <div class="col-2 text-center">
+                                                <div class="col-1 text-center">
                                                     <label for="house">House</label>
                                                 </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" id="house" name="house" value="" v-model="form.userhouse">
+                                                <div class="col-3 text-center">
+                                                    <input class="form-control" type="text" id="house" name="house" value="" v-model="form.userhouse">
                                                 </div>
 
                                                 <div class="col-1 text-center">
                                                     <label for="apartment">Apartment</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input type="text" id="apartment" name="apartment" value="" v-model="form.userapartment">
+                                                    <input class="form-control" type="text" id="apartment" name="apartment" value="" v-model="form.userapartment">
                                                 </div>
                                             </div>
                                         </div>
@@ -363,15 +363,12 @@
                                         <div class="card-body">
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-12">
-                                                <p></p>
+                                                <p>{{ hobbiform.hobbi }}</p>
                                                 </div>
                                             </div>
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-12 text-center">
-                                                    <input type="text" name="hobbis" v-model="form.userhobbis">
-                                                    <button type="" class="btn btn-primary" id="hobbi_add">
-                                                        +ADD
-                                                    </button>
+                                                    <input type="text" name="hobbis" width="100%" v-model="hobbiform.hobbi">
                                                 </div>
                                             </div>
                                         </div>
@@ -404,7 +401,8 @@
 
         props: {
             user: {},
-            levels: {}
+            levels: {},
+            countries: {}
         },
 
         data() {
@@ -412,23 +410,8 @@
                 form: {
                     name: '',
                     phone: '',
-                    email: '',
-                    usersites: '',
-                    userdribbble: '',
-                    userbehance: '',
-                    usergit: '',
-                    userlinkedin: '',
-                    userskill: [],
-                    userlevelSkill: [],
-                    userfunktion: '',
-                    userprojects: '',
-                    userhobbis: []
+                    email: ''
                 },
-
-                /*levels: {
-                    id: '',
-                    level: ''
-                }*/
 
                 lenguageform: {
                     user_id: this.user.id,
@@ -460,6 +443,22 @@
                     finish: [],
                     function: [],
                     projects: []
+                },
+
+                hobbiform: {
+                    user_id: this.user.id,
+                    hobbi: ''
+                },
+
+                addressform: {
+                    user_id: this.user.id,
+                    country: '',
+                    region: '',
+                    city: '',
+                    index: '',
+                    street: '',
+                    house: '',
+                    apartment: ''
                 }
             };
         },
@@ -467,7 +466,11 @@
         computed: {
             disabledForm() {
                 //return !this.form.name || !this.form.email ? true : false
-                return true
+                return false
+            },
+
+            regionComplit() {
+                //
             }
         },
 

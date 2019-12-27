@@ -85,7 +85,7 @@
 
       <div class="container-fluid">
 
-        <router-view :user="{{ Auth::user() }}" :levels="{{ $levels }}"></router-view>
+        <router-view :user="{{ Auth::user() }}" :levels="{{ $levels }}" :countries = "{{ $countries }}"></router-view>
 
       </div>
       <!-- /.container-fluid -->

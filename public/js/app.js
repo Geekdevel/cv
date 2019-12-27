@@ -2265,9 +2265,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2275,30 +2272,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     user: {},
-    levels: {}
+    levels: {},
+    countries: {}
   },
   data: function data() {
     return {
       form: {
         name: '',
         phone: '',
-        email: '',
-        usersites: '',
-        userdribbble: '',
-        userbehance: '',
-        usergit: '',
-        userlinkedin: '',
-        userskill: [],
-        userlevelSkill: [],
-        userfunktion: '',
-        userprojects: '',
-        userhobbis: []
+        email: ''
       },
-
-      /*levels: {
-          id: '',
-          level: ''
-      }*/
       lenguageform: {
         user_id: this.user.id,
         lenguage: [],
@@ -2326,13 +2309,29 @@ __webpack_require__.r(__webpack_exports__);
         finish: [],
         "function": [],
         projects: []
+      },
+      hobbiform: {
+        user_id: this.user.id,
+        hobbi: ''
+      },
+      addressform: {
+        user_id: this.user.id,
+        country: '',
+        region: '',
+        city: '',
+        index: '',
+        street: '',
+        house: '',
+        apartment: ''
       }
     };
   },
   computed: {
     disabledForm: function disabledForm() {
       //return !this.form.name || !this.form.email ? true : false
-      return true;
+      return false;
+    },
+    regionComplit: function regionComplit() {//
     }
   },
   methods: {
@@ -16751,7 +16750,7 @@ var render = function() {
                           [
                             _vm._m(4),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
+                            _c("div", { staticClass: "col-4 text-center" }, [
                               _c(
                                 "select",
                                 {
@@ -16787,25 +16786,20 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _c("option", { attrs: { value: "a" } }, [
-                                    _vm._v("A")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "b" } }, [
-                                    _vm._v("B")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "c" } }, [
-                                    _vm._v("C")
-                                  ])
-                                ]
+                                _vm._l(_vm.countries, function(country) {
+                                  return _c(
+                                    "option",
+                                    { domProps: { value: country.id } },
+                                    [_vm._v(_vm._s(country.name))]
+                                  )
+                                }),
+                                0
                               )
                             ]),
                             _vm._v(" "),
                             _vm._m(5),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
+                            _c("div", { staticClass: "col-4 text-center" }, [
                               _c(
                                 "select",
                                 {
@@ -16855,8 +16849,16 @@ var render = function() {
                                   ])
                                 ]
                               )
-                            ]),
-                            _vm._v(" "),
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group row justify-content-center"
+                          },
+                          [
                             _vm._m(6),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-3" }, [
@@ -16869,6 +16871,7 @@ var render = function() {
                                     expression: "form.userindex"
                                   }
                                 ],
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "index",
                                   id: "index",
@@ -16889,19 +16892,11 @@ var render = function() {
                                   }
                                 }
                               })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-group row justify-content-center"
-                          },
-                          [
+                            ]),
+                            _vm._v(" "),
                             _vm._m(7),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
+                            _c("div", { staticClass: "col-3 text-center" }, [
                               _c("input", {
                                 directives: [
                                   {
@@ -16911,6 +16906,7 @@ var render = function() {
                                     expression: "form.userstreet"
                                   }
                                 ],
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "text",
                                   id: "street",
@@ -16931,11 +16927,19 @@ var render = function() {
                                   }
                                 }
                               })
-                            ]),
-                            _vm._v(" "),
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group row justify-content-center"
+                          },
+                          [
                             _vm._m(8),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
+                            _c("div", { staticClass: "col-3 text-center" }, [
                               _c("input", {
                                 directives: [
                                   {
@@ -16945,6 +16949,7 @@ var render = function() {
                                     expression: "form.userhouse"
                                   }
                                 ],
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "text",
                                   id: "house",
@@ -16979,6 +16984,7 @@ var render = function() {
                                     expression: "form.userapartment"
                                   }
                                 ],
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "text",
                                   id: "apartment",
@@ -18029,7 +18035,17 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _vm._m(30),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group row justify-content-center"
+                          },
+                          [
+                            _c("div", { staticClass: "col-12" }, [
+                              _c("p", [_vm._v(_vm._s(_vm.hobbiform.hobbi))])
+                            ])
+                          ]
+                        ),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -18043,38 +18059,29 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.userhobbis,
-                                    expression: "form.userhobbis"
+                                    value: _vm.hobbiform.hobbi,
+                                    expression: "hobbiform.hobbi"
                                   }
                                 ],
-                                attrs: { type: "text", name: "hobbis" },
-                                domProps: { value: _vm.form.userhobbis },
+                                attrs: {
+                                  type: "text",
+                                  name: "hobbis",
+                                  width: "100%"
+                                },
+                                domProps: { value: _vm.hobbiform.hobbi },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.form,
-                                      "userhobbis",
+                                      _vm.hobbiform,
+                                      "hobbi",
                                       $event.target.value
                                     )
                                   }
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: { type: "", id: "hobbi_add" }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                                    +ADD\n                                                "
-                                  )
-                                ]
-                              )
+                              })
                             ])
                           ]
                         )
@@ -18165,7 +18172,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2 text-center" }, [
+    return _c("div", { staticClass: "col-1 text-center" }, [
       _c("label", { attrs: { for: "street" } }, [_vm._v("Street")])
     ])
   },
@@ -18173,7 +18180,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2 text-center" }, [
+    return _c("div", { staticClass: "col-1 text-center" }, [
       _c("label", { attrs: { for: "house" } }, [_vm._v("House")])
     ])
   },
@@ -18347,14 +18354,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-4 text-center" }, [
         _c("label", { attrs: { for: "projects" } }, [_vm._v("Project:")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row justify-content-center" }, [
-      _c("div", { staticClass: "col-12" }, [_c("p")])
     ])
   }
 ]
