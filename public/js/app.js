@@ -2263,6 +2263,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2298,6 +2303,29 @@ __webpack_require__.r(__webpack_exports__);
         user_id: this.user.id,
         lenguage: [],
         level_id: []
+      },
+      skillform: {
+        user_id: this.user.id,
+        skill: [],
+        level_id: []
+      },
+      educationform: {
+        user_id: this.user.id,
+        university: [],
+        professi: [],
+        start: [],
+        finish: [],
+        level: []
+      },
+      experienceform: {
+        user_id: this.user.id,
+        work: [],
+        level: [],
+        proffesi: [],
+        start: [],
+        finish: [],
+        "function": [],
+        projects: []
       }
     };
   },
@@ -2313,7 +2341,28 @@ __webpack_require__.r(__webpack_exports__);
       var blockLanguage = document.querySelector('.language-add');
       var languageBody = document.querySelector('.language-body');
       var newBlockLanguage = blockLanguage.cloneNode(true);
-      languageBody.insertAdjacentElement('beforeend', newBlockLanguage); //'language-add'
+      languageBody.insertAdjacentElement('beforeend', newBlockLanguage);
+    },
+    addSkill: function addSkill(e) {
+      e.preventDefault();
+      var blockSkill = document.querySelector('.skill-add');
+      var skillBody = document.querySelector('.skill-body');
+      var newBlockSkill = blockSkill.cloneNode(true);
+      skillBody.insertAdjacentElement('beforeend', newBlockSkill);
+    },
+    addEducation: function addEducation(e) {
+      e.preventDefault();
+      var blockEducation = document.querySelector('.education-add');
+      var educationBody = document.querySelector('.education-body');
+      var newBlockEducation = blockEducation.cloneNode(true);
+      educationBody.insertAdjacentElement('beforeend', newBlockEducation);
+    },
+    addExperience: function addExperience(e) {
+      e.preventDefault();
+      var blockExperience = document.querySelector('.experience-add');
+      var experienceBody = document.querySelector('.experience-body');
+      var newBlockExperience = blockExperience.cloneNode(true);
+      experienceBody.insertAdjacentElement('beforeend', newBlockExperience);
     },
     checkForm: function checkForm(e) {
       console.log(this.form);
@@ -17266,11 +17315,12 @@ var render = function() {
                         _vm._v("Skills")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "card-body skill-body" }, [
                         _c(
                           "div",
                           {
-                            staticClass: "form-group row justify-content-center"
+                            staticClass:
+                              "form-group row justify-content-center skill-add"
                           },
                           [
                             _vm._m(16),
@@ -17281,8 +17331,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.userskill,
-                                    expression: "form.userskill"
+                                    value: _vm.skillform.skill,
+                                    expression: "skillform.skill"
                                   }
                                 ],
                                 attrs: {
@@ -17291,15 +17341,15 @@ var render = function() {
                                   name: "skill",
                                   value: ""
                                 },
-                                domProps: { value: _vm.form.userskill },
+                                domProps: { value: _vm.skillform.skill },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.form,
-                                      "userskill",
+                                      _vm.skillform,
+                                      "skill",
                                       $event.target.value
                                     )
                                   }
@@ -17317,8 +17367,8 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.form.userlevelSkill,
-                                      expression: "form.userlevelSkill"
+                                      value: _vm.skillform.level_id,
+                                      expression: "skillform.level_id"
                                     }
                                   ],
                                   attrs: {
@@ -17339,8 +17389,8 @@ var render = function() {
                                           return val
                                         })
                                       _vm.$set(
-                                        _vm.form,
-                                        "userlevelSkill",
+                                        _vm.skillform,
+                                        "level_id",
                                         $event.target.multiple
                                           ? $$selectedVal
                                           : $$selectedVal[0]
@@ -17362,7 +17412,23 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(18)
+                      _c("div", { staticClass: "card-footer" }, [
+                        _c("div", { staticClass: "col-md-12 text-center" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "", id: "skill_add" },
+                              on: { click: _vm.addSkill }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                                +ADD\n                                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
                     ])
                   ])
                 ]
@@ -17378,190 +17444,251 @@ var render = function() {
                         _vm._v("Education")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "card-body education-body" }, [
                         _c(
                           "div",
                           {
-                            staticClass: "form-group row justify-content-center"
+                            staticClass: "education-add",
+                            staticStyle: {
+                              border: "1px solid #ADC8D8",
+                              "padding-top": "10px",
+                              "margin-top": "10px"
+                            }
                           },
                           [
-                            _vm._m(19),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "form-group row justify-content-center"
+                              },
+                              [
+                                _vm._m(18),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-2 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.educationform.university,
+                                          expression: "educationform.university"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "text",
+                                        name: "university",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.educationform.university
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.educationform,
+                                            "university",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(19),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-2 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.educationform.professi,
+                                          expression: "educationform.professi"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "text",
+                                        name: "professi",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.educationform.professi
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.educationform,
+                                            "professi",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(20),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-2 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.educationform.level,
+                                          expression: "educationform.level"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "text",
+                                        name: "diplom_level",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.educationform.level
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.educationform,
+                                            "level",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.useruniversity,
-                                    expression: "form.useruniversity"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "text",
-                                  name: "university",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.useruniversity },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "useruniversity",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(20),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userprofessi,
-                                    expression: "form.userprofessi"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "text",
-                                  name: "professi",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userprofessi },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userprofessi",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(21),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userdiplom_level,
-                                    expression: "form.userdiplom_level"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "text",
-                                  name: "diplom_level",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userdiplom_level },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userdiplom_level",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-group row justify-content-center"
-                          },
-                          [
-                            _vm._m(22),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-4 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userstart,
-                                    expression: "form.userstart"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "date",
-                                  name: "start",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userstart },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userstart",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(23),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-4 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userfinish,
-                                    expression: "form.userfinish"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "date",
-                                  name: "finish",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userfinish },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userfinish",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "form-group row justify-content-center"
+                              },
+                              [
+                                _vm._m(21),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-4 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.educationform.start,
+                                          expression: "educationform.start"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "date",
+                                        name: "start",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.educationform.start
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.educationform,
+                                            "start",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(22),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-4 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.educationform.finish,
+                                          expression: "educationform.finish"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "date",
+                                        name: "finish",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.educationform.finish
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.educationform,
+                                            "finish",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            )
                           ]
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(24)
+                      _c("div", { staticClass: "card-footer" }, [
+                        _c("div", { staticClass: "col-md-12 text-center" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "" },
+                              on: { click: _vm.addEducation }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                                +ADD\n                                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
                     ])
                   ])
                 ]
@@ -17577,244 +17704,315 @@ var render = function() {
                         _vm._v("Experience works")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "card-body experience-body" }, [
                         _c(
                           "div",
                           {
-                            staticClass: "form-group row justify-content-center"
+                            staticClass: "experience-add",
+                            staticStyle: {
+                              border: "1px solid #ADC8D8",
+                              "padding-top": "10px",
+                              "margin-top": "10px"
+                            }
                           },
                           [
-                            _vm._m(25),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "form-group row justify-content-center"
+                              },
+                              [
+                                _vm._m(23),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-2 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.experienceform.work,
+                                          expression: "experienceform.work"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "text",
+                                        name: "work",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.experienceform.work
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "work",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(24),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-2 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.experienceform.level,
+                                          expression: "experienceform.level"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "text",
+                                        name: "position",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.experienceform.level
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "level",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(25),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-2 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.experienceform.professi,
+                                          expression: "experienceform.professi"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "text",
+                                        name: "professi",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.experienceform.professi
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "professi",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userwork,
-                                    expression: "form.userwork"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "text",
-                                  name: "work",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userwork },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userwork",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "form-group row justify-content-center"
+                              },
+                              [
+                                _vm._m(26),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-4 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.experienceform.start,
+                                          expression: "experienceform.start"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "date",
+                                        name: "start_work",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.experienceform.start
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "start",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._m(27),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-4 text-center" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.experienceform.finish,
+                                          expression: "experienceform.finish"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "date",
+                                        name: "finish_work",
+                                        value: ""
+                                      },
+                                      domProps: {
+                                        value: _vm.experienceform.finish
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "finish",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
-                            _vm._m(26),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userposition,
-                                    expression: "form.userposition"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "text",
-                                  name: "position",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userposition },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userposition",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(27),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-2 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userprofessi,
-                                    expression: "form.userprofessi"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "text",
-                                  name: "professi",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userprofessi },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userprofessi",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-group row justify-content-center"
-                          },
-                          [
                             _vm._m(28),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-4 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userstart_work,
-                                    expression: "form.userstart_work"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "date",
-                                  name: "start_work",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userstart_work },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userstart_work",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "form-group row justify-content-center"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "col-10 text-center" },
+                                  [
+                                    _c("vue-editor", {
+                                      model: {
+                                        value: _vm.experienceform.funktion,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "funktion",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "experienceform.funktion"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
                             _vm._m(29),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-4 text-center" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.userfinish_work,
-                                    expression: "form.userfinish_work"
-                                  }
-                                ],
-                                attrs: {
-                                  type: "date",
-                                  name: "finish_work",
-                                  value: ""
-                                },
-                                domProps: { value: _vm.form.userfinish_work },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "userfinish_work",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(30),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-group row justify-content-center"
-                          },
-                          [
                             _c(
                               "div",
-                              { staticClass: "col-10 text-center" },
+                              {
+                                staticClass:
+                                  "form-group row justify-content-center"
+                              },
                               [
-                                _c("vue-editor", {
-                                  model: {
-                                    value: _vm.form.userfunktion,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "userfunktion", $$v)
-                                    },
-                                    expression: "form.userfunktion"
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(31),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-group row justify-content-center"
-                          },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "col-10 text-center" },
-                              [
-                                _c("vue-editor", {
-                                  model: {
-                                    value: _vm.form.userprojects,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "userprojects", $$v)
-                                    },
-                                    expression: "form.userprojects"
-                                  }
-                                })
-                              ],
-                              1
+                                _c(
+                                  "div",
+                                  { staticClass: "col-10 text-center" },
+                                  [
+                                    _c("vue-editor", {
+                                      model: {
+                                        value: _vm.experienceform.projects,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.experienceform,
+                                            "projects",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "experienceform.projects"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]
                             )
                           ]
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(32)
+                      _c("div", { staticClass: "card-footer" }, [
+                        _c("div", { staticClass: "col-md-12 text-center" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "", id: "work_add" },
+                              on: { click: _vm.addExperience }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                                +ADD\n                                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
                     ])
                   ])
                 ]
@@ -17831,7 +18029,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _vm._m(33),
+                        _vm._m(30),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -18055,27 +18253,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "col-md-12 text-center" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "", id: "skill_add" }
-          },
-          [
-            _vm._v(
-              "\n                                                +ADD\n                                            "
-            )
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-1 text-center" }, [
       _c("label", { attrs: { for: "university" } }, [_vm._v("University:")])
     ])
@@ -18110,27 +18287,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-2 text-center" }, [
       _c("label", { attrs: { for: "finish" } }, [_vm._v("Finish:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "col-md-12 text-center" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "", id: "education_add" }
-          },
-          [
-            _vm._v(
-              "\n                                                +ADD\n                                            "
-            )
-          ]
-        )
-      ])
     ])
   },
   function() {
@@ -18197,29 +18353,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "col-md-12 text-center" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "", id: "work_add" }
-          },
-          [
-            _vm._v(
-              "\n                                                +ADD\n                                            "
-            )
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group row justify-content-center" }, [
-      _c("div", { staticClass: "col-12" })
+      _c("div", { staticClass: "col-12" }, [_c("p")])
     ])
   }
 ]

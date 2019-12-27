@@ -188,20 +188,20 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Skills</div>
-                                        <div class="card-body">
-                                            <div class="form-group row justify-content-center">
+                                        <div class="card-body skill-body">
+                                            <div class="form-group row justify-content-center skill-add">
                                                 <div class="col-2 text-center">
                                                     <label for="skill">Skill</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="skill" name="skill" value="" v-model="form.userskill">
+                                                    <input type="text" id="skill" name="skill" value="" v-model="skillform.skill">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelSkill">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelSkill" id="levelSkill" v-model="form.userlevelSkill">
+                                                    <select name="levelSkill" id="levelSkill" v-model="skillform.level_id">
                                                         <option v-for="level in levels" :value="level.id">{{level.level}}</option>
                                                     </select>
                                                 </div>
@@ -209,7 +209,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="" class="btn btn-primary" id="skill_add">
+                                                <button type="" class="btn btn-primary" id="skill_add" @click="addSkill">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -223,48 +223,50 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Education</div>
-                                        <div class="card-body">
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-1 text-center">
-                                                    <label for="university">University:</label>
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" name="university" value="" v-model="form.useruniversity">
-                                                </div>
+                                        <div class="card-body education-body">
+                                            <div class="education-add" style="border: 1px solid #ADC8D8; padding-top: 10px; margin-top: 10px;">
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-1 text-center">
+                                                        <label for="university">University:</label>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <input type="text" name="university" value="" v-model="educationform.university">
+                                                    </div>
 
-                                                <div class="col-1 text-center">
-                                                    <label for="professi">Professi:</label>
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" name="professi" value="" v-model="form.userprofessi">
-                                                </div>
+                                                    <div class="col-1 text-center">
+                                                        <label for="professi">Professi:</label>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <input type="text" name="professi" value="" v-model="educationform.professi">
+                                                    </div>
 
-                                                <div class="col-2 text-center">
-                                                    <label for="diplom_level">Diplom level:</label>
+                                                    <div class="col-2 text-center">
+                                                        <label for="diplom_level">Diplom level:</label>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <input type="text" name="diplom_level" value="" v-model="educationform.level">
+                                                    </div>
                                                 </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" name="diplom_level" value="" v-model="form.userdiplom_level">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-2 text-center">
-                                                    <label for="start">Start:</label>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <input type="date" name="start" value="" v-model="form.userstart">
-                                                </div>
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-2 text-center">
+                                                        <label for="start">Start:</label>
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        <input type="date" name="start" value="" v-model="educationform.start">
+                                                    </div>
 
-                                                <div class="col-2 text-center">
-                                                    <label for="finish">Finish:</label>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <input type="date" name="finish" value="" v-model="form.userfinish">
+                                                    <div class="col-2 text-center">
+                                                        <label for="finish">Finish:</label>
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        <input type="date" name="finish" value="" v-model="educationform.finish">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="" class="btn btn-primary" id="education_add">
+                                                <button type="" class="btn btn-primary" @click="addEducation">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -278,70 +280,73 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Experience works</div>
-                                        <div class="card-body">
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-1 text-center">
-                                                    <label for="work">Work:</label>
+                                        <div class="card-body experience-body">
+                                            <div class="experience-add" style="border: 1px solid #ADC8D8; padding-top: 10px; margin-top: 10px;">
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-1 text-center">
+                                                        <label for="work">Work:</label>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <input type="text" name="work" value="" v-model="experienceform.work">
+                                                    </div>
+
+                                                    <div class="col-1 text-center">
+                                                        <label for="position">Position:</label>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <input type="text" name="position" value="" v-model="experienceform.level">
+                                                    </div>
+
+                                                    <div class="col-2 text-center">
+                                                        <label for="professi">Professi:</label>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <input type="text" name="professi" value="" v-model="experienceform.professi">
+                                                    </div>
                                                 </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" name="work" value="" v-model="form.userwork">
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-2 text-center">
+                                                        <label for="start_work">Start:</label>
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        <input type="date" name="start_work" value="" v-model="experienceform.start">
+                                                    </div>
+
+                                                    <div class="col-2 text-center">
+                                                        <label for="finish_work">Finish:</label>
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        <input type="date" name="finish_work" value="" v-model="experienceform.finish">
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-1 text-center">
-                                                    <label for="position">Position:</label>
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-4 text-center">
+                                                        <label for="funktion">Function:</label>
+                                                    </div>
                                                 </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" name="position" value="" v-model="form.userposition">
-                                                </div>
-
-                                                <div class="col-2 text-center">
-                                                    <label for="professi">Professi:</label>
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <input type="text" name="professi" value="" v-model="form.userprofessi">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-2 text-center">
-                                                    <label for="start_work">Start:</label>
-                                                </div>
-                                                <div class="col-4 text-center">
-                                                    <input type="date" name="start_work" value="" v-model="form.userstart_work">
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-10 text-center">
+                                                        <vue-editor v-model="experienceform.funktion"></vue-editor>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-2 text-center">
-                                                    <label for="finish_work">Finish:</label>
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-4 text-center">
+                                                        <label for="projects">Project:</label>
+                                                    </div>
                                                 </div>
-                                                <div class="col-4 text-center">
-                                                    <input type="date" name="finish_work" value="" v-model="form.userfinish_work">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-4 text-center">
-                                                    <label for="funktion">Function:</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-10 text-center">
-                                                    <vue-editor v-model="form.userfunktion"></vue-editor>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-4 text-center">
-                                                    <label for="projects">Project:</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-10 text-center">
-                                                    <vue-editor v-model="form.userprojects"></vue-editor>
+                                                <div class="form-group row justify-content-center">
+                                                    <div class="col-10 text-center">
+                                                        <vue-editor v-model="experienceform.projects"></vue-editor>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="" class="btn btn-primary" id="work_add">
+                                                <button type="" class="btn btn-primary" id="work_add" @click="addExperience">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -358,7 +363,7 @@
                                         <div class="card-body">
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-12">
-
+                                                <p></p>
                                                 </div>
                                             </div>
                                             <div class="form-group row justify-content-center">
@@ -429,6 +434,32 @@
                     user_id: this.user.id,
                     lenguage: [],
                     level_id: []
+                },
+
+                skillform: {
+                    user_id: this.user.id,
+                    skill: [],
+                    level_id: []
+                },
+
+                educationform: {
+                    user_id: this.user.id,
+                    university: [],
+                    professi: [],
+                    start: [],
+                    finish: [],
+                    level: []
+                },
+
+                experienceform: {
+                    user_id: this.user.id,
+                    work: [],
+                    level: [],
+                    proffesi: [],
+                    start: [],
+                    finish: [],
+                    function: [],
+                    projects: []
                 }
             };
         },
@@ -448,7 +479,33 @@
                 var languageBody = document.querySelector('.language-body')
                 var newBlockLanguage = blockLanguage.cloneNode(true)
                 languageBody.insertAdjacentElement('beforeend', newBlockLanguage)
-                //'language-add'
+            },
+
+            addSkill: function (e) {
+                e.preventDefault()
+
+                var blockSkill = document.querySelector('.skill-add')
+                var skillBody = document.querySelector('.skill-body')
+                var newBlockSkill = blockSkill.cloneNode(true)
+                skillBody.insertAdjacentElement('beforeend', newBlockSkill)
+            },
+
+            addEducation: function (e) {
+                e.preventDefault()
+
+                var blockEducation = document.querySelector('.education-add')
+                var educationBody = document.querySelector('.education-body')
+                var newBlockEducation = blockEducation.cloneNode(true)
+                educationBody.insertAdjacentElement('beforeend', newBlockEducation)
+            },
+
+            addExperience: function (e) {
+                e.preventDefault()
+
+                var blockExperience = document.querySelector('.experience-add')
+                var experienceBody = document.querySelector('.experience-body')
+                var newBlockExperience = blockExperience.cloneNode(true)
+                experienceBody.insertAdjacentElement('beforeend', newBlockExperience)
             },
 
             checkForm: function (e) {
