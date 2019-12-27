@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Level;
 
 class MasterController extends Controller
 {
@@ -23,6 +24,9 @@ class MasterController extends Controller
      */
     public function index()
     {
-        return view('master');
+        $user = auth()->user();
+        //$levels = Level::pluck('level', 'id');
+        $levels = Level::all();
+        return view('master', ['levels' => $levels]);
     }
 }
