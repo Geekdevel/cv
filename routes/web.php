@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index')->middleware(['auth','verified'])->na
 Route::get('/master', 'MasterController@index')->middleware(['auth','verified']);
 
 Route::get('/levels/all', 'MasterController@allLevels');
+
+Route::post('/reateprofile', 'MasterController@createProfile');

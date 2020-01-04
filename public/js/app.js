@@ -2300,9 +2300,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         id: this.user.id,
-        name: '',
-        phone: '',
-        email: ''
+        name: null,
+        phone: null,
+        email: null
       },
       lenguageform: [{
         lenguage: null,
@@ -2329,16 +2329,16 @@ __webpack_require__.r(__webpack_exports__);
         projects: null
       }],
       hobbiform: {
-        hobbi: ''
+        hobbi: null
       },
       addressform: {
-        country: '',
-        region: '',
-        sity: '',
-        index: '',
-        street: '',
-        house: '',
-        apartment: ''
+        country: null,
+        region: null,
+        sity: null,
+        index: null,
+        street: null,
+        house: null,
+        apartment: null
       },
       regions: [],
       levels: [],
@@ -2405,16 +2405,22 @@ __webpack_require__.r(__webpack_exports__);
     removeExperience: function removeExperience(index) {
       this.experienceform.splice(index, 1);
     },
-    checkForm: function checkForm(e) {
-      /*console.log(this.form)
-       axios.post('/register', this.form)
-      .then(response => {
-          console.log(response.data)
-      })
-      .catch(error => {
-          console.log(error.response.data.message ? error.response.data.message : error.response.data)
-      })
-      e.preventDefault()*/
+    checkForm: function checkForm() {
+      var data = {
+        user: this.form,
+        lenguageform: this.lenguageform,
+        skillform: this.skillform,
+        educationform: this.educationform,
+        experienceform: this.experienceform,
+        hobbiform: this.hobbiform,
+        addressform: this.addressform
+      }; //axios.post('/reateprofile', JSON.stringify(data))
+
+      axios.post('/reateprofile', data).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error.response.data.message ? error.response.data.message : error.response.data);
+      });
     }
   },
   mounted: function mounted() {
@@ -16642,7 +16648,7 @@ var render = function() {
           _c("div", { staticClass: "card-header" }, [_vm._v("Profile create")]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("form", [
+            _c("div", [
               _c(
                 "div",
                 { staticClass: "form-group row justify-content-center" },
@@ -18360,7 +18366,10 @@ var render = function() {
                 _c("div", { staticClass: "col-12 text-center" }, [
                   _c(
                     "button",
-                    { attrs: { type: "submit", disabled: _vm.disabledForm } },
+                    {
+                      attrs: { type: "button", disabled: _vm.disabledForm },
+                      on: { click: _vm.checkForm }
+                    },
                     [
                       _vm._v(
                         "\n                                    Register\n                                "

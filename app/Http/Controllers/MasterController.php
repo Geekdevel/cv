@@ -34,4 +34,14 @@ class MasterController extends Controller
         return $levels;
     }
 
+    public function createProfile(Request $request)
+    {
+        /*$user = $request->user;
+        $newUser = User::find($user->id);
+        $newUser->name = $user->name;
+        $newUser->email = $user->email;*/
+        $lenguageform = $request->lenguageform;
+        return $lenguageform;
+    }
+
 }

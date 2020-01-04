@@ -6,7 +6,7 @@
                     <div class="card-header">Profile create</div>
 
                     <div class="card-body">
-                        <form>
+                        <div>
                             <div class="form-group row justify-content-center">
                                 <div class="col-2 text-center">
                                     <label for="name">Name</label>
@@ -401,12 +401,12 @@
 
                             <div class="row justify-content-center">
                                 <div class="col-12 text-center">
-                                    <button type="submit" :disabled="disabledForm">
+                                    <button type="button" :disabled="disabledForm" @click="checkForm">
                                         Register
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -430,9 +430,9 @@
             return {
                 form: {
                     id: this.user.id,
-                    name: '',
-                    phone: '',
-                    email: ''
+                    name: null,
+                    phone: null,
+                    email: null
                 },
 
                 lenguageform: [{
@@ -464,17 +464,17 @@
                 }],
 
                 hobbiform: {
-                    hobbi: ''
+                    hobbi: null
                 },
 
                 addressform: {
-                    country: '',
-                    region: '',
-                    sity: '',
-                    index: '',
-                    street: '',
-                    house: '',
-                    apartment: ''
+                    country: null,
+                    region: null,
+                    sity: null,
+                    index: null,
+                    street: null,
+                    house: null,
+                    apartment: null
                 },
 
                 regions: [],
@@ -555,17 +555,24 @@
                 this.experienceform.splice(index, 1)
             },
 
-            checkForm: function (e) {
-                /*console.log(this.form)
-
-                axios.post('/register', this.form)
-                .then(response => {
-                    console.log(response.data)
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                })
-                e.preventDefault()*/
+            checkForm() {
+                let data = {
+                    user: this.form,
+                    lenguageform: this.lenguageform,
+                    skillform: this.skillform,
+                    educationform: this.educationform,
+                    experienceform: this.experienceform,
+                    hobbiform: this.hobbiform,
+                    addressform: this.addressform
+                }
+                //axios.post('/reateprofile', JSON.stringify(data))
+                axios.post('/reateprofile', data)
+                    .then(response => {
+                        console.log(response.data)
+                    })
+                    .catch(error => {
+                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    })
             }
         },
 
