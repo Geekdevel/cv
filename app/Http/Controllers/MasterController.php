@@ -25,10 +25,13 @@ class MasterController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $countries = Geo::getCountries();
-        //$levels = Level::pluck('level', 'id');
-        $levels = Level::all();
-        return view('master', ['levels' => $levels, 'countries' => $countries]);
+        return view('master');
     }
+
+    public function allLevels()
+    {
+        $levels = Level::all();
+        return $levels;
+    }
+
 }

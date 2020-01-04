@@ -84,7 +84,8 @@
     <div id="content-wrapper">
 
       <div class="container-fluid">
-        <router-view :user="{{ Auth::user() }}"></router-view>
+
+        <router-view :user="{{ Auth::user() }}" :levels="{{ $levels }}" :countries = "{{ $countries }}"></router-view>
 
       </div>
       <!-- /.container-fluid -->

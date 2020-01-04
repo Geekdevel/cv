@@ -69,26 +69,17 @@
 
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-1 text-center">
-                                                    <label for="index">Sity</label>
-                                                </div>
-                                                <div class="col-3">
-                                                    <input class="form-control" type="text" id="sity" name="sity" value="" v-model="addressform.sity">
-                                                </div>
-                                           </div>
-
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-1 text-center">
                                                     <label for="index">Index</label>
                                                 </div>
                                                 <div class="col-3">
-                                                    <input class="form-control" type="text" id="index" name="index" value="" v-model="addressform.index">
+                                                    <input class="form-control" type="index" id="index" name="index" value="" v-model="form.userindex">
                                                 </div>
 
                                                 <div class="col-1 text-center">
                                                     <label for="street">Street</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="street" name="street" value="" v-model="addressform.street">
+                                                    <input class="form-control" type="text" id="street" name="street" value="" v-model="form.userstreet">
                                                 </div>
                                             </div>
 
@@ -97,14 +88,14 @@
                                                     <label for="house">House</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="house" name="house" value="" v-model="addressform.house">
+                                                    <input class="form-control" type="text" id="house" name="house" value="" v-model="form.userhouse">
                                                 </div>
 
                                                 <div class="col-1 text-center">
                                                     <label for="apartment">Apartment</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="apartment" name="apartment" value="" v-model="addressform.apartment">
+                                                    <input class="form-control" type="text" id="apartment" name="apartment" value="" v-model="form.userapartment">
                                                 </div>
                                             </div>
                                         </div>
@@ -160,31 +151,28 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">What languages do you speak?</div>
-                                        <div class="card-body language-body py-2" v-for="(item, index) in lenguageform" :key="index">
+                                        <div class="card-body language-body">
                                             <div class="form-group row justify-content-center language-add">
                                                 <div class="col-2 text-center">
                                                     <label for="language">Language</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="language" name="language" v-model="item.lenguage">
+                                                    <input type="text" id="language" name="language" value="" v-model="lenguageform.lenguage">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelLanguage">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelLanguage" id="levelLanguage" v-model="item.level_id">
-                                                        <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
+                                                    <select name="levelLanguage" id="levelLanguage" v-model="lenguageform.level_id">
+                                                        <option v-for="level in levels" :value="level.id">{{level.level}}</option>
                                                     </select>
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeLenguage(index)" v-if="lenguageform.length > 1">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="language_add" @click="addLenguage">
+                                                <button type="" class="btn btn-primary" id="language_add" @click="addLenguage">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -198,31 +186,28 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Skills</div>
-                                        <div class="card-body skill-body" v-for="(item, index) in skillform" :key="index">
+                                        <div class="card-body skill-body">
                                             <div class="form-group row justify-content-center skill-add">
                                                 <div class="col-2 text-center">
                                                     <label for="skill">Skill</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="skill" name="skill" v-model="item.skill">
+                                                    <input type="text" id="skill" name="skill" value="" v-model="skillform.skill">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelSkill">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelSkill" id="levelSkill" v-model="item.level_id">
-                                                        <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
+                                                    <select name="levelSkill" id="levelSkill" v-model="skillform.level_id">
+                                                        <option v-for="level in levels" :value="level.id">{{level.level}}</option>
                                                     </select>
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeSkill(index)" v-if="skillform.length > 1">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="skill_add" @click="addSkill">
+                                                <button type="" class="btn btn-primary" id="skill_add" @click="addSkill">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -236,28 +221,28 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Education</div>
-                                        <div class="card-body education-body" v-for="(item, index) in educationform">
+                                        <div class="card-body education-body">
                                             <div class="education-add" style="border: 1px solid #ADC8D8; padding-top: 10px; margin-top: 10px;">
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-1 text-center">
                                                         <label for="university">University:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="university" value="" v-model="item.university">
+                                                        <input type="text" name="university" value="" v-model="educationform.university">
                                                     </div>
 
                                                     <div class="col-1 text-center">
                                                         <label for="professi">Professi:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="professi" value="" v-model="item.professi">
+                                                        <input type="text" name="professi" value="" v-model="educationform.professi">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="diplom_level">Diplom level:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="diplom_level" value="" v-model="item.level">
+                                                        <input type="text" name="diplom_level" value="" v-model="educationform.level">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -265,26 +250,21 @@
                                                         <label for="start">Start:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="start" value="" v-model="item.start">
+                                                        <input type="date" name="start" value="" v-model="educationform.start">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="finish">Finish:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="finish" value="" v-model="item.finish">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-2 text-center">
-                                                        <button type="button" class="btn btn-danger" @click="removeEducation(index)" v-if="educationform.length > 1">Remove</button>
+                                                        <input type="date" name="finish" value="" v-model="educationform.finish">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" @click="addEducation">
+                                                <button type="" class="btn btn-primary" @click="addEducation">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -298,28 +278,28 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Experience works</div>
-                                        <div class="card-body experience-body" v-for="(item, index) in experienceform">
+                                        <div class="card-body experience-body">
                                             <div class="experience-add" style="border: 1px solid #ADC8D8; padding-top: 10px; margin-top: 10px;">
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-1 text-center">
                                                         <label for="work">Work:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="work" value="" v-model="item.work">
+                                                        <input type="text" name="work" value="" v-model="experienceform.work">
                                                     </div>
 
                                                     <div class="col-1 text-center">
                                                         <label for="position">Position:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="position" value="" v-model="item.level">
+                                                        <input type="text" name="position" value="" v-model="experienceform.level">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="professi">Professi:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="professi" value="" v-model="item.professi">
+                                                        <input type="text" name="professi" value="" v-model="experienceform.professi">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -327,14 +307,14 @@
                                                         <label for="start_work">Start:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="start_work" value="" v-model="item.start">
+                                                        <input type="date" name="start_work" value="" v-model="experienceform.start">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="finish_work">Finish:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="finish_work" value="" v-model="item.finish">
+                                                        <input type="date" name="finish_work" value="" v-model="experienceform.finish">
                                                     </div>
                                                 </div>
 
@@ -345,7 +325,7 @@
                                                 </div>
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-10 text-center">
-                                                        <vue-editor v-model="item.funktion"></vue-editor>
+                                                        <vue-editor v-model="experienceform.funktion"></vue-editor>
                                                     </div>
                                                 </div>
 
@@ -356,12 +336,7 @@
                                                 </div>
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-10 text-center">
-                                                        <vue-editor v-model="item.projects"></vue-editor>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-2 text-center">
-                                                        <button type="button" class="btn btn-danger" @click="removeExperience(index)" v-if="experienceform.length > 1">Remove</button>
+                                                        <vue-editor v-model="experienceform.projects"></vue-editor>
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,7 +344,7 @@
 
                                         <div class="card-footer">
                                             <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="work_add" @click="addExperience">
+                                                <button type="" class="btn btn-primary" id="work_add" @click="addExperience">
                                                     +ADD
                                                 </button>
                                             </div>
@@ -423,64 +398,68 @@
           },
 
         props: {
-            user: {}
+            user: {},
+            levels: {},
+            countries: {}
         },
 
         data() {
             return {
                 form: {
-                    id: this.user.id,
                     name: '',
                     phone: '',
                     email: ''
                 },
 
-                lenguageform: [{
-                    lenguage: null,
-                    level_id: null
-                }],
+                lenguageform: {
+                    user_id: this.user.id,
+                    lenguage: [],
+                    level_id: []
+                },
 
-                skillform: [{
-                    skill: null,
-                    level_id: null
-                }],
+                skillform: {
+                    user_id: this.user.id,
+                    skill: [],
+                    level_id: []
+                },
 
-                educationform: [{
-                    university: null,
-                    professi: null,
-                    start: null,
-                    finish: null,
-                    level: null
-                }],
+                educationform: {
+                    user_id: this.user.id,
+                    university: [],
+                    professi: [],
+                    start: [],
+                    finish: [],
+                    level: []
+                },
 
-                experienceform: [{
-                    work: null,
-                    level: null,
-                    proffesi: null,
-                    start: null,
-                    finish: null,
-                    function: null,
-                    projects: null
-                }],
+                experienceform: {
+                    user_id: this.user.id,
+                    work: [],
+                    level: [],
+                    proffesi: [],
+                    start: [],
+                    finish: [],
+                    function: [],
+                    projects: []
+                },
 
                 hobbiform: {
+                    user_id: this.user.id,
                     hobbi: ''
                 },
 
                 addressform: {
+                    user_id: this.user.id,
                     country: '',
                     region: '',
-                    sity: '',
+                    city: '',
                     index: '',
                     street: '',
                     house: '',
                     apartment: ''
                 },
 
-                regions: [],
-                levels: [],
-                countries: []
-
+                regions: {}
             };
         },
 
@@ -493,70 +472,74 @@
 
         methods: {
             changeCountry: function (country) {
-
                 axios.get('api/geo/children/' + country)
                     .then(response => {
-                        this.regions = response.data;
+                        //regions = response.data
+                        //this.$set(addressform.region)
+                        //console.log(country)
+                        //regions.$set(this, response.data)
+                        var regions = response.data
+                        //console.log(regions)
+                        //this.regions = response.data;
+                        console.log(regions)
+
+                        //return regions
+                        return regions;
                     })
                     .catch(error =>{
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     })
             },
 
-            removeLenguage(index) {
-                this.lenguageform.splice(index, 1)
+            /*allCoutries: function () {
+                axios.get('api/geo/countries')
+                    .then(response => {
+                        var countries = response.data
+                        return countries;
+                    })
+                    .catch(error =>{
+                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    })
+            },*/
+
+            addLenguage: function (e) {
+                e.preventDefault()
+
+                var blockLanguage = document.querySelector('.language-add')
+                var languageBody = document.querySelector('.language-body')
+                var newBlockLanguage = blockLanguage.cloneNode(true)
+                languageBody.insertAdjacentElement('beforeend', newBlockLanguage)
             },
 
-            addLenguage() {
-                this.lenguageform.push({
-                    lenguage: null,
-                    level_id: null
-                })
+            addSkill: function (e) {
+                e.preventDefault()
+
+                var blockSkill = document.querySelector('.skill-add')
+                var skillBody = document.querySelector('.skill-body')
+                var newBlockSkill = blockSkill.cloneNode(true)
+                skillBody.insertAdjacentElement('beforeend', newBlockSkill)
             },
 
-            removeSkill(index) {
-                this.skillform.splice(index, 1)
+            addEducation: function (e) {
+                e.preventDefault()
+
+                var blockEducation = document.querySelector('.education-add')
+                var educationBody = document.querySelector('.education-body')
+                var newBlockEducation = blockEducation.cloneNode(true)
+                educationBody.insertAdjacentElement('beforeend', newBlockEducation)
             },
 
-            addSkill() {
-                this.skillform.push({
-                    skill: null,
-                    level_id: null
-                })
-            },
+            addExperience: function (e) {
+                e.preventDefault()
 
-            addEducation() {
-                this.educationform.push({
-                    university: null,
-                    professi: null,
-                    start: null,
-                    finish: null,
-                    level: null
-                })
-            },
-
-            removeEducation(index) {
-                this.educationform.splice(index, 1)
-            },
-
-            addExperience() {
-                this.experienceform.push({
-                    work: null,
-                    level: null,
-                    proffesi: null,
-                    start: null,
-                    finish: null,
-                    function: null,
-                    projects: null
-                })
-            },
-
-            removeExperience(index) {
-                this.experienceform.splice(index, 1)
+                var blockExperience = document.querySelector('.experience-add')
+                var experienceBody = document.querySelector('.experience-body')
+                var newBlockExperience = blockExperience.cloneNode(true)
+                experienceBody.insertAdjacentElement('beforeend', newBlockExperience)
             },
 
             checkForm: function (e) {
-                /*console.log(this.form)
+                console.log(this.form)
 
                 axios.post('/register', this.form)
                 .then(response => {
@@ -565,29 +548,35 @@
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                 })
-                e.preventDefault()*/
+                // console.log(data);
+                e.preventDefault()
             }
         },
 
         mounted() {
-            axios.get('/api/geo/countries')
-                .then(response => {
-                    this.countries = response.data
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                })
-            axios.get('/levels/all')
-                .then(response => {
-                    this.levels = response.data
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                })
+            /*this.countries.$set(
+                axios.get('/api/geo/countries')
+                    .then(response => {
+                        response.data
+                    })
+                    .catch(error =>{
+                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    })
+                )*/
+            /*this.$set(this, 'countries', axios.get('/api/geo/countries')
+                    .then(response => {
+                        response.data
+                    })
+                    .catch(error =>{
+                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    })
+                )*/
         },
 
         created() {
             this.$set(this, 'form', this.user)
+
+            this.$set(this, 'levels', this.levels)
         }
     };
 </script>

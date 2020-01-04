@@ -19,3 +19,5 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->middleware(['auth','verified'])->name('home');
 
 Route::get('/master', 'MasterController@index')->middleware(['auth','verified']);
+
+Route::get('/levels/all', 'MasterController@allLevels');
