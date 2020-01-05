@@ -2288,6 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+ // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2339,6 +2340,14 @@ __webpack_require__.r(__webpack_exports__);
         street: null,
         house: null,
         apartment: null
+      },
+      profileform: {
+        web_site: null,
+        photo: null,
+        dribbble: null,
+        behance: null,
+        git: null,
+        linkedin: null
       },
       regions: [],
       levels: [],
@@ -2408,17 +2417,20 @@ __webpack_require__.r(__webpack_exports__);
     checkForm: function checkForm() {
       var data = {
         user: this.form,
+        profileform: this.profileform,
         lenguageform: this.lenguageform,
         skillform: this.skillform,
         educationform: this.educationform,
         experienceform: this.experienceform,
         hobbiform: this.hobbiform,
         addressform: this.addressform
-      }; //axios.post('/reateprofile', JSON.stringify(data))
-
+      };
       axios.post('/reateprofile', data).then(function (response) {
         console.log(response.data);
-      })["catch"](function (error) {
+      }) // .then(() => {
+      //     this.$router.push('/master')
+      // })
+      ["catch"](function (error) {
         console.log(error.response.data.message ? error.response.data.message : error.response.data);
       });
     }
@@ -16767,8 +16779,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.form.site,
-                          expression: "form.site"
+                          value: _vm.profileform.web_site,
+                          expression: "profileform.web_site"
                         }
                       ],
                       staticClass: "form-control",
@@ -16778,13 +16790,17 @@ var render = function() {
                         name: "web_site",
                         value: ""
                       },
-                      domProps: { value: _vm.form.site },
+                      domProps: { value: _vm.profileform.web_site },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.form, "site", $event.target.value)
+                          _vm.$set(
+                            _vm.profileform,
+                            "web_site",
+                            $event.target.value
+                          )
                         }
                       }
                     })
@@ -17145,8 +17161,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.userdribbble,
-                                    expression: "form.userdribbble"
+                                    value: _vm.profileform.dribbble,
+                                    expression: "profileform.dribbble"
                                   }
                                 ],
                                 attrs: {
@@ -17155,15 +17171,15 @@ var render = function() {
                                   name: "dribbble",
                                   value: ""
                                 },
-                                domProps: { value: _vm.form.userdribbble },
+                                domProps: { value: _vm.profileform.dribbble },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.form,
-                                      "userdribbble",
+                                      _vm.profileform,
+                                      "dribbble",
                                       $event.target.value
                                     )
                                   }
@@ -17179,8 +17195,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.userbehance,
-                                    expression: "form.userbehance"
+                                    value: _vm.profileform.behance,
+                                    expression: "profileform.behance"
                                   }
                                 ],
                                 attrs: {
@@ -17189,15 +17205,15 @@ var render = function() {
                                   name: "behance",
                                   value: ""
                                 },
-                                domProps: { value: _vm.form.userbehance },
+                                domProps: { value: _vm.profileform.behance },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.form,
-                                      "userbehance",
+                                      _vm.profileform,
+                                      "behance",
                                       $event.target.value
                                     )
                                   }
@@ -17221,8 +17237,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.usergit,
-                                    expression: "form.usergit"
+                                    value: _vm.profileform.git,
+                                    expression: "profileform.git"
                                   }
                                 ],
                                 attrs: {
@@ -17231,15 +17247,15 @@ var render = function() {
                                   name: "git",
                                   value: ""
                                 },
-                                domProps: { value: _vm.form.usergit },
+                                domProps: { value: _vm.profileform.git },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.form,
-                                      "usergit",
+                                      _vm.profileform,
+                                      "git",
                                       $event.target.value
                                     )
                                   }
@@ -17255,8 +17271,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.userlinkedin,
-                                    expression: "form.userlinkedin"
+                                    value: _vm.profileform.linkedin,
+                                    expression: "profileform.linkedin"
                                   }
                                 ],
                                 attrs: {
@@ -17265,15 +17281,15 @@ var render = function() {
                                   name: "linkedin",
                                   value: ""
                                 },
-                                domProps: { value: _vm.form.userlinkedin },
+                                domProps: { value: _vm.profileform.linkedin },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.form,
-                                      "userlinkedin",
+                                      _vm.profileform,
+                                      "linkedin",
                                       $event.target.value
                                     )
                                   }

@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Summary extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'slag',
+        'job_title',
+        'description',
+        'field_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

@@ -37,7 +37,7 @@
                                     <label for="web_site">Sites</label>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <input class="form-control" type="text" id="web_site" name="web_site" value="" v-model="form.site">
+                                    <input class="form-control" type="text" id="web_site" name="web_site" value="" v-model="profileform.web_site">
                                 </div>
                             </div>
 
@@ -124,14 +124,14 @@
                                                     <label for="dribbble">Dribbble</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="dribbble" name="dribbble" value="" v-model="form.userdribbble">
+                                                    <input type="text" id="dribbble" name="dribbble" value="" v-model="profileform.dribbble">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="behance">Behance</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="behance" name="behance" value="" v-model="form.userbehance">
+                                                    <input type="text" id="behance" name="behance" value="" v-model="profileform.behance">
                                                 </div>
                                             </div>
 
@@ -140,14 +140,14 @@
                                                     <label for="git">Git</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="git" name="git" value="" v-model="form.usergit">
+                                                    <input type="text" id="git" name="git" value="" v-model="profileform.git">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="linkedin">Linkedin</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="linkedin" name="linkedin" value="" v-model="form.userlinkedin">
+                                                    <input type="text" id="linkedin" name="linkedin" value="" v-model="profileform.linkedin">
                                                 </div>
                                             </div>
                                         </div>
@@ -416,6 +416,8 @@
 
 <script>
     import { VueEditor } from "vue2-editor";
+    // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+
 
     export default {
         components: {
@@ -475,6 +477,15 @@
                     street: null,
                     house: null,
                     apartment: null
+                },
+
+                profileform: {
+                    web_site: null,
+                    photo: null,
+                    dribbble: null,
+                    behance: null,
+                    git: null,
+                    linkedin: null
                 },
 
                 regions: [],
@@ -558,6 +569,7 @@
             checkForm() {
                 let data = {
                     user: this.form,
+                    profileform: this.profileform,
                     lenguageform: this.lenguageform,
                     skillform: this.skillform,
                     educationform: this.educationform,
@@ -565,11 +577,13 @@
                     hobbiform: this.hobbiform,
                     addressform: this.addressform
                 }
-                //axios.post('/reateprofile', JSON.stringify(data))
                 axios.post('/reateprofile', data)
                     .then(response => {
                         console.log(response.data)
                     })
+                    // .then(() => {
+                    //     this.$router.push('/master')
+                    // })
                     .catch(error => {
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     })
