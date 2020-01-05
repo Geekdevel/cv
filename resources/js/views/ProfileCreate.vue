@@ -69,10 +69,10 @@
 
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-1 text-center">
-                                                    <label for="index">Sity</label>
+                                                    <label for="city">City</label>
                                                 </div>
                                                 <div class="col-3">
-                                                    <input class="form-control" type="text" id="sity" name="sity" value="" v-model="addressform.sity">
+                                                    <input class="form-control" type="text" id="city" name="city" value="" v-model="addressform.city">
                                                 </div>
                                            </div>
 
@@ -85,10 +85,10 @@
                                                 </div>
 
                                                 <div class="col-1 text-center">
-                                                    <label for="street">Street</label>
+                                                    <label for="stereet">Street</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="street" name="street" value="" v-model="addressform.street">
+                                                    <input class="form-control" type="text" id="stereet" name="stereet" value="" v-model="addressform.stereet">
                                                 </div>
                                             </div>
 
@@ -472,9 +472,9 @@
                 addressform: {
                     country: null,
                     region: null,
-                    sity: null,
+                    city: null,
                     index: null,
-                    street: null,
+                    stereet: null,
                     house: null,
                     apartment: null
                 },

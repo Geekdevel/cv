@@ -2335,9 +2335,9 @@ __webpack_require__.r(__webpack_exports__);
       addressform: {
         country: null,
         region: null,
-        sity: null,
+        city: null,
         index: null,
-        street: null,
+        stereet: null,
         house: null,
         apartment: null
       },
@@ -16946,18 +16946,18 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.addressform.sity,
-                                    expression: "addressform.sity"
+                                    value: _vm.addressform.city,
+                                    expression: "addressform.city"
                                   }
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
                                   type: "text",
-                                  id: "sity",
-                                  name: "sity",
+                                  id: "city",
+                                  name: "city",
                                   value: ""
                                 },
-                                domProps: { value: _vm.addressform.sity },
+                                domProps: { value: _vm.addressform.city },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
@@ -16965,7 +16965,7 @@ var render = function() {
                                     }
                                     _vm.$set(
                                       _vm.addressform,
-                                      "sity",
+                                      "city",
                                       $event.target.value
                                     )
                                   }
@@ -17024,18 +17024,18 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.addressform.street,
-                                    expression: "addressform.street"
+                                    value: _vm.addressform.stereet,
+                                    expression: "addressform.stereet"
                                   }
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
                                   type: "text",
-                                  id: "street",
-                                  name: "street",
+                                  id: "stereet",
+                                  name: "stereet",
                                   value: ""
                                 },
-                                domProps: { value: _vm.addressform.street },
+                                domProps: { value: _vm.addressform.stereet },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
@@ -17043,7 +17043,7 @@ var render = function() {
                                     }
                                     _vm.$set(
                                       _vm.addressform,
-                                      "street",
+                                      "stereet",
                                       $event.target.value
                                     )
                                   }
@@ -18455,7 +18455,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-1 text-center" }, [
-      _c("label", { attrs: { for: "index" } }, [_vm._v("Sity")])
+      _c("label", { attrs: { for: "city" } }, [_vm._v("City")])
     ])
   },
   function() {
@@ -18471,7 +18471,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-1 text-center" }, [
-      _c("label", { attrs: { for: "street" } }, [_vm._v("Street")])
+      _c("label", { attrs: { for: "stereet" } }, [_vm._v("Street")])
     ])
   },
   function() {

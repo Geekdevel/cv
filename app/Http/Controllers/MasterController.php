@@ -80,17 +80,22 @@ class MasterController extends Controller
         //     Profile::create($profile);
         // }
 
-        // $address = $request->addressform;
-        // $address_data = $address->validate([
-        //     'country' => ['required', 'string'],
-        //     'region' => ['required', 'string'],
-        //     'city' => ['required', 'string', 'min:3', 'max:100'],
-        //     'index' => ['required', 'string', 'min:1', 'max:100'],
-        //     'street' => ['required', 'string', 'min:1', 'max:10'],
-        //     'house' => ['required', 'string', 'min:1', 'max:10']
-        // ]);
-        // $address_data += ['user_id' => $user_id];
-        // Addresse::create($address_data);
+        $address = $request->addressform;
+        $address_data = Validator::make($address, [
+            'country' => ['required'],
+            'region' => ['required'],
+            'city' => ['required', 'string', 'min:3', 'max:100'],
+            'index' => ['required', 'string', 'min:1', 'max:100'],
+            'stereet' => ['required', 'string', 'min:1', 'max:10'],
+            'house' => ['required', 'string', 'min:1', 'max:10']
+        ]);
+        if ($address_data->fails()){
+            return response()->json(['error' => 'No valid form address!'], 500);
+        }
+        else {
+            $address += ['user_id' => $user_id];
+            Addresse::create($address);
+        }
 
         // $lenguages = $request->lenguageform;
         // foreach ($lenguages as $lenguage) {
@@ -148,7 +153,7 @@ class MasterController extends Controller
         // Hobbi::create($hobbi_data);
 
         // return response()->json(['success' => 'success'], 201);
-        return $profile;
+        return $address;
     }
 
 }
