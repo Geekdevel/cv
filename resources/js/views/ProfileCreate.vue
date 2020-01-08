@@ -8,36 +8,52 @@
                     <div class="card-body">
                         <div>
                             <div class="form-group row justify-content-center">
-                                <div class="col-2 text-center">
-                                    <label for="name">Name</label>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <input class="form-control" type="text" id="name" name="name" v-model="form.name">
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-center">
-                                <div class="col-2 text-center">
-                                    <label for="phone">Phone</label>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <input class="form-control" type="text" id="phone" name="phone" value="" v-model="form.phone">
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-center">
-                                <div class="col-2 text-center">
-                                    <label for="email">Email</label>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <input class="form-control" type="email" id="email" name="email" value="" v-model="form.email">
-                                </div>
-                            </div>
+                                <div class="col-6">
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-2 text-center">
+                                            <label for="name">Name</label>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <input class="form-control" type="text" id="name" name="name" v-model="form.name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-2 text-center">
+                                            <label for="phone">Phone</label>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <input class="form-control" type="text" id="phone" name="phone" value="" v-model="form.phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-2 text-center">
+                                            <label for="email">Email</label>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <input class="form-control" type="email" id="email" name="email" value="" v-model="form.email">
+                                        </div>
+                                    </div>
 
-                            <div class="form-group row justify-content-center">
-                                <div class="col-2 text-center">
-                                    <label for="web_site">Sites</label>
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-2 text-center">
+                                            <label for="web_site">Sites</label>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <input class="form-control" type="text" id="web_site" name="web_site" v-model="profileform.web_site">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-4 text-center">
-                                    <input class="form-control" type="text" id="web_site" name="web_site" value="" v-model="profileform.web_site">
+
+                                <!-- Vue-avatar-cropper -->
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <img v-if="userAvatar" :src="userAvatar">
+                                        <button id="pick-avatar">Select an image</button>
+                                        <avatar-cropper
+                                          @uploaded="handleUploaded"
+                                          trigger="#pick-avatar"
+                                          upload-url="/files/upload" />
+                                    </div>
                                 </div>
                             </div>
 
@@ -72,23 +88,23 @@
                                                     <label for="city">City</label>
                                                 </div>
                                                 <div class="col-3">
-                                                    <input class="form-control" type="text" id="city" name="city" value="" v-model="addressform.city">
+                                                    <input class="form-control" type="text" id="city" name="city" v-model="addressform.city">
                                                 </div>
                                            </div>
 
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-1 text-center">
-                                                    <label for="index">Index</label>
+                                                    <label for="index">Zip code</label>
                                                 </div>
                                                 <div class="col-3">
-                                                    <input class="form-control" type="text" id="index" name="index" value="" v-model="addressform.index">
+                                                    <input class="form-control" type="text" id="index" name="index" v-model="addressform.index">
                                                 </div>
 
                                                 <div class="col-1 text-center">
-                                                    <label for="stereet">Street</label>
+                                                    <label for="street">Street</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="stereet" name="stereet" value="" v-model="addressform.stereet">
+                                                    <input class="form-control" type="text" id="street" name="street" v-model="addressform.street">
                                                 </div>
                                             </div>
 
@@ -97,14 +113,14 @@
                                                     <label for="house">House</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="house" name="house" value="" v-model="addressform.house">
+                                                    <input class="form-control" type="text" id="house" name="house" v-model="addressform.house">
                                                 </div>
 
                                                 <div class="col-1 text-center">
                                                     <label for="apartment">Apartment</label>
                                                 </div>
                                                 <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" id="apartment" name="apartment" value="" v-model="addressform.apartment">
+                                                    <input class="form-control" type="text" id="apartment" name="apartment" v-model="addressform.apartment">
                                                 </div>
                                             </div>
                                         </div>
@@ -124,14 +140,14 @@
                                                     <label for="dribbble">Dribbble</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="dribbble" name="dribbble" value="" v-model="profileform.dribbble">
+                                                    <input type="text" id="dribbble" name="dribbble" v-model="profileform.dribbble">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="behance">Behance</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="behance" name="behance" value="" v-model="profileform.behance">
+                                                    <input type="text" id="behance" name="behance" v-model="profileform.behance">
                                                 </div>
                                             </div>
 
@@ -140,14 +156,14 @@
                                                     <label for="git">Git</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="git" name="git" value="" v-model="profileform.git">
+                                                    <input type="text" id="git" name="git" v-model="profileform.git">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="linkedin">Linkedin</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="linkedin" name="linkedin" value="" v-model="profileform.linkedin">
+                                                    <input type="text" id="linkedin" name="linkedin" v-model="profileform.linkedin">
                                                 </div>
                                             </div>
                                         </div>
@@ -243,21 +259,21 @@
                                                         <label for="university">University:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="university" value="" v-model="item.university">
+                                                        <input type="text" name="university" v-model="item.university">
                                                     </div>
 
                                                     <div class="col-1 text-center">
                                                         <label for="professi">Professi:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="professi" value="" v-model="item.professi">
+                                                        <input type="text" name="professi" v-model="item.professi">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="diplom_level">Diplom level:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="diplom_level" value="" v-model="item.level">
+                                                        <input type="text" name="diplom_level" v-model="item.level">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -265,14 +281,14 @@
                                                         <label for="start">Start:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="start" value="" v-model="item.start">
+                                                        <input type="date" name="start" v-model="item.start">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="finish">Finish:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="finish" value="" v-model="item.finish">
+                                                        <input type="date" name="finish" v-model="item.finish">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -305,21 +321,21 @@
                                                         <label for="work">Work:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="work" value="" v-model="item.work">
+                                                        <input type="text" name="experience" v-model="item.experience">
                                                     </div>
 
                                                     <div class="col-1 text-center">
                                                         <label for="position">Position:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="position" value="" v-model="item.level">
+                                                        <input type="text" name="position" v-model="item.position">
                                                     </div>
 
                                                     <div class="col-2 text-center">
-                                                        <label for="professi">Professi:</label>
+                                                        <label for="professi">Profession:</label>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <input type="text" name="professi" value="" v-model="item.professi">
+                                                        <input type="text" name="profession" v-model="item.profession">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -327,38 +343,28 @@
                                                         <label for="start_work">Start:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="start_work" value="" v-model="item.start">
+                                                        <input type="date" name="start_work" v-model="item.start">
                                                     </div>
 
                                                     <div class="col-2 text-center">
                                                         <label for="finish_work">Finish:</label>
                                                     </div>
                                                     <div class="col-4 text-center">
-                                                        <input type="date" name="finish_work" value="" v-model="item.finish">
+                                                        <input type="date" name="finish_work" v-model="item.finish">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-4 text-center">
-                                                        <label for="funktion">Function:</label>
+                                                        <label for="functions">Functions & projects:</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-10 text-center">
-                                                        <vue-editor v-model="item.funktion"></vue-editor>
+                                                        <vue-editor v-model="item.functions"></vue-editor>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-4 text-center">
-                                                        <label for="projects">Project:</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-10 text-center">
-                                                        <vue-editor v-model="item.projects"></vue-editor>
-                                                    </div>
-                                                </div>
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-2 text-center">
                                                         <button type="button" class="btn btn-danger" @click="removeExperience(index)" v-if="experienceform.length > 1">Remove</button>
@@ -416,12 +422,14 @@
 
 <script>
     import { VueEditor } from "vue2-editor";
+    import AvatarCropper from "vue-avatar-cropper";
     // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
 
     export default {
         components: {
-            VueEditor
+            VueEditor,
+            AvatarCropper
           },
 
         props: {
@@ -430,6 +438,8 @@
 
         data() {
             return {
+                userAvatar: undefined,
+
                 form: {
                     id: this.user.id,
                     name: null,
@@ -456,13 +466,12 @@
                 }],
 
                 experienceform: [{
-                    work: null,
-                    level: null,
-                    proffesi: null,
+                    experience: null,
+                    position: null,
+                    profession: null,
                     start: null,
                     finish: null,
-                    function: null,
-                    projects: null
+                    functions: null,
                 }],
 
                 hobbiform: {
@@ -474,7 +483,7 @@
                     region: null,
                     city: null,
                     index: null,
-                    stereet: null,
+                    street: null,
                     house: null,
                     apartment: null
                 },
@@ -503,6 +512,10 @@
         },
 
         methods: {
+            handleUploaded(resp) {
+                this.userAvatar = resp.relative_url;
+              },
+
             changeCountry: function (country) {
 
                 axios.get('api/geo/children/' + country)
@@ -552,13 +565,12 @@
 
             addExperience() {
                 this.experienceform.push({
-                    work: null,
-                    level: null,
-                    proffesi: null,
+                    experience: null,
+                    position: null,
+                    profession: null,
                     start: null,
                     finish: null,
-                    function: null,
-                    projects: null
+                    functions: null,
                 })
             },
 

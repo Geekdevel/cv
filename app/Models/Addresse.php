@@ -12,7 +12,7 @@ class Addresse extends Model
         'region',
         'city',
         'index',
-        'stereet',
+        'street',
         'house',
         'apartment'
     ];

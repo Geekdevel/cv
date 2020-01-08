@@ -19,13 +19,12 @@ class CreateWorksTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
-            $table->string('work');
-            $table->string('level');
-            $table->string('professi');
+            $table->string('experience');
+            $table->string('position');
+            $table->string('profession');
             $table->string('start');
             $table->string('finish');
-            $table->text('function');
-            $table->text('projects');
+            $table->text('functions');
             $table->timestamps();
         });
     }

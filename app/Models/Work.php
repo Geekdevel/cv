@@ -8,13 +8,12 @@ class Work extends Model
 {
     protected $fillable = [
         'user_id',
-        'work',
-        'level',
-        'professi',
+        'experience',
+        'position',
+        'profession',
         'start',
         'finish',
-        'function',
-        'projects'
+        'functions',
     ];
 
     public function user()

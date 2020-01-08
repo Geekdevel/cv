@@ -86,8 +86,9 @@ class MasterController extends Controller
             'region' => ['required'],
             'city' => ['required', 'string', 'min:3', 'max:100'],
             'index' => ['required', 'string', 'min:1', 'max:100'],
-            'stereet' => ['required', 'string', 'min:1', 'max:10'],
-            'house' => ['required', 'string', 'min:1', 'max:10']
+            'street' => ['required', 'string', 'min:1', 'max:100'],
+            'house' => ['required', 'string', 'min:1', 'max:10'],
+            'apartment' => ['required', 'string', 'min:1', 'max:10']
         ]);
         if ($address_data->fails()){
             return response()->json(['error' => 'No valid form address!'], 500);
@@ -97,63 +98,86 @@ class MasterController extends Controller
             Addresse::create($address);
         }
 
-        // $lenguages = $request->lenguageform;
-        // foreach ($lenguages as $lenguage) {
-        //     $lenguage_data = $lenguage->validate([
-        //         'lenguage' => ['required', 'string', 'min:3', 'max:100'],
-        //         'level_id' => ['required', 'string']
-        //     ]);
-        //     $lenguage_data += ['user_id' => $user_id];
-        //     Language::create($lenguage_data);
-        // }
+        $lenguages = $request->lenguageform;
+        foreach ($lenguages as $lenguage) {
+                $lenguage += ['user_id' => $user_id];
+            $lenguage_data = Validator::make($lenguage, [
+                'user_id' => ['required'],
+                'lenguage' => ['required', 'string', 'min:3', 'max:100'],
+                'level_id' => ['required']
+            ]);
+            if ($lenguage_data->fails()){
+                return response()->json(['error' => 'No valid form lenguages!'], 500);
+            }
+            else {
+                Language::create($lenguage);
+            }
+        }
 
-        // $skills = $request->skillform;
-        // foreach ($skills as $skill) {
-        //     $skill_data = $skill->validate([
-        //         'skill' => ['required', 'string', 'min:3', 'max:100'],
-        //         'level_id' =>['required', 'string']
-        //     ]);
-        //     $skill_data += ['user_id' => $user_id];
-        //     Skill::create($skill_data);
-        // }
+        $skills = $request->skillform;
+        foreach ($skills as $skill) {
+                $skill += ['user_id' => $user_id];
+            $skill_data = Validator::make($skill, [
+                'user_id' => ['required'],
+                'skill' => ['required', 'string', 'min:2', 'max:100'],
+                'level_id' =>['required']
+            ]);
+            if ($skill_data->fails()){
+                return response()->json(['error' => 'No valid form skills!'], 500);
+            }
+            else {
+                Skill::create($skill);
+            }
+        }
 
-        // $educations = $request->educationform;
-        // foreach ($educations as $education) {
-        //     $education_data = $education->validate([
-        //         'university' => ['required', 'string', 'min:3', 'max:100'],
-        //         'professi' => ['required', 'string', 'min:3', 'max:100'],
-        //         'start' => ['required', 'string', 'min:3', 'max:100'],
-        //         'finish' => ['required', 'string', 'min:3', 'max:100'],
-        //         'level' => ['required', 'string', 'min:3', 'max:100']
-        //     ]);
-        //     $education_data += ['user_id' => $user_id];
-        //     Education::create($education_data);
-        // }
+        $educations = $request->educationform;
+        foreach ($educations as $education) {
+                $education += ['user_id' => $user_id];
+            $education_data = Validator::make($education, [
+                'user_id' => ['required'],
+                'university' => ['required', 'string', 'min:3', 'max:100'],
+                'professi' => ['required', 'string', 'min:3', 'max:100'],
+                'start' => ['required', 'string', 'min:3', 'max:100'],
+                'finish' => ['required', 'string', 'min:3', 'max:100'],
+                'level' => ['required', 'string', 'min:3', 'max:100']
+            ]);
+            if ($education_data->fails()){
+                return response()->json(['error' => 'No valid form educations!'], 500);
+            }
+            else {
+                Education::create($education);
+            }
+        }
 
-        // $works = $request->experienceform;
-        // foreach ($works as $work) {
-        //     $work_data = $wopk->validate([
-        //         'work' => ['required', 'string', 'min:3', 'max:100'],
-        //         'level' => ['required', 'string', 'min:3', 'max:100'],
-        //         'proffesi' => ['required', 'string', 'min:3', 'max:100'],
-        //         'start' => ['required', 'string', 'min:3', 'max:100'],
-        //         'finish' => ['required', 'string', 'min:3', 'max:100'],
-        //         'function' => ['required', 'min:3', 'max:10000'],
-        //         'projects' => ['required', 'min:3', 'max:10000']
-        //     ]);
-        //     $work_data += ['user_id' => $user_id];
-        //     Work::create($work_data);
-        // }
+        $works = $request->experienceform;
+        foreach ($works as $work) {
+                $work += ['user_id' => $user_id];
+            $work_data = Validator::make($work, [
+                'user_id' => ['required'],
+                'experience' => ['required', 'string', 'min:3', 'max:100'],
+                'position' => ['required', 'string', 'min:3', 'max:100'],
+                'profession' => ['required', 'string', 'min:3', 'max:100'],
+                'start' => ['required', 'string', 'min:3', 'max:100'],
+                'finish' => ['required', 'string', 'min:3', 'max:100'],
+                'functions' => ['required', 'min:3', 'max:10000'],
+            ]);
+            if ($work_data->fails()){
+                return response()->json(['error' => 'No valid form works!'], 500);
+            }
+            else {
+                Work::create($work);
+            }
+        }
 
-        // $hobbi = $request->hobbiform;
-        // $hobbi_data = $hobbi->validate([
-        //     'hobbi' => ['required', 'string', 'min:3', 'max:255'],
-        // ]);
-        // $hobbi_data += ['user_id' => $user_id];
-        // Hobbi::create($hobbi_data);
+        $hobbi = $request->hobbiform;
+        $hobbi_data = Validator::make($hobbi, [
+            'hobbi' => ['required', 'string', 'min:3', 'max:255'],
+        ]);
+        $hobbi += ['user_id' => $user_id];
+        Hobbi::create($hobbi);
 
-        // return response()->json(['success' => 'success'], 201);
-        return $address;
+        return response()->json(['success' => 'success'], 201);
+        // return $address;
     }
 
 }
