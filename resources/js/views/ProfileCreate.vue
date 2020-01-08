@@ -52,7 +52,10 @@
                                         <avatar-cropper
                                           @uploaded="handleUploaded"
                                           trigger="#pick-avatar"
-                                          upload-url="/files/upload" />
+                                          :upload-url="'/api/custom/upload'"
+                                          :labels="{ submit: 'OK', cancel: 'Cancel'}"
+                                          :upload-headers="{'Content-Type': 'application/json'}"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -515,6 +518,10 @@
             handleUploaded(resp) {
                 this.userAvatar = resp.relative_url;
               },
+
+            //   handleUploading(form, xhr) {
+            //     form.append('foo', 'bar')
+            // },
 
             changeCountry: function (country) {
 

@@ -2390,6 +2390,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
  // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
@@ -2468,6 +2471,9 @@ __webpack_require__.r(__webpack_exports__);
     handleUploaded: function handleUploaded(resp) {
       this.userAvatar = resp.relative_url;
     },
+    //   handleUploading(form, xhr) {
+    //     form.append('foo', 'bar')
+    // },
     changeCountry: function changeCountry(country) {
       var _this = this;
 
@@ -16924,7 +16930,11 @@ var render = function() {
                         _c("avatar-cropper", {
                           attrs: {
                             trigger: "#pick-avatar",
-                            "upload-url": "/files/upload"
+                            "upload-url": "/api/custom/upload",
+                            labels: { submit: "OK", cancel: "Cancel" },
+                            "upload-headers": {
+                              "Content-Type": "application/json"
+                            }
                           },
                           on: { uploaded: _vm.handleUploaded }
                         })
