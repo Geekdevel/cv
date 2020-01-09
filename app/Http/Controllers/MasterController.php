@@ -64,21 +64,21 @@ class MasterController extends Controller
         }
 
         $profile = $request->profileform;
-        // $profile_data = Validator::make($profile, [
-        //     'web_site' => ['string', 'min:3', 'max:100'],
-        //     'photo' => ['string'],
-        //     'dribbble' => ['string', 'min:3', 'max:100'],
-        //     'behance' => ['string', 'min:3', 'max:100'],
-        //     'git' => ['string', 'min:3', 'max:100'],
-        //     'linkedin' => ['string', 'min:3', 'max:100']
-        // ]);
-        // if ($profile_data->fails()){
-        //     return response()->json(['error' => 'No valid form profile!'], 500);
-        // }
-        // else {
-        //     $profile += ['user_id' => $user_id];
-        //     Profile::create($profile);
-        // }
+        $profile_data = Validator::make($profile, [
+            'web_site' => ['string', 'min:3', 'max:100'],
+            'photo' => ['string'],
+            'dribbble' => ['string', 'min:3', 'max:100'],
+            'behance' => ['string', 'min:3', 'max:100'],
+            'git' => ['string', 'min:3', 'max:100'],
+            'linkedin' => ['string', 'min:3', 'max:100']
+        ]);
+        if ($profile_data->fails()){
+            return response()->json(['error' => 'No valid form profile!'], 500);
+        }
+        else {
+            $profile += ['user_id' => $user_id];
+            Profile::create($profile);
+        }
 
         $address = $request->addressform;
         $address_data = Validator::make($address, [

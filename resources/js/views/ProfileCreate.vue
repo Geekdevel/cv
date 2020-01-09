@@ -46,16 +46,26 @@
 
                                 <!-- Vue-avatar-cropper -->
                                 <div class="col-6">
-                                    <div class="text-center">
-                                        <img v-if="userAvatar" :src="userAvatar">
-                                        <button id="pick-avatar">Select an image</button>
-                                        <avatar-cropper
-                                          @uploaded="handleUploaded"
-                                          trigger="#pick-avatar"
-                                          :upload-url="'/api/custom/upload'"
-                                          :labels="{ submit: 'OK', cancel: 'Cancel'}"
-                                          :upload-headers="{'Content-Type': 'application/json'}"
-                                        />
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 text-center">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 text-center">
+                                                    <img v-if="profileform.photo" :src="profileform.photo">
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 text-center">
+                                                    <button id="pick-avatar" style="margin-top: 10px; border-radius: 5px;">Select an image</button>
+                                                </div>
+                                            </div>
+                                            <avatar-cropper
+                                              @uploaded="handleUploaded"
+                                              trigger="#pick-avatar"
+                                              :upload-url="'/api/custom/upload'"
+                                              :labels="{ submit: 'OK', cancel: 'Cancel'}"
+                                              :output-options="{width: 300, height: 300}"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -426,8 +436,6 @@
 <script>
     import { VueEditor } from "vue2-editor";
     import AvatarCropper from "vue-avatar-cropper";
-    // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-
 
     export default {
         components: {
@@ -441,7 +449,7 @@
 
         data() {
             return {
-                userAvatar: undefined,
+                //userAvatar: undefined,
 
                 form: {
                     id: this.user.id,
@@ -516,11 +524,12 @@
 
         methods: {
             handleUploaded(resp) {
-                this.userAvatar = resp.relative_url;
+                //this.userAvatar = resp.relative_url;
+                this.profileform.photo = resp;
               },
 
             //   handleUploading(form, xhr) {
-            //     form.append('foo', 'bar')
+            //     this.append('foo', 'bar')
             // },
 
             changeCountry: function (country) {
