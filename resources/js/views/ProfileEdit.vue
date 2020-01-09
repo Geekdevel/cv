@@ -81,7 +81,7 @@
                                                     <label for="country">Country</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <select @change="changeCountry(addressform.country)" name="country" id="country" v-model="addressform.country">
+                                                    <select @change="changeCountry(addressform.country, true)" name="country" id="country" v-model="addressform.country">
                                                         <option v-for="country in countries" :value="country.id">{{country.name}}</option>
                                                     </select>
                                                 </div>
@@ -521,15 +521,30 @@
         },
 
         methods: {
+            // regionNull() {
+            //     return this.addressform.region = null
+            // },
+
             handleUploaded(resp) {
                 this.profileform.photo = resp;
               },
 
-            changeCountry: function (country) {
+            changeCountry(country, changed) {
+                if(changed) {
+                    this.addressform.region = null
+                }
 
                 axios.get('api/geo/children/' + country)
                     .then(response => {
-                        this.regions = response.data;
+                        this.regions = response.data
+                        console.log(this.regions)
+                        // if (this.addressform.country != country){
+                        //     this.addressform.region = null
+                        // }
+                        // if (this.regions.indexOf(this.addressform.region) == -1) {
+                        //     this.addressform.region = null
+                        // }
+
                     })
                     .catch(error =>{
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
@@ -598,11 +613,10 @@
                     hobbiform: this.hobbiform,
                     addressform: this.addressform
                 }
-                //axios.post('/createprofile', data)
+                axios.post('/reateprofile', data)
                     // .then(response => {
                     //     console.log(response.data)
                     // })
-                axios.post('/profiles', data)
                     .then(() => {
                         this.$router.push('/master')
                     })
@@ -623,6 +637,23 @@
             axios.get('/levels/all')
                 .then(response => {
                     this.levels = response.data
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                })
+            axios.post('/profiles/user')
+                .then(response =>{
+                    // console.log(response.data)
+                    this.profileform = response.data.profile
+                    this.addressform = response.data.address
+                    //var countryOld = this.addressform.country
+                    this.hobbiform = response.data.hobbi
+                    this.experienceform = response.data.works
+                    this.educationform = response.data.educations
+                    this.lenguageform = response.data.lenguages
+                    this.skillform = response.data.skills
+
+                    this.changeCountry(this.addressform.country)
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)

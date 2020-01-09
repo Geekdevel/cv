@@ -22,4 +22,8 @@ Route::get('/master', 'MasterController@index')->middleware(['auth','verified'])
 
 Route::get('/levels/all', 'MasterController@allLevels');
 
-Route::post('/reateprofile', 'MasterController@createProfile');
+//Route::post('/createprofile', 'MasterController@createProfile');
+
+Route::resource('/profiles', 'ProfilesController');
+
+Route::post('/profiles/user', 'ProfilesController@editProfile');

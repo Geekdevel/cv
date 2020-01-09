@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Igaster\LaravelCities\Geo;
 use App\Models\Level;
-/*use App\Models\User;
+use App\Models\User;
 use App\Models\Profile;
 use App\Models\Addresse;
 use App\Models\Language;
@@ -13,37 +12,64 @@ use App\Models\Skill;
 use App\Models\Education;
 use App\Models\Work;
 use App\Models\Hobbi;
-use Illuminate\Support\Facades\Validator;*/
+use Illuminate\Support\Facades\Validator;
 
-class MasterController extends Controller
+class ProfilesController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    public function editProfile(Request $request)
+    {
+        $user = auth()->user();
+        $profile = $user->profile;
+        $lenguages = $user->languages;
+        $address = $user->address;
+        $educations = $user->educations;
+        $hobbi = $user->hobbi;
+        $skills = $user->skills;
+        $works = $user->works;
+
+        return response()->json([
+            'profile' => $profile,
+            'lenguages' => $lenguages,
+            'address' => $address,
+            'educations' => $educations,
+            'hobbi' => $hobbi,
+            'skills' => $skills,
+            'works' => $works
+        ]);
+    }
+
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('master');
+        //
     }
 
-    public function allLevels()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $levels = Level::all();
-        return $levels;
+        //
     }
 
-    /*public function createProfile(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $user = $request->user;
         $user_id = $user['id'];
@@ -174,7 +200,50 @@ class MasterController extends Controller
         Hobbi::create($hobbi);
 
         return response()->json(['success' => 'success'], 201);
-        // return $address;
-    }*/
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

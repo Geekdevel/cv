@@ -77,6 +77,10 @@
           <h6 class="dropdown-header">Other Pages:</h6>
           <router-link :to="{ name: 'master' }" class="dropdown-item">Home</router-link>
           <router-link :to="{ name: 'profilecreate' }" class="dropdown-item">Create Profile</router-link>
+          <router-link :to="{ name: 'profileedit' }" class="dropdown-item">Edit Profile</router-link>
+          <router-link :to="{ name: 'summariescreate' }" class="dropdown-item">Create Summaries</router-link>
+          <router-link :to="{ name: 'summaries' }" class="dropdown-item">Summaries</router-link>
+          <router-link :to="{ name: 'showsummare' }" class="dropdown-item">Show Summare</router-link>
         </div>
       </li>
     </ul>
