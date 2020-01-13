@@ -2479,8 +2479,12 @@ __webpack_require__.r(__webpack_exports__);
     handleUploaded: function handleUploaded(resp) {
       this.profileform.photo = resp;
     },
-    changeCountry: function changeCountry(country) {
+    changeCountry: function changeCountry(country, changed) {
       var _this = this;
+
+      if (changed) {
+        this.addressform.region = null;
+      }
 
       axios.get('api/geo/children/' + country).then(function (response) {
         _this.regions = response.data;
@@ -3096,9 +3100,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    // regionNull() {
-    //     return this.addressform.region = null
-    // },
     handleUploaded: function handleUploaded(resp) {
       this.profileform.photo = resp;
     },
@@ -3111,12 +3112,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('api/geo/children/' + country).then(function (response) {
         _this.regions = response.data;
-        console.log(_this.regions); // if (this.addressform.country != country){
-        //     this.addressform.region = null
-        // }
-        // if (this.regions.indexOf(this.addressform.region) == -1) {
-        //     this.addressform.region = null
-        // }
       })["catch"](function (error) {
         console.log(error.response.data.message ? error.response.data.message : error.response.data);
       });
@@ -3177,10 +3172,7 @@ __webpack_require__.r(__webpack_exports__);
         hobbiform: this.hobbiform,
         addressform: this.addressform
       };
-      axios.post('/reateprofile', data) // .then(response => {
-      //     console.log(response.data)
-      // })
-      .then(function () {
+      axios.put('/profiles/' + this.profileform.id, data).then(function () {
         _this2.$router.push('/master');
       })["catch"](function (error) {
         console.log(error.response.data.message ? error.response.data.message : error.response.data);
@@ -17753,7 +17745,8 @@ var render = function() {
                                       },
                                       function($event) {
                                         return _vm.changeCountry(
-                                          _vm.addressform.country
+                                          _vm.addressform.country,
+                                          true
                                         )
                                       }
                                     ]

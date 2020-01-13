@@ -81,7 +81,7 @@
                                                     <label for="country">Country</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <select @change="changeCountry(addressform.country)" name="country" id="country" v-model="addressform.country">
+                                                    <select @change="changeCountry(addressform.country, true)" name="country" id="country" v-model="addressform.country">
                                                         <option v-for="country in countries" :value="country.id">{{country.name}}</option>
                                                     </select>
                                                 </div>
@@ -525,11 +525,14 @@
                 this.profileform.photo = resp;
               },
 
-            changeCountry: function (country) {
+            changeCountry(country, changed) {
+                if(changed) {
+                    this.addressform.region = null
+                }
 
                 axios.get('api/geo/children/' + country)
                     .then(response => {
-                        this.regions = response.data;
+                        this.regions = response.data
                     })
                     .catch(error =>{
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)

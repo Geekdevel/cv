@@ -521,10 +521,6 @@
         },
 
         methods: {
-            // regionNull() {
-            //     return this.addressform.region = null
-            // },
-
             handleUploaded(resp) {
                 this.profileform.photo = resp;
               },
@@ -537,14 +533,6 @@
                 axios.get('api/geo/children/' + country)
                     .then(response => {
                         this.regions = response.data
-                        console.log(this.regions)
-                        // if (this.addressform.country != country){
-                        //     this.addressform.region = null
-                        // }
-                        // if (this.regions.indexOf(this.addressform.region) == -1) {
-                        //     this.addressform.region = null
-                        // }
-
                     })
                     .catch(error =>{
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
@@ -613,10 +601,7 @@
                     hobbiform: this.hobbiform,
                     addressform: this.addressform
                 }
-                axios.post('/reateprofile', data)
-                    // .then(response => {
-                    //     console.log(response.data)
-                    // })
+                axios.put('/profiles/' + this.profileform.id, data)
                     .then(() => {
                         this.$router.push('/master')
                     })
