@@ -13,6 +13,6 @@ class Level extends Model
 
     public function education()
     {
-        return $this->hasMany('App\Models\Languale');
+        return $this->hasMany('App\Models\Language');
     }
 }

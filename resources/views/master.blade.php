@@ -10,19 +10,26 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="@yield('description', 'This resume vue')">
+  <meta name="author" content="@yield('author', 'I am')">
+  <meta name="keywords" content="@yield('keywords', 'resume, vue, test')">
 
-  <title>SB Admin - Dashboard</title>
+
+  <title>
+    @yield('title', 'Resume Vue')
+  </title>
 
   <!-- Custom fonts for this template-->
   <link href="sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
   <!-- Page level plugin CSS-->
   <link href="sb-admin/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  {{-- <link id="theme-style" rel="stylesheet" href="css/styles.css"> --}}
 
   <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

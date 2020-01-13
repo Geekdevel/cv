@@ -27,3 +27,7 @@ Route::get('/levels/all', 'MasterController@allLevels');
 Route::resource('/profiles', 'ProfilesController');
 
 Route::post('/profiles/user', 'ProfilesController@editProfile');
+
+Route::resource('/summarios', 'ResumesController');
+
+Route::post('/summarios/profile', 'ResumesController@getProfile');

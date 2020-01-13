@@ -12,6 +12,10 @@ class Language extends Model
         'level_id'
     ];
 
+    protected $with = [
+        'level'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -19,6 +23,6 @@ class Language extends Model
 
     public function level()
     {
-        return $this->belongsTo('App\Models\Lavel');
+        return $this->belongsTo('App\Models\Level');
     }
 }
