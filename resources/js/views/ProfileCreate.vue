@@ -81,18 +81,30 @@
                                                     <label for="country">Country</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <select @change="changeCountry(addressform.country, true)" name="country" id="country" v-model="addressform.country">
+                                                    <!-- <select @change="changeCountry(addressform.country, true)" name="country" id="country" v-model="addressform.country">
                                                         <option v-for="country in countries" :value="country.id">{{country.name}}</option>
-                                                    </select>
+                                                    </select> -->
+                                                    <v-select
+                                                        :options="countries"
+                                                        :reduce="name => name.id"
+                                                        label="name"
+                                                        v-model="addressform.country"
+                                                    />
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="region">Region</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <select name="region" id="region" v-model="addressform.region">
+                                                    <!-- <select name="region" id="region" v-model="addressform.region">
                                                         <option v-for="region in regions" :value="region.id">{{region.name}}</option>
-                                                    </select>
+                                                    </select> -->
+                                                    <v-select
+                                                        :options="regions"
+                                                        :reduce="name => name.id"
+                                                        label="name"
+                                                        v-model="addressform.region"
+                                                    />
                                                 </div>
                                             </div>
 
@@ -195,14 +207,14 @@
                                                     <label for="language">Language</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="language" name="language" v-model="item.lenguage">
+                                                    <input type="text" name="language" v-model="item.lenguage">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelLanguage">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelLanguage" id="levelLanguage" v-model="item.level_id">
+                                                    <select name="levelLanguage" v-model="item.level_id">
                                                         <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
                                                     </select>
                                                 </div>
@@ -233,14 +245,14 @@
                                                     <label for="skill">Skill</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="skill" name="skill" v-model="item.skill">
+                                                    <input type="text" name="skill" v-model="item.skill">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelSkill">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelSkill" id="levelSkill" v-model="item.level_id">
+                                                    <select name="levelSkill" v-model="item.level_id">
                                                         <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
                                                     </select>
                                                 </div>
@@ -436,11 +448,13 @@
 <script>
     import { VueEditor } from "vue2-editor";
     import AvatarCropper from "vue-avatar-cropper";
+    import vSelect from "vue-select";
 
     export default {
         components: {
             VueEditor,
-            AvatarCropper
+            AvatarCropper,
+            vSelect
           },
 
         props: {

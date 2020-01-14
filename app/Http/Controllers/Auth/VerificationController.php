@@ -27,7 +27,8 @@ class VerificationController extends Controller
      * @var string
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = RouteServiceProvider::MASTER;
+    //protected $redirectTo = RouteServiceProvider::MASTER;
+    protected $redirectTo = RouteServiceProvider::CREATEPROFILE;
 
     /**
      * Create a new controller instance.

@@ -195,14 +195,14 @@
                                                     <label for="language">Language</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="language" name="language" v-model="item.lenguage">
+                                                    <input type="text" name="language" v-model="item.lenguage">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelLanguage">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelLanguage" id="levelLanguage" v-model="item.level_id">
+                                                    <select name="levelLanguage" v-model="item.level_id">
                                                         <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
                                                     </select>
                                                 </div>
@@ -233,14 +233,14 @@
                                                     <label for="skill">Skill</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <input type="text" id="skill" name="skill" v-model="item.skill">
+                                                    <input type="text" name="skill" v-model="item.skill">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelSkill">Level</label>
                                                 </div>
                                                 <div class="col-2 text-center">
-                                                    <select name="levelSkill" id="levelSkill" v-model="item.level_id">
+                                                    <select name="levelSkill" v-model="item.level_id">
                                                         <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
                                                     </select>
                                                 </div>

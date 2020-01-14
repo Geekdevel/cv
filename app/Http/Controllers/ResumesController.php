@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Resume;
 use App\Models\Level;
 use App\Models\User;
 use App\Models\Profile;

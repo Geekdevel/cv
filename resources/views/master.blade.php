@@ -20,16 +20,10 @@
   </title>
 
   <!-- Custom fonts for this template-->
-  <link href="sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-  <!-- Page level plugin CSS-->
-  <link href="sb-admin/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
-  {{-- <link id="theme-style" rel="stylesheet" href="css/styles.css"> --}}
+  <link href="/css/sb-admin.css" rel="stylesheet">
 
   <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -46,6 +40,21 @@
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
+
+    <ul class="nav nav-pills ml-1">
+      <li class="nav-item">
+        <a class="btn btn-link btn-sm text-white order-1 order-sm-0" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+          </a>
+
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
+      </li>
+    </ul>
+
 
   </nav>
 
@@ -66,16 +75,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
-          </a>
-
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-
           <a class="dropdown-item" href="{{ route('password.request') }}">
             {{ __('Forgot Password') }}
           </a>
@@ -85,9 +84,9 @@
           <router-link :to="{ name: 'master' }" class="dropdown-item">Home</router-link>
           <router-link :to="{ name: 'profilecreate' }" class="dropdown-item">Create Profile</router-link>
           <router-link :to="{ name: 'profileedit' }" class="dropdown-item">Edit Profile</router-link>
-          <router-link :to="{ name: 'summariescreate' }" class="dropdown-item">Create Summaries</router-link>
-          <router-link :to="{ name: 'summaries' }" class="dropdown-item">Summaries</router-link>
-          <router-link :to="{ name: 'showsummare' }" class="dropdown-item">Show Summare</router-link>
+          <router-link :to="{ name: 'resumescreate' }" class="dropdown-item">Create Resume</router-link>
+          <router-link :to="{ name: 'resumes' }" class="dropdown-item">Resumes</router-link>
+          <router-link :to="{ name: 'showresume' }" class="dropdown-item">Resume Show</router-link>
         </div>
       </li>
     </ul>
@@ -121,25 +120,6 @@
   </a>
 
 </div>
-  <!-- Bootstrap core JavaScript-->
-  <script src="sb-admin/jquery/jquery.min.js"></script>
-  <script src="sb-admin/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="sb-admin/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="sb-admin/chart.js/Chart.min.js"></script>
-  <script src="sb-admin/datatables/jquery.dataTables.js"></script>
-  <script src="sb-admin/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
-  <!--<script src="js/demo/chart-area-demo.js"></script>-->
-
 </body>
 
 </html>

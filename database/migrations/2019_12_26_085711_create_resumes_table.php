@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSummariesTable extends Migration
+class CreateResumesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSummariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('summaries', function (Blueprint $table) {
+        Schema::create('resumes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
@@ -37,6 +37,6 @@ class CreateSummariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('summaries');
+        Schema::dropIfExists('resumes');
     }
 }

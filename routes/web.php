@@ -16,9 +16,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index')->middleware(['auth','verified'])->name('home');
+//Route::get('/home', 'HomeController@index')->middleware(['auth','verified'])->name('home');
 
-Route::get('/master', 'MasterController@index')->middleware(['auth','verified']);
+Route::get('/master/{vue_capture?}', 'MasterController@index')->where('vue_capture', '[\/\w\.-]*')->middleware(['auth','verified']);
 
 Route::get('/levels/all', 'MasterController@allLevels');
 
@@ -28,6 +28,6 @@ Route::resource('/profiles', 'ProfilesController');
 
 Route::post('/profiles/user', 'ProfilesController@editProfile');
 
-Route::resource('/summarios', 'ResumesController');
+// Route::resource('/resumes', 'ResumesController');
 
-Route::post('/summarios/profile', 'ResumesController@getProfile');
+Route::post('/resume/profile', 'ResumesController@getProfile');

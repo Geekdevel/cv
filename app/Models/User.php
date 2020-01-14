@@ -82,9 +82,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Skill');
     }
 
-    public function summaries()
+    public function resumes()
     {
-        return $this->hasMany('App\Models\Summary');
+        return $this->hasMany('App\Models\Resume');
     }
 
     public function works()

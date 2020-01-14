@@ -16,8 +16,8 @@ class Field extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function summary()
+    public function resume()
     {
-        return $this->belongsTo('App\Models\Summary');
+        return $this->belongsTo('App\Models\Resume');
     }
 }

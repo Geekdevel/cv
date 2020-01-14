@@ -8,36 +8,37 @@ let routes = [
     },
 
     {
-        path: '/profilecreate',
+        path: '/master/profilecreate',
         name: 'profilecreate',
         component: require('./views/ProfileCreate.vue').default
     },
 
     {
-        path: '/profileedit',
+        path: '/master/profileedit',
         name: 'profileedit',
         component: require('./views/ProfileEdit.vue').default
     },
 
     {
-        path: '/summaries',
-        name: 'summaries',
-        component: require('./views/Summaries.vue').default
+        path: '/master/resumes',
+        name: 'resumes',
+        component: require('./views/Resumes.vue').default
     },
 
     {
-        path: '/summariescreate',
-        name: 'summariescreate',
-        component: require('./views/SummariesCreate.vue').default
+        path: '/master/resumescreate',
+        name: 'resumescreate',
+        component: require('./views/ResumesCreate.vue').default
     },
 
     {
-        path: '/showsummare',
-        name: 'showsummare',
-        component: require('./views/ShowSummare.vue').default
+        path: '/master/showresume',
+        name: 'showresume',
+        component: require('./views/ShowResume.vue').default
     }
 ];
 
 export default new VueRouter({
+    mode: 'history',
     routes
 });
