@@ -171,13 +171,6 @@
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                 })
-            // axios.get('/levels/all')
-            //     .then(response => {
-            //         this.levels = response.data
-            //     })
-            //     .catch(error => {
-            //         console.log(error.response.data.message ? error.response.data.message : error.response.data)
-            //     })
         },
 
         created() {
