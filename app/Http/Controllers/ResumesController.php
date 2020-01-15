@@ -24,7 +24,7 @@ class ResumesController extends Controller
         $lenguages = $user->languages;
         $address = $user->address;
         $educations = $user->educations;
-        $hobbi = $user->hobbi;
+        $hobbi = $user->hobbis;
         $skills = $user->skills;
         $works = $user->works;
 

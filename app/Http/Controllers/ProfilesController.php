@@ -532,16 +532,6 @@ class ProfilesController extends Controller
                 }
             }
         }
-        // $hobbi_data = Validator::make($hobbi, [
-        //     'hobbi' => ['required', 'string', 'min:3', 'max:255'],
-        // ]);
-        // if (isset($hobbi['id'])) {
-        //     $updateHobbi = Hobbi::find($hobbi['id']);
-        //     $updateHobbi->update($hobbi);
-        // }
-        // else {
-        //     Hobbi::create($hobbi);
-        // }
 
         return response()->json(['success' => 'success'], 201);
     }
