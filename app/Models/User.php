@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Moels\Field');
     }
 
-    public function hobbi()
+    public function hobbis()
     {
         return $this->hasMany('App\Models\Hobbi');
     }

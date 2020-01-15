@@ -28,7 +28,7 @@ class ProfilesController extends Controller
         $lenguages = $user->languages;
         $address = $user->address;
         $educations = $user->educations;
-        $hobbi = $user->hobbi;
+        $hobbi = $user->hobbis;
         $skills = $user->skills;
         $works = $user->works;
 
@@ -489,17 +489,59 @@ class ProfilesController extends Controller
         }
 
 
-        $hobbi = $request->hobbiform;
-        $hobbi_data = Validator::make($hobbi, [
-            'hobbi' => ['required', 'string', 'min:3', 'max:255'],
-        ]);
-        if (isset($hobbi['id'])) {
-            $updateHobbi = Hobbi::find($hobbi['id']);
-            $updateHobbi->update($hobbi);
+        $hobbis = $request->hobbiform;
+        $oldHobbi = $newUser->hobbis;
+        if ( count($hobbis) == count($oldHobbi) || count($hobbis) >= count($oldHobbi) ) {
+            foreach ($hobbis as $hobbi) {
+                $hobbi += ['user_id' => $user_id];
+                $hobbi_data = Validator::make($hobbi, [
+                    'user_id' => ['required'],
+                    'hobbi' => ['required', 'string', 'min:3', 'max:255']
+                ]);
+                if ($hobbi_data->fails()){
+                    return response()->json(['error' => 'No valid form hobbi!'], 500);
+                }
+                else {
+                   if (isset($hobbi['id'])) {
+                        $updateHobbi = Hobbi::find($hobbi['id']);
+                        $updateHobbi->update($hobbi);
+                    }
+                    else {
+                        Hobbi::create($hobbi);
+                    }
+                }
+            }
         }
         else {
-            Hobbi::create($hobbi);
+            for ($i=0; $i<count($oldHobbi); $i++) {
+                if (isset($hobbis[$i])) {
+                    $hobbis[$i] += ['user_id' => $user_id];
+                    $hobbi_data = Validator::make($hobbis[$i], [
+                    'user_id' => ['required'],
+                    'hobbi' => ['required', 'string', 'min:3', 'max:255']
+                ]);
+                    if ($hobbi_data->fails()) {
+                        return response()->json(['error' => 'No valid form hobbi!'], 500);
+                    }
+                    else {
+                        $oldHobbi[$i]->update($hobbis[$i]);
+                    }
+                }
+                else {
+                    $oldHobbi[$i]->delete();
+                }
+            }
         }
+        // $hobbi_data = Validator::make($hobbi, [
+        //     'hobbi' => ['required', 'string', 'min:3', 'max:255'],
+        // ]);
+        // if (isset($hobbi['id'])) {
+        //     $updateHobbi = Hobbi::find($hobbi['id']);
+        //     $updateHobbi->update($hobbi);
+        // }
+        // else {
+        //     Hobbi::create($hobbi);
+        // }
 
         return response()->json(['success' => 'success'], 201);
     }
