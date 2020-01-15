@@ -1,5 +1,6 @@
 import './bootstrap';
 import './sb-admin/sb-admin.js';
+import './orbit/main.js';
 // import './sb-admin/sb-admin.min.js';
 //import './sb-admin/demo/datatables-demo.js';
 // import './sb-admin/demo/chart-area-demo.js';

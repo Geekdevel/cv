@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
         <div class="wrapper">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
@@ -11,13 +10,13 @@
 
                 <div class="contact-container container-block">
                     <ul class="list-unstyled contact-list">
-                        <li class="email"><i class="fa fa-envelope"></i><a href="mailto: yourname@email.com">{{ form.email }}</a></li>
-                        <li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">{{ form.phone }}</a></li>
-                        <li class="website"><i class="fa fa-globe"></i><a href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
-                        <li class="linkedin"><i class="fab fa-linkedin"></i><a href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
-                        <li class="github"><i class="fab fa-github"></i><a href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
-                        <li class="dribbble"><i class="fab fa-dribbble"></i><a href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
-                        <li class="behance"><i class="fab fa-behance"></i><a href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
+                        <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
+                        <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
+                        <li class="website"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
+                        <li class="linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
+                        <li class="github"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
+                        <li class="dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
+                        <li class="behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
                     </ul>
                 </div><!--//contact-container-->
                 <div class="education-container container-block">
@@ -61,47 +60,18 @@
                 <section class="section experiences-section">
                     <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
 
-                    <div class="item">
+                    <div class="item" v-for="(itemExperience, indexExperience) in experienceform" :key="indexExperience">
                         <div class="meta">
                             <div class="upper-row">
-                                <h3 class="job-title">Lead Developer</h3>
-                                <div class="time">2015 - Present</div>
+                                <h3 class="job-title">{{ itemExperience.position }}</h3>
+                                <div class="time">{{ itemExperience.start }} - {{ itemExperience.finish }}</div>
                             </div><!--//upper-row-->
-                            <div class="company">Startup Hubs, San Francisco</div>
+                            <div class="company">{{ itemExperience.experience }}</div>
                         </div><!--//meta-->
-                        <div class="details">
-                            <p>Describe your role here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo.</p>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                        </div><!--//details-->
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <div class="meta">
-                            <div class="upper-row">
-                                <h3 class="job-title">Senior Software Engineer</h3>
-                                <div class="time">2014 - 2015</div>
-                            </div><!--//upper-row-->
-                            <div class="company">Google, London</div>
-                        </div><!--//meta-->
-                        <div class="details">
-                            <p>Describe your role here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
+                        <div class="details" v-html="itemExperience.functions">
 
                         </div><!--//details-->
                     </div><!--//item-->
-
-                    <div class="item">
-                        <div class="meta">
-                            <div class="upper-row">
-                                <h3 class="job-title">UI Developer</h3>
-                                <div class="time">2012 - 2014</div>
-                            </div><!--//upper-row-->
-                            <div class="company">Amazon, London</div>
-                        </div><!--//meta-->
-                        <div class="details">
-                            <p>Describe your role here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
-                        </div><!--//details-->
-                    </div><!--//item-->
-
                 </section><!--//section-->
 
                 <section class="section projects-section">
@@ -112,10 +82,6 @@
                     <div class="item">
                         <span class="project-title"><a href="#hook">Velocity</a></span> - <span class="project-tagline">A responsive website template designed to help startups promote, market and sell their products.</span>
 
-                    </div><!--//item-->
-                    <div class="item">
-                        <span class="project-title"><a href="http://themes.3rdwavemedia.com/website-templates/responsive-bootstrap-theme-web-development-agencies-devstudio/" target="_blank">DevStudio</a></span> -
-                        <span class="project-tagline">A responsive website template designed to help web developers/designers market their services. </span>
                     </div><!--//item-->
                     <div class="item">
                         <span class="project-title"><a href="http://themes.3rdwavemedia.com/website-templates/responsive-bootstrap-theme-for-startups-tempo/" target="_blank">Tempo</a></span> - <span class="project-tagline">A responsive website template designed to help startups promote their products or services and to attract users &amp; investors</span>
@@ -131,60 +97,18 @@
                 <section class="skills-section section">
                     <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
                     <div class="skillset">
-                        <div class="item">
-                            <h3 class="level-title">Python &amp; Django</h3>
+                        <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
+                            <h3 class="level-title">{{ itemSkill.skill }}</h3>
                             <div class="level-bar">
-                                <div class="level-bar-inner" data-level="98%">
+                                <div class="level-bar-inner" :data-level="itemSkill.level_id+`%`">
                                 </div>
                             </div><!--//level-bar-->
                         </div><!--//item-->
-
-                        <div class="item">
-                            <h3 class="level-title">Javascript &amp; jQuery</h3>
-                            <div class="level-bar">
-                                <div class="level-bar-inner" data-level="98%">
-                                </div>
-                            </div><!--//level-bar-->
-                        </div><!--//item-->
-
-                        <div class="item">
-                            <h3 class="level-title">Angular</h3>
-                            <div class="level-bar">
-                                <div class="level-bar-inner" data-level="98%">
-                                </div>
-                            </div><!--//level-bar-->
-                        </div><!--//item-->
-
-                        <div class="item">
-                            <h3 class="level-title">HTML5 &amp; CSS</h3>
-                            <div class="level-bar">
-                                <div class="level-bar-inner" data-level="95%">
-                                </div>
-                            </div><!--//level-bar-->
-                        </div><!--//item-->
-
-                        <div class="item">
-                            <h3 class="level-title">Ruby on Rails</h3>
-                            <div class="level-bar">
-                                <div class="level-bar-inner" data-level="85%">
-                                </div>
-                            </div><!--//level-bar-->
-                        </div><!--//item-->
-
-                        <div class="item">
-                            <h3 class="level-title">Sketch &amp; Photoshop</h3>
-                            <div class="level-bar">
-                                <div class="level-bar-inner" data-level="60%">
-                                </div>
-                            </div><!--//level-bar-->
-                        </div><!--//item-->
-
                     </div>
                 </section><!--//skills-section-->
 
             </div><!--//main-body-->
         </div>
-    </div>
 </template>
 
 <script>
@@ -232,6 +156,24 @@
                     lenguage: null,
                     level_id: null,
                     level: {}
+                }],
+
+                hobbiform: [{
+                    hobbi: null
+                }],
+
+                experienceform: [{
+                    experience: null,
+                    position: null,
+                    profession: null,
+                    start: null,
+                    finish: null,
+                    functions: null
+                }],
+
+                skillform: [{
+                    skill: null,
+                    level_id: null
                 }],
             }
         },
