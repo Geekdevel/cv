@@ -22,8 +22,6 @@ Route::get('/master/{vue_capture?}', 'MasterController@index')->where('vue_captu
 
 Route::get('/levels/all', 'MasterController@allLevels');
 
-//Route::post('/createprofile', 'MasterController@createProfile');
-
 Route::resource('/profiles', 'ProfilesController');
 
 Route::post('/profiles/user', 'ProfilesController@editProfile');

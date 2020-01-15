@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Profile create</div>
+                    <div class="card-header">Profile edit</div>
 
                     <div class="card-body">
                         <div>
@@ -81,18 +81,26 @@
                                                     <label for="country">Country</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <select @change="changeCountry(addressform.country, true)" name="country" id="country" v-model="addressform.country">
-                                                        <option v-for="country in countries" :value="country.id">{{country.name}}</option>
-                                                    </select>
+                                                    <v-select
+                                                        :options="countries"
+                                                        :reduce="name => name.id"
+                                                        label="name"
+                                                        v-model="addressform.country"
+                                                        @input="changeCountry(addressform.country, true)"
+                                                    >
+                                                    </v-select>
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="region">Region</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <select name="region" id="region" v-model="addressform.region">
-                                                        <option v-for="region in regions" :value="region.id">{{region.name}}</option>
-                                                    </select>
+                                                    <v-select
+                                                        :options="regions"
+                                                        :reduce="name => name.id"
+                                                        label="name"
+                                                        v-model="addressform.region"
+                                                    />
                                                 </div>
                                             </div>
 
@@ -402,16 +410,25 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Hobbis:</div>
-                                        <div class="card-body">
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-12">
-                                                <p>{{ hobbiform.hobbi }}</p>
+                                        <div class="card-body hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
+                                            <div class="form-group row justify-content-center hobbi-add">
+                                                <div class="col-2 text-center">
+                                                    <label for="hobbi">Hobbi</label>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <input type="text" name="hobbi" v-model="item.hobbi">
+                                                </div>
+
+                                                <div class="col-2 text-center">
+                                                    <button type="button" class="btn btn-danger" @click="removeHobbi(indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
                                                 </div>
                                             </div>
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-12 text-center">
-                                                    <input type="text" name="hobbis" width="100%" v-model="hobbiform.hobbi">
-                                                </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="col-md-12 text-center">
+                                                <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
+                                                    +ADD
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -436,11 +453,13 @@
 <script>
     import { VueEditor } from "vue2-editor";
     import AvatarCropper from "vue-avatar-cropper";
+    import vSelect from "vue-select";
 
     export default {
         components: {
             VueEditor,
-            AvatarCropper
+            AvatarCropper,
+            vSelect
           },
 
         props: {
@@ -483,9 +502,9 @@
                     functions: null,
                 }],
 
-                hobbiform: {
+                hobbiform: [{
                     hobbi: null
-                },
+                }],
 
                 addressform: {
                     country: null,
@@ -530,13 +549,23 @@
                     this.addressform.region = null
                 }
 
-                axios.get('api/geo/children/' + country)
+                axios.get('/api/geo/children/' + country)
                     .then(response => {
-                        this.regions = response.data
+                        this.regions = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                     })
                     .catch(error =>{
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     })
+            },
+
+            removeHobbi(index) {
+                this.hobbiform.splice(index, 1)
+            },
+
+            addHobbi() {
+                this.hobbiform.push({
+                    hobbi: null
+                })
             },
 
             removeLenguage(index) {
@@ -614,7 +643,7 @@
         mounted() {
             axios.get('/api/geo/countries')
                 .then(response => {
-                    this.countries = response.data
+                    this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
@@ -628,10 +657,8 @@
                 })
             axios.post('/profiles/user')
                 .then(response =>{
-                    // console.log(response.data)
                     this.profileform = response.data.profile
                     this.addressform = response.data.address
-                    //var countryOld = this.addressform.country
                     this.hobbiform = response.data.hobbi
                     this.experienceform = response.data.works
                     this.educationform = response.data.educations

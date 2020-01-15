@@ -81,14 +81,12 @@
                                                     <label for="country">Country</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <!-- <select @change="changeCountry(addressform.country, true)" name="country" id="country" v-model="addressform.country">
-                                                        <option v-for="country in countries" :value="country.id">{{country.name}}</option>
-                                                    </select> -->
                                                     <v-select
                                                         :options="countries"
                                                         :reduce="name => name.id"
                                                         label="name"
                                                         v-model="addressform.country"
+                                                        @input="changeCountry(addressform.country, true)"
                                                     >
                                                     </v-select>
                                                 </div>
@@ -97,9 +95,6 @@
                                                     <label for="region">Region</label>
                                                 </div>
                                                 <div class="col-4 text-center">
-                                                    <!-- <select name="region" id="region" v-model="addressform.region">
-                                                        <option v-for="region in regions" :value="region.id">{{region.name}}</option>
-                                                    </select> -->
                                                     <v-select
                                                         :options="regions"
                                                         :reduce="name => name.id"
@@ -436,19 +431,6 @@
                                                 </button>
                                             </div>
                                         </div>
-                                       <!--  <div class="card-header">Hobbis:</div> -->
-                                        <!-- <div class="card-body">
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-12">
-                                                <p>{{ hobbiform.hobbi }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-12 text-center">
-                                                    <input type="text" name="hobbis" width="100%" v-model="hobbiform.hobbi">
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -558,27 +540,23 @@
         },
 
         methods: {
-            setSelected(value) {
-                console.log(value)
-            },
-
             handleUploaded(resp) {
                 this.profileform.photo = resp;
               },
 
-            // changeCountry(country, changed) {
-            //     if(changed) {
-            //         this.addressform.region = null
-            //     }
+            changeCountry(country, changed) {
+                if(changed) {
+                    this.addressform.region = null
+                }
 
-            //     axios.get('api/geo/children/' + country)
-            //         .then(response => {
-            //             this.regions = response.data
-            //         })
-            //         .catch(error =>{
-            //             console.log(error.response.data.message ? error.response.data.message : error.response.data)
-            //         })
-            // },
+                axios.get('/api/geo/children/' + country)
+                    .then(response => {
+                        this.regions = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
+                    })
+                    .catch(error =>{
+                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    })
+            },
 
             removeHobbi(index) {
                 this.hobbiform.splice(index, 1)
