@@ -24,6 +24,8 @@
 
   <!-- Custom styles for this template-->
   <link href="/css/sb-admin.css" rel="stylesheet">
+  <link href="/css/all.css" rel="stylesheet">
+  <link href="/css/app.css" rel="stylesheet">
 
   <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

@@ -192,12 +192,20 @@ class ProfilesController extends Controller
             }
         }
 
-        $hobbi = $request->hobbiform;
-        $hobbi_data = Validator::make($hobbi, [
-            'hobbi' => ['required', 'string', 'min:3', 'max:255'],
-        ]);
-        $hobbi += ['user_id' => $user_id];
-        Hobbi::create($hobbi);
+        $hobbis = $request->hobbiform;
+        foreach ($hobbis as $hobbi) {
+            $hobbi += ['user_id' => $user_id];
+            $hobbi_data = Validator::make($hobbi, [
+                'user_id' => ['required'],
+                'hobbi' => ['required', 'string', 'min:3', 'max:255']
+            ]);
+            if ($hobbi_data->fails()){
+                return response()->json(['error' => 'No valid form hobbi!'], 500);
+            }
+            else {
+                Hobbi::create($hobbi);
+            }
+        }
 
         return response()->json(['success' => 'success'], 201);
     }

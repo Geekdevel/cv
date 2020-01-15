@@ -89,7 +89,8 @@
                                                         :reduce="name => name.id"
                                                         label="name"
                                                         v-model="addressform.country"
-                                                    />
+                                                    >
+                                                    </v-select>
                                                 </div>
 
                                                 <div class="col-2 text-center">
@@ -414,7 +415,29 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">Hobbis:</div>
-                                        <div class="card-body">
+                                        <div class="card-body hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
+                                            <div class="form-group row justify-content-center hobbi-add">
+                                                <div class="col-2 text-center">
+                                                    <label for="hobbi">Hobbi</label>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <input type="text" name="hobbi" v-model="item.hobbi">
+                                                </div>
+
+                                                <div class="col-2 text-center">
+                                                    <button type="button" class="btn btn-danger" @click="removeHobbi(indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="col-md-12 text-center">
+                                                <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
+                                                    +ADD
+                                                </button>
+                                            </div>
+                                        </div>
+                                       <!--  <div class="card-header">Hobbis:</div> -->
+                                        <!-- <div class="card-body">
                                             <div class="form-group row justify-content-center">
                                                 <div class="col-12">
                                                 <p>{{ hobbiform.hobbi }}</p>
@@ -425,7 +448,7 @@
                                                     <input type="text" name="hobbis" width="100%" v-model="hobbiform.hobbi">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -497,9 +520,9 @@
                     functions: null,
                 }],
 
-                hobbiform: {
+                hobbiform: [{
                     hobbi: null
-                },
+                }],
 
                 addressform: {
                     country: null,
@@ -535,22 +558,36 @@
         },
 
         methods: {
+            setSelected(value) {
+                console.log(value)
+            },
+
             handleUploaded(resp) {
                 this.profileform.photo = resp;
               },
 
-            changeCountry(country, changed) {
-                if(changed) {
-                    this.addressform.region = null
-                }
+            // changeCountry(country, changed) {
+            //     if(changed) {
+            //         this.addressform.region = null
+            //     }
 
-                axios.get('api/geo/children/' + country)
-                    .then(response => {
-                        this.regions = response.data
-                    })
-                    .catch(error =>{
-                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                    })
+            //     axios.get('api/geo/children/' + country)
+            //         .then(response => {
+            //             this.regions = response.data
+            //         })
+            //         .catch(error =>{
+            //             console.log(error.response.data.message ? error.response.data.message : error.response.data)
+            //         })
+            // },
+
+            removeHobbi(index) {
+                this.hobbiform.splice(index, 1)
+            },
+
+            addHobbi() {
+                this.hobbiform.push({
+                    hobbi: null
+                })
             },
 
             removeLenguage(index) {
@@ -632,7 +669,7 @@
         mounted() {
             axios.get('/api/geo/countries')
                 .then(response => {
-                    this.countries = response.data
+                    this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)

@@ -7,7 +7,6 @@ import './sb-admin/sb-admin.js';
 // import './sb-admin/demo/chart-pie-demo.js';
 import router from './routes';
 
-
 new Vue({
     el: '#app',
 
