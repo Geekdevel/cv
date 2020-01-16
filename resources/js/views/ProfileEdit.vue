@@ -377,7 +377,7 @@
 
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-4 text-center">
-                                                        <label for="functions">Functions & projects:</label>
+                                                        <label for="functions">Functions:</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -400,6 +400,18 @@
                                                     +ADD
                                                 </button>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row justify-content-center">
+                                <!-- Projects -->
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">Projects in which you participated:</div>
+                                        <div class="card-body">
+                                            <vue-editor id="editor2" v-model="projectsform.description"></vue-editor>
                                         </div>
                                     </div>
                                 </div>
@@ -438,7 +450,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-12 text-center">
                                     <button type="button" :disabled="disabledForm" @click="checkForm">
-                                        Register
+                                        Save
                                     </button>
                                 </div>
                             </div>
@@ -517,6 +529,10 @@
                 },
 
                 profileform: {
+                    description: null,
+                },
+
+                projectsform: {
                     web_site: null,
                     photo: null,
                     dribbble: null,
@@ -628,7 +644,8 @@
                     educationform: this.educationform,
                     experienceform: this.experienceform,
                     hobbiform: this.hobbiform,
-                    addressform: this.addressform
+                    addressform: this.addressform,
+                    projectsform: this.projectsform
                 }
                 axios.put('/profiles/' + this.profileform.id, data)
                     .then(() => {
@@ -664,6 +681,7 @@
                     this.educationform = response.data.educations
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
+                    this.projectsform = response.data.projects
 
                     this.changeCountry(this.addressform.country)
                 })

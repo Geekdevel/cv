@@ -377,7 +377,7 @@
 
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-4 text-center">
-                                                        <label for="functions">Functions & projects:</label>
+                                                        <label for="functions">Functions:</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row justify-content-center">
@@ -400,6 +400,18 @@
                                                     +ADD
                                                 </button>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row justify-content-center">
+                                <!-- Projects -->
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">Projects in which you participated:</div>
+                                        <div class="card-body">
+                                            <vue-editor v-model="projectsform.description"></vue-editor>
                                         </div>
                                     </div>
                                 </div>
@@ -525,6 +537,10 @@
                     linkedin: null
                 },
 
+                projectsform: {
+                    description: null
+                },
+
                 regions: [],
                 levels: [],
                 countries: []
@@ -628,7 +644,8 @@
                     educationform: this.educationform,
                     experienceform: this.experienceform,
                     hobbiform: this.hobbiform,
-                    addressform: this.addressform
+                    addressform: this.addressform,
+                    projectsform: this.projectsform
                 }
                 //axios.post('/createprofile', data)
                     // .then(response => {

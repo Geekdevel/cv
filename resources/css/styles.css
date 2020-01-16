@@ -8,6 +8,12 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+.button-save {
+  margin-left: 50%;
+  border-radius: 15px;
+  background: #42A8C0;
+  color: #fff;
+}
 .wrapper {
   background: #42A8C0;
   max-width: 960px;

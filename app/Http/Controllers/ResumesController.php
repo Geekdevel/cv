@@ -14,6 +14,7 @@ use App\Models\Education;
 use App\Models\Work;
 use App\Models\Hobbi;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class ResumesController extends Controller
 {
@@ -27,6 +28,7 @@ class ResumesController extends Controller
         $hobbi = $user->hobbis;
         $skills = $user->skills;
         $works = $user->works;
+        $projects = $user->projects;
 
         return response()->json([
             'profile' => $profile,
@@ -35,7 +37,8 @@ class ResumesController extends Controller
             'educations' => $educations,
             'hobbi' => $hobbi,
             'skills' => $skills,
-            'works' => $works
+            'works' => $works,
+            'projects' => $projects
         ]);
     }
 
@@ -67,7 +70,58 @@ class ResumesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->resumeform);
+        $user = auth()->user();
+        if(count($user->resumes) < 3 || !isset($user->resumes)) {
+            $user_id = $user->id;
+
+            $resume = $request->resumeform;
+            // dd($profile);
+            $resume += ['user_id' => $user_id];
+            $resume_data = Validator::make($resume, [
+                'user_id' => ['required'],
+                'slag' => ['string', 'min:3', 'max:255'],
+                'job_title' => ['string', 'min:3', 'max:100'],
+                'description' => ['string', 'min:3', 'max:100']
+            ]);
+            if ($resume_data->fails()){
+                return response()->json(['error' => 'No valid form resume!'], 500);
+            }
+            else {
+                // Resume::create($resume);
+                // return redirect('/master');
+
+                // $profile = $request->profileform;
+                // $educations = $request->educationform;
+                // $lenguages = $request->lenguageform;
+                // $hobbis = $request->hobbiform;
+                // $experience = $request->experienceform;
+                // $skills = $request->skillform;
+
+                //create PDF
+                // PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+                $data = [
+                    'user' => $user,
+                    'profile' => $request->profileform,
+                    'educations' => $request->educationform,
+                    'lenguages' => $request->lenguageform,
+                    'hobbis' => $request->hobbiform,
+                    'experience' => $request->experienceform,
+                    'skills' => $request->skillform,
+                    'resume' => $resume,
+                    'projects' => $request->projectsform
+                ];
+                // dd($data);
+                // $pdf = PDF::loadView('layouts/pdf', $data);
+                $pdf = PDF::loadView('layouts/pdf', $data)->save(storage_path('/pdf/').date('dWmYB').'.pdf');
+                // dd($pdf);
+                // return $pdf->stream();
+
+            }
+        }
+        else{
+            // return redirect('/master');
+        }
     }
 
     /**

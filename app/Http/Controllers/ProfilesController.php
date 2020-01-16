@@ -12,6 +12,7 @@ use App\Models\Skill;
 use App\Models\Education;
 use App\Models\Work;
 use App\Models\Hobbi;
+use App\Models\Project;
 use Illuminate\Support\Facades\Validator;
 
 class ProfilesController extends Controller
@@ -31,6 +32,7 @@ class ProfilesController extends Controller
         $hobbi = $user->hobbis;
         $skills = $user->skills;
         $works = $user->works;
+        $projects = $user->projects;
 
         return response()->json([
             'profile' => $profile,
@@ -39,7 +41,8 @@ class ProfilesController extends Controller
             'educations' => $educations,
             'hobbi' => $hobbi,
             'skills' => $skills,
-            'works' => $works
+            'works' => $works,
+            'projects' => $projects
         ]);
     }
 
@@ -192,6 +195,19 @@ class ProfilesController extends Controller
             }
         }
 
+        $projects = $request->projectsform;
+        $projects +=['user_id' => $user_id];
+        $projects_data = Validator::make($projects, [
+                'user_id' => ['required'],
+                'description' => ['string', 'max:10000']
+            ]);
+        if ($projects_data->fails()) {
+            return response()->json(['error' => 'No valid form projects!'], 500);
+        }
+        else {
+            Project::create($projects);
+        }
+
         $hobbis = $request->hobbiform;
         foreach ($hobbis as $hobbi) {
             $hobbi += ['user_id' => $user_id];
@@ -271,6 +287,24 @@ class ProfilesController extends Controller
         else {
             $updateProfile = Profile::find($profile['id']);
             $updateProfile->update($profile);
+        }
+
+        $projects = $request->projectsform;
+        $projects +=['user_id' => $user_id];
+        $projects_data = Validator::make($projects, [
+                'description' => ['string', 'max:10000']
+            ]);
+        if ($projects_data->fails()) {
+            return response()->json(['error' => 'No valid form projects!'], 500);
+        }
+        else {
+            if(isset($projects['id'])) {
+                $updateProjects = Project::find($projects['id']);
+                $updateProjects->update($projects);
+            }
+            else {
+                Project::create($projects);
+            }
         }
 
         $address = $request->addressform;

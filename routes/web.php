@@ -26,6 +26,6 @@ Route::resource('/profiles', 'ProfilesController');
 
 Route::post('/profiles/user', 'ProfilesController@editProfile');
 
-// Route::resource('/resumes', 'ResumesController');
+Route::resource('/resumes', 'ResumesController');
 
 Route::post('/resume/profile', 'ResumesController@getProfile');
