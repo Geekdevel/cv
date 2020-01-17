@@ -5,7 +5,7 @@
                     <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name" height="150px" />
                     <h1 class="name">{{ form.name }}</h1>
                     <h3 class="tagline">{{ resumeform.job_title }}</h3>
-                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model="resumeform.job_title" placeholder="Job Title">
+                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model="resumeform.job_title" placeholder="Job Title" @click="chekErrorMessages" required>
                 </div><!--//profile-container-->
 
                 <div class="contact-container container-block">
@@ -49,12 +49,14 @@
             </div><!--//sidebar-wrapper-->
 
             <div class="main-wrapper">
+                    <div class="error">
+                        {{errormessages.error}}
+                    </div>
 
                 <section class="section slag-section">
-                    <h2 class="section-title"><i class="fa fa-user"></i>Resume Slag</h2>
                     <div class="summary">
-                        <h5>The purpose of writing a resume:</h5>
-                        <vue-editor v-model="resumeform.slag"></vue-editor>
+                        <label for="slag"><h5>Slug for your resume:</h5></label>
+                        <input type="text" id="slag" name="slag" v-model="resumeform.slag" @click="chekErrorMessages" required>
                     </div><!--//summary-->
                 </section><!--//section-->
 
@@ -62,7 +64,7 @@
                     <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
                     <div class="summary">
                         <h5>Summarise your career here:</h5>
-                        <vue-editor v-model="resumeform.description"></vue-editor>
+                        <vue-editor v-model="resumeform.description" @click="chekErrorMessages" required></vue-editor>
                     </div><!--//summary-->
                 </section><!--//section-->
 
@@ -179,6 +181,10 @@
                     description: null,
                     job_title: null,
                     slag: null
+                },
+
+                errormessages: {
+                    error: null
                 }
             }
         },
@@ -197,17 +203,22 @@
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
                 })
         },
 
         computed: {
             disabledForm() {
-                //return !this.form.name || !this.form.email ? true : false
-                return false
-            },
+                return !this.resumeform.job_title || !this.resumeform.slag || !this.resumeform.description ? true : false
+            }
+
         },
 
         methods: {
+            chekErrorMessages() {
+                return this.errormessages.error = null
+            },
+
             thisProjectBar(value) {
                 return value * 25
             },
@@ -215,14 +226,14 @@
             checkForm() {
                 let data = {
                     user: this.form,
-                    profileform: this.profileform,
-                    lenguageform: this.lenguageform,
-                    skillform: this.skillform,
-                    educationform: this.educationform,
-                    experienceform: this.experienceform,
-                    hobbiform: this.hobbiform,
-                    addressform: this.addressform,
-                    projectsform: this.projectsform,
+                    // profileform: this.profileform,
+                    // lenguageform: this.lenguageform,
+                    // skillform: this.skillform,
+                    // educationform: this.educationform,
+                    // experienceform: this.experienceform,
+                    // hobbiform: this.hobbiform,
+                    // addressform: this.addressform,
+                    // projectsform: this.projectsform,
                     resumeform: this.resumeform
                 }
                 axios.post('/resumes', data)
@@ -231,6 +242,7 @@
                     })
                     .catch(error => {
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                        this.errormessages = error.response.data
                     })
             }
         },

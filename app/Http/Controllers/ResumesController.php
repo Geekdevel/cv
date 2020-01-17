@@ -13,6 +13,7 @@ use App\Models\Skill;
 use App\Models\Education;
 use App\Models\Work;
 use App\Models\Hobbi;
+use App\Models\Field;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -49,7 +50,11 @@ class ResumesController extends Controller
      */
     public function index()
     {
-        //
+        // dd('ResumeController index');
+        $user = auth()->user();
+        $resumes = $user->resumes;
+        // dd($resumes);
+        return $resumes;
     }
 
     /**
@@ -70,57 +75,51 @@ class ResumesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->resumeform);
         $user = auth()->user();
+        $resume = $request->resumeform;
+        $slug = $resume['slag'];
         if(count($user->resumes) < 3 || !isset($user->resumes)) {
             $user_id = $user->id;
 
-            $resume = $request->resumeform;
-            // dd($profile);
+            // $resume = $request->resumeform;
             $resume += ['user_id' => $user_id];
             $resume_data = Validator::make($resume, [
                 'user_id' => ['required'],
                 'slag' => ['string', 'min:3', 'max:255'],
                 'job_title' => ['string', 'min:3', 'max:100'],
-                'description' => ['string', 'min:3', 'max:100']
+                'description' => ['string', 'min:3', 'max:10000']
             ]);
             if ($resume_data->fails()){
-                return response()->json(['error' => 'No valid form resume!'], 500);
+                return response()->json(['error' => 'No valid form resume!'], 409);
             }
             else {
-                // Resume::create($resume);
-                // return redirect('/master');
-
-                // $profile = $request->profileform;
-                // $educations = $request->educationform;
-                // $lenguages = $request->lenguageform;
-                // $hobbis = $request->hobbiform;
-                // $experience = $request->experienceform;
-                // $skills = $request->skillform;
-
-                //create PDF
-                // PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
-                $data = [
-                    'user' => $user,
-                    'profile' => $request->profileform,
-                    'educations' => $request->educationform,
-                    'lenguages' => $request->lenguageform,
-                    'hobbis' => $request->hobbiform,
-                    'experience' => $request->experienceform,
-                    'skills' => $request->skillform,
-                    'resume' => $resume,
-                    'projects' => $request->projectsform
-                ];
-                // dd($data);
-                // $pdf = PDF::loadView('layouts/pdf', $data);
-                $pdf = PDF::loadView('layouts/pdf', $data)->save(storage_path('/pdf/').date('dWmYB').'.pdf');
-                // dd($pdf);
-                // return $pdf->stream();
-
+                // $data = [
+                //     'user' => $user,
+                //     'profile' => $request->profileform,
+                //     'educations' => $request->educationform,
+                //     'lenguages' => $request->lenguageform,
+                //     'hobbis' => $request->hobbiform,
+                //     'experience' => $request->experienceform,
+                //     'skills' => $request->skillform,
+                //     'resume' => $resume,
+                //     'projects' => $request->projectsform
+                // ];
+                // $namePdf = strip_tags($resume['slag']);
+                // // dd($resume['slag']);
+                // PDF::loadView('layouts/pdf', $data)->save(storage_path('/pdf/').$namePdf.'.pdf')->stream();
+                // $dataPdf = [
+                //     'user_id' => $user_id,
+                //     'field' => '/storage/pdf/'.$namePdf.'.pdf'
+                // ];
+                // // $field_id = Field::create($dataPdf)->id;
+                // $resume += ['field_id' => Field::create($dataPdf)->id];
+                // $slug = $resume['slag'];
+                Resume::create($resume);
+                return response()->json(['success' => 'Resume '.$slug.' user`s '.$user->name.' created!'], 201);
             }
         }
         else{
-            // return redirect('/master');
+            return response()->json(['error' => 'Resume '.$slug.' user`s '.$user->name.' no created! You already have three resumes!'], 409);
         }
     }
 

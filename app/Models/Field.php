@@ -15,9 +15,4 @@ class Field extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-
-    public function resume()
-    {
-        return $this->belongsTo('App\Models\Resume');
-    }
 }

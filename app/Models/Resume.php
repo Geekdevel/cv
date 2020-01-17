@@ -10,17 +10,11 @@ class Resume extends Model
         'user_id',
         'slag',
         'job_title',
-        'description',
-        'field_id'
+        'description'
     ];
 
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    public function filds()
-    {
-        return $this->hasOne('App\Models\Field');
     }
 }

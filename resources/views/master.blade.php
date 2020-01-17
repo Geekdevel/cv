@@ -96,6 +96,7 @@
     <div id="content-wrapper">
 
       <div class="container-fluid">
+        @include('flash-message')
         <router-view :user="{{ Auth::user() }}"></router-view>
 
       </div>

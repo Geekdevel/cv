@@ -8,6 +8,23 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+table {
+    width: 100%;
+    border: 1px solid #D3D3D3;
+}
+thead {
+    background: #778899;
+}
+th {
+  padding: 10px;
+}
+td {
+  border-bottom: 1px solid #D3D3D3;
+}
+.error {
+  background: red;
+  color: #fff;
+}
 .button-save {
   margin-left: 50%;
   border-radius: 15px;
