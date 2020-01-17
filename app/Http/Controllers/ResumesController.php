@@ -163,8 +163,10 @@ class ResumesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Resume $resume)
     {
-        //
+        // dd('Deleted '.$resume->slag);
+        $resume->delete();
+        return response()->json(['success' => 'Resume '.$resume->slag.' deleted!'], 201);
     }
 }

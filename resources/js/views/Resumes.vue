@@ -25,7 +25,7 @@
                                     <td>{{ item.slag }}</td>
                                     <td><button type="button" class="btn btn-success"><i class="far fa-eye"></i></button></td>
                                     <td><button type="button" class="btn btn-primary"><i class="fas fa-pen-nib"></i></button></td>
-                                    <td><button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td>
+                                    <td><button type="button" class="btn btn-danger" @click="resumeDelete(item.id)"><i class="far fa-trash-alt"></i></button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -61,6 +61,20 @@
                     job_title: null,
                     description: null
                 }],
+            }
+        },
+
+        methods: {
+            resumeDelete(value) {
+                // console.log('/resumes/' + value)
+                axios.delete('/resumes/' + value)
+                    .then(response =>{
+                        //
+                    })
+                    .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
+                    })
             }
         },
 
