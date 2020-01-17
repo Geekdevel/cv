@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
 
+    <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <style>
         img{
-            width: 150px;
+            width: 50px;
+        }
+        li {
+            list-style-type: none;
         }
         .wrapper {
           background: #42A8C0;
           max-width: 960px;
-/*          min-height: 1350px;
-*/          margin: 0 auto;
+          margin: 0 auto;
           position: relative;
           -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
           -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -25,14 +29,13 @@
           right: 0;
           width: 240px;
           height: 100%;
-/*          min-height: 1350px;
-*/          color: #fff;
+          color: #fff;
         }
         .sidebar-wrapper a {
           color: #fff;
         }
         .sidebar-wrapper .profile-container {
-          padding: 30px;
+          padding: 10px;
           background: rgba(0, 0, 0, 0.2);
           text-align: center;
           color: #fff;
@@ -51,7 +54,7 @@
           margin-bottom: 0;
         }
         .sidebar-wrapper .profile {
-          margin-bottom: 15px;
+          margin-bottom: 10px;
         }
         .sidebar-wrapper .contact-list .fa {
           margin-right: 5px;
@@ -59,7 +62,7 @@
           vertical-align: middle;
         }
         .sidebar-wrapper .contact-list li {
-          margin-bottom: 15px;
+          margin-bottom: 5px;
         }
         .sidebar-wrapper .contact-list li:last-child {
           margin-bottom: 0;
@@ -68,14 +71,14 @@
           font-size: 14px;
         }
         .sidebar-wrapper .container-block {
-          padding: 30px;
+          padding: 10px;
         }
         .sidebar-wrapper .container-block-title {
           text-transform: uppercase;
           font-size: 16px;
           font-weight: 700;
           margin-top: 0;
-          margin-bottom: 15px;
+          margin-bottom: 5px;
         }
         .sidebar-wrapper .degree {
           font-size: 14px;
@@ -83,7 +86,7 @@
           margin-bottom: 5px;
         }
         .sidebar-wrapper .education-container .item {
-          margin-bottom: 15px;
+          margin-bottom: 5px;
         }
         .sidebar-wrapper .education-container .item:last-child {
           margin-bottom: 0;
@@ -106,7 +109,7 @@
           margin-bottom: 0;
         }
         .sidebar-wrapper .languages-list li {
-          margin-bottom: 10px;
+          margin-bottom: 5px;
         }
         .sidebar-wrapper .languages-list li:last-child {
           margin-bottom: 0;
@@ -115,7 +118,7 @@
           margin-bottom: 0;
         }
         .sidebar-wrapper .interests-list li {
-          margin-bottom: 10px;
+          margin-bottom: 5px;
         }
         .sidebar-wrapper .interests-list li:last-child {
           margin-bottom: 0;
@@ -124,8 +127,8 @@
           background: #fff;
           padding: 60px;
           padding-right: 300px;
-          min-height: 1350px;
-        }
+/*          min-height: 1350px;
+*/        }
         .main-wrapper .section-title {
           text-transform: uppercase;
           font-size: 20px;
@@ -133,7 +136,7 @@
           color: #2d7788;
           position: relative;
           margin-top: 0;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
         }
         .main-wrapper .section-title .fa {
           width: 30px;
@@ -157,10 +160,10 @@
           top: -2px;
         }
         .main-wrapper .section {
-          margin-bottom: 60px;
+          margin-bottom: 10px;
         }
         .main-wrapper .experiences-section .item {
-          margin-bottom: 30px;
+          margin-bottom: 10px;
         }
         .main-wrapper .upper-row {
           position: relative;
@@ -191,19 +194,19 @@
           margin-bottom: 5px;
         }
         .main-wrapper .projects-section .intro {
-          margin-bottom: 30px;
+          margin-bottom: 10px;
         }
         .main-wrapper .projects-section .item {
-          margin-bottom: 15px;
+          margin-bottom: 5px;
         }
         .skillset .item {
-          margin-bottom: 15px;
+          margin-bottom: 5px;
           overflow: hidden;
         }
         .skillset .level-title {
           font-size: 14px;
           margin-top: 0;
-          margin-bottom: 12px;
+          margin-bottom: 6px;
         }
         .skillset .level-bar {
           height: 12px;
@@ -214,8 +217,8 @@
           background: #7bc2d3;
         }
         .footer {
-          padding: 30px;
-          padding-top: 60px;
+          padding: 10px;
+          padding-top: 20px;
         }
         .footer .copyright {
           line-height: 1.6;
@@ -231,7 +234,7 @@
     <div class="wrapper">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
-                    <img class="profile" src="{{$profile['photo']}}" alt="{{$user->name}}" height="150px" />
+                    <img class="profile" src="{{ $user->profile->photo }}" alt="{{$user->name}}" height="50px" />
                     <h1 class="name">{{ $user->name }}</h1>
                     <h3 class="tagline">{{ $resume['job_title'] }}</h3>
                 </div><!--//profile-container-->
@@ -284,22 +287,22 @@
 
             <div class="main-wrapper">
 
-                <section class="section slag-section">
+{{--                 <section class="section slag-section">
                     <h2 class="section-title"><i class="fa fa-user"></i>Resume Slag</h2>
                     <div class="summary">
                         {!! $resume['slag'] !!}
-                    </div><!--//summary-->
-                </section><!--//section-->
-
+                    </div>
+                </section>
+ --}}
                 <section class="section summary-section">
-                    <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                    <h2 class="section-title">{{-- <i class="fa fa-user"></i> --}}Career Profile</h2>
                     <div class="summary">
                         {!! $resume['description'] !!}
                     </div><!--//summary-->
                 </section><!--//section-->
 
                 <section class="section experiences-section">
-                    <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
+                    <h2 class="section-title">{{-- <i class="fa fa-briefcase"></i> --}}Experiences</h2>
 
                     @foreach($experience as $item)
                         <div class="item">
@@ -318,25 +321,32 @@
                 </section><!--//section-->
 
                 <section class="section projects-section">
-                    <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
+                    <h2 class="section-title">{{-- <i class="fa fa-archive"></i> --}}Projects</h2>
                     <div class="intro">
                         {!! $projects['description'] !!}
                     </div><!--//intro-->
                 </section><!--//section-->
 
                 <section class="skills-section section">
-                    <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
+                    <h2 class="section-title">{{-- <i class="fa fa-rocket"></i> --}}Skills &amp; Proficiency</h2>
                     <div class="skillset">
-                        @foreach($skills as $skill)
+                        <ul class="list-unstyled interests-list">
+                            @foreach($skills as $skill)
+                            <li>
+                                {{ $skill['skill'] }} <span class="lang-desc">( {{ $skill['level']['level'] }} )</span>
+                            </li>
+                            @endforeach
+                        </ul>
+{{--                         @foreach($skills as $skill)
                             <div class="item">
                                 <h3 class="level-title">{{ $skill['skill'] }}</h3>
                                 <div class="level-bar">
                                     <div class="level-bar-inner" data-level="{{ $skill['level_id']*25 }}%">
                                     </div>
-                                </div><!--//level-bar-->
-                            </div><!--//item-->
+                                </div>
+                            </div>
                         @endforeach
-                    </div>
+ --}}                    </div>
                 </section><!--//skills-section-->
 
             </div><!--//main-body-->
