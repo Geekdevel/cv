@@ -53,7 +53,8 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        // $user = auth()->user();
+        // $profile = $user->profile;
     }
 
     /**

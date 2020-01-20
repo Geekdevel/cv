@@ -86,6 +86,7 @@
           <router-link :to="{ name: 'master' }" class="dropdown-item">Home</router-link>
           <router-link :to="{ name: 'profilecreate' }" class="dropdown-item">Create Profile</router-link>
           <router-link :to="{ name: 'profileedit' }" class="dropdown-item">Edit Profile</router-link>
+          <router-link :to="{ name: 'profileshow' }" class="dropdown-item">Show Profile</router-link>
           <router-link :to="{ name: 'resumescreate' }" class="dropdown-item">Create Resume</router-link>
           <router-link :to="{ name: 'resumes' }" class="dropdown-item">Resumes</router-link>
           <router-link :to="{ name: 'showresume' }" class="dropdown-item">Resume Show</router-link>
