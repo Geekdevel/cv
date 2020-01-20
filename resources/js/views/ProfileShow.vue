@@ -9,8 +9,8 @@
 
                 <div class="address-container container-block">
                     <ul class="list-unstyled contact-list">
-                        <li class="country"><i class="fas fa-globe"></i> {{ addressform.country }}</li>
-                        <li class="region"><i class="fas fa-flag"></i> {{ addressform.region }}</li>
+                        <li class="country"><i class="fas fa-globe"></i> {{ country.name }}</li>
+                        <li class="region"><i class="fas fa-flag"></i> {{ region.name }}</li>
                         <li class="city"><i class="fas fa-city"></i> {{ addressform.city }} : {{ addressform.index }}</li>
                         <li class="street"><i class="fas fa-road"></i> {{ addressform.street }} <i class="fas fa-home"></i> {{ addressform.house }} <i class="fas fa-door-open"></i> {{ addressform.apartment }} </li>
                     </ul>
@@ -49,9 +49,6 @@
             </div><!--//sidebar-wrapper-->
 
             <div class="main-wrapper">
-                    <!-- <div class="error">
-                        {{errormessages.error}}
-                    </div> -->
 
                 <section class="section summary-section">
                     <h2 class="section-title"><i class="fa fa-user"></i>Education</h2>
@@ -187,11 +184,7 @@
                     slag: null
                 },
 
-                errormessages: {
-                    error: null
-                },
-
-                countries: {},
+                region: {},
                 country: {}
             }
         },
@@ -207,30 +200,32 @@
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                    this.errormessages = error.response.data
-                })
-            axios.get('/api/geo/countries')
-                .then(response => {
-                    this.countries = response.data
-                    // this.country = this.countries(this.addressform.country)
-                    console.log(this.countries)
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                })
-        },
 
-        computed: {
-            //
+                    axios.get('/api/geo/item/' + response.data.address.country)
+                        .then(response => {
+                            this.country = response.data
+                        })
+                        .catch(error => {
+                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                        })
+
+                    axios.get('/api/geo/item/' + response.data.address.region)
+                        .then(response => {
+                            this.region = response.data
+                        })
+                        .catch(error => {
+                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                        })
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                })
         },
 
         methods: {
             thisProjectBar(value) {
                 return value * 25
-            },
+            }
         },
 
         created() {
