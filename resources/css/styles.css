@@ -17,7 +17,7 @@
   padding: 10px;
   margin-top: 10px;
 }
-img {
+.profile-container img {
 border-radius: 50%;
 height: 150px;
 }

@@ -190,7 +190,6 @@
             axios.post('/resume/profile')
                 .then(response =>{
                     this.profileform = response.data.profile
-                    // this.addressform = response.data.address
                     this.hobbiform = response.data.hobbi
                     this.experienceform = response.data.works
                     this.educationform = response.data.educations

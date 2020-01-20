@@ -1,6 +1,11 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
+            <div class="col-md-8 error">
+                {{errormessages.error}}
+            </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Profile create</div>
@@ -16,25 +21,21 @@
                                         <div class="col-8 text-center">
                                             <input class="form-control" type="text" id="name" name="name" v-model="form.name">
                                         </div>
-                                    <!-- </div>
-                                    <div class="form-group row justify-content-center"> -->
+
                                         <div class="col-4 text-center">
                                             <label for="phone">Phone</label>
                                         </div>
                                         <div class="col-8 text-center">
                                             <input class="form-control" type="text" id="phone" name="phone" value="" v-model="form.phone">
                                         </div>
-                                    <!-- </div>
-                                    <div class="form-group row justify-content-center"> -->
+
                                         <div class="col-4 text-center">
                                             <label for="email">Email</label>
                                         </div>
                                         <div class="col-8 text-center">
                                             <input class="form-control" type="email" id="email" name="email" value="" v-model="form.email">
                                         </div>
-                                    <!-- </div>
 
-                                    <div class="form-group row justify-content-center"> -->
                                         <div class="col-4 text-center">
                                             <label for="web_site">Sites</label>
                                         </div>
@@ -207,17 +208,14 @@
                                                 <div class="col-2 text-center">
                                                     <label for="language">Language</label>
                                                 </div>
-                                                <div class="col-4 text-center">
+                                                <div class="col-3 text-center">
                                                     <input class="form-control" type="text" name="language" v-model="item.lenguage">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelLanguage">Level</label>
                                                 </div>
-                                                <div class="col-4 text-center">
-                                                    <!-- <select class="form-control" name="levelLanguage" v-model="item.level_id">
-                                                        <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
-                                                    </select> -->
+                                                <div class="col-3 text-center">
                                                     <v-select
                                                         :options="levels"
                                                         :reduce="level => level.id"
@@ -225,8 +223,8 @@
                                                         v-model="item.level_id"
                                                     />
                                                 </div>
-                                                <div class="col-12 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeLenguage(index)" v-if="lenguageform.length > 1" style="margin-top: 10px;">Remove</button>
+                                                <div class="col-2 text-center">
+                                                    <button type="button" class="btn btn-danger" @click="removeLenguage(index)" v-if="lenguageform.length > 1">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,17 +249,14 @@
                                                 <div class="col-2 text-center">
                                                     <label for="skill">Skill</label>
                                                 </div>
-                                                <div class="col-4 text-center">
+                                                <div class="col-3 text-center">
                                                     <input class="form-control" type="text" name="skill" v-model="item.skill">
                                                 </div>
 
                                                 <div class="col-2 text-center">
                                                     <label for="levelSkill">Level</label>
                                                 </div>
-                                                <div class="col-4 text-center">
-                                                    <!-- <select name="levelSkill" v-model="item.level_id">
-                                                        <option v-for="(level, indexLevel) in levels" :key="indexLevel" :value="level.id">{{ level.level }}</option>
-                                                    </select> -->
+                                                <div class="col-3 text-center">
                                                     <v-select
                                                         :options="levels"
                                                         :reduce="level => level.id"
@@ -269,8 +264,8 @@
                                                         v-model="item.level_id"
                                                     />
                                                 </div>
-                                                <div class="col-12 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeSkill(index)" v-if="skillform.length > 1" style="margin-top: 10px;">Remove</button>
+                                                <div class="col-2 text-center">
+                                                    <button type="button" class="btn btn-danger" @click="removeSkill(index)" v-if="skillform.length > 1">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -357,8 +352,8 @@
                                     <div class="card">
                                         <div class="card-header">Experience works</div>
                                         <div class="card-body experience-body" v-for="(item, index) in experienceform">
-                                            <div class="experience-add form-group row justify-content-center">
-                                                <!-- <div class=""> -->
+                                            <div class="experience-add">
+                                                <div class="form-group row justify-content-center">
                                                     <div class="col-12 col-md-6 text-center">
                                                         <div class="form-group row justify-content-center">
                                                             <div class="col-4 text-center">
@@ -401,6 +396,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-12 text-center">
@@ -467,6 +463,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 error">
+                                    {{errormessages.error}}
                                 </div>
                             </div>
 
@@ -564,6 +566,10 @@
                     description: null
                 },
 
+                errormessages: {
+                    error: null
+                },
+
                 regions: [],
                 levels: [],
                 countries: []
@@ -594,6 +600,7 @@
                     })
                     .catch(error =>{
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                        this.errormessages = error.response.data
                     })
             },
 
@@ -670,16 +677,13 @@
                     addressform: this.addressform,
                     projectsform: this.projectsform
                 }
-                //axios.post('/createprofile', data)
-                    // .then(response => {
-                    //     console.log(response.data)
-                    // })
                 axios.post('/profiles', data)
                     .then(() => {
-                        this.$router.push('/master')
+                        this.$router.push('/master/profileshow')
                     })
                     .catch(error => {
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                        this.errormessages = error.response.data
                     })
             }
         },
@@ -691,6 +695,7 @@
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
                 })
             axios.get('/levels/all')
                 .then(response => {
@@ -698,6 +703,7 @@
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
                 })
         },
 
