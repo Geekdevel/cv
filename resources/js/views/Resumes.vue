@@ -23,7 +23,7 @@
                             <tbody>
                                 <tr v-for="(item, index) in resumes" :key="index">
                                     <td>{{ item.slag }}</td>
-                                    <td><button type="button" class="btn btn-success"><i class="far fa-eye"></i></button></td>
+                                    <td><button type="button" class="btn btn-success" @click="resumeShow(item.slag)"><i class="far fa-eye"></i></button></td>
                                     <td><button type="button" class="btn btn-primary"><i class="fas fa-pen-nib"></i></button></td>
                                     <td><button type="button" class="btn btn-danger" @click="resumeDelete(item.id)"><i class="far fa-trash-alt"></i></button></td>
                                 </tr>
@@ -69,19 +69,37 @@
                 // console.log('/resumes/' + value)
                 axios.delete('/resumes/' + value)
                     .then(response =>{
-                        //
+                        // console.log(response.data)
+                        this.$router.push('/master/resumeses')
+                        // refreshTable
                     })
                     .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                    this.errormessages = error.response.data
+                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                        this.errormessages = error.response.data
                     })
-            }
+            },
+
+            resumeShow(slug) {
+                console.log(slug)
+                // this.$ruoter.push('/master/showresume/:' + slug)
+            },
+
+            // refreshTable() {
+            //     axios.get('/master/resumeses')
+            //     .then(response =>{
+            //         this.resumes = response.data
+            //     })
+            //     .catch(error => {
+            //         console.log(error.response.data.message ? error.response.data.message : error.response.data)
+            //         this.errormessages = error.response.data
+            //     })
+            // }
         },
 
         mounted() {
             axios.get('/resumes')
                 .then(response =>{
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.resumes = response.data
                 })
                 .catch(error => {

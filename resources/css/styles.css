@@ -8,6 +8,35 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+.profile-create .text-center {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/*.address-card .text-center {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.accaunts-card .text-center {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.education-card .text-center {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}*/
+.education-add, .experience-add {
+  border: 1px solid #ADC8D8;
+  padding: 10px;
+  margin-top: 10px;
+}
+/*.experience-add .text-center {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}*/
+img {
+border-radius: 50%;
+height: 150px;
+}
 table {
     width: 100%;
     border: 1px solid #D3D3D3;

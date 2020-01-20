@@ -20,7 +20,7 @@ let routes = [
     },
 
     {
-        path: '/master/resumes',
+        path: '/master/resumeses',
         name: 'resumes',
         component: require('./views/Resumes.vue').default
     },
@@ -32,7 +32,7 @@ let routes = [
     },
 
     {
-        path: '/master/showresume',
+        path: '/master/showresume/:slug',
         name: 'showresume',
         component: require('./views/ShowResume.vue').default
     }

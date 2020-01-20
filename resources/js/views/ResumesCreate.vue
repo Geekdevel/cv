@@ -2,7 +2,7 @@
         <div class="wrapper">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
-                    <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name" height="150px" />
+                    <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
                     <h1 class="name">{{ form.name }}</h1>
                     <h3 class="tagline">{{ resumeform.job_title }}</h3>
                     <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model="resumeform.job_title" placeholder="Job Title" @click="chekErrorMessages" required>
@@ -91,7 +91,7 @@
                     </div><!--//intro-->
                 </section><!--//section-->
 
-                <section class="skills-section section">
+                <section class="skills-section section" v-if="skillform.length > 0">
                     <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
                     <div class="skillset">
                         <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
@@ -168,10 +168,7 @@
                     functions: null
                 }],
 
-                skillform: [{
-                    skill: null,
-                    level_id: null
-                }],
+                skillform: [],
 
                 projectsform: {
                     description: null
@@ -238,7 +235,7 @@
                 }
                 axios.post('/resumes', data)
                     .then(() => {
-                        this.$router.push('/master')
+                        this.$router.push('/master/resumeses')
                     })
                     .catch(error => {
                         console.log(error.response.data.message ? error.response.data.message : error.response.data)
