@@ -43,9 +43,9 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <ul class="nav nav-pills ml-1">
+    <ul class="nav d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <li class="nav-item">
-        <a class="btn btn-link btn-sm text-white order-1 order-sm-0" href="{{ route('logout') }}"
+        <a class="btn btn-sm btn-outline-light text-white order-1 order-sm-0" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
               {{ __('Logout') }}
@@ -57,7 +57,6 @@
       </li>
     </ul>
 
-
   </nav>
 
   <div id="wrapper">
@@ -65,10 +64,16 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/master">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Home</span>
-        </a>
+        <router-link :to="{ name: 'profileedit' }" class="nav-link"> <i class="fas fa-user-tag"></i> <span>Profile</span></router-link>
+      </li>
+      <li class="nav-item active">
+        <router-link :to="{ name: 'resumes' }" class="nav-link"> <i class="far fa-address-card"></i> <span>Resumes</span></router-link>
+      </li>
+      <li class="nav-item active">
+        <router-link :to="{ name: 'resumescreate' }" class="nav-link"> <i class="fas fa-pen-nib"></i> <span>Create Resume</span></router-link>
+      </li>
+      <li class="nav-item active">
+        <router-link :to="{ name: 'showresume' }" class="nav-link"> <i class="fas fa-file"></i> <span>Resume Show</span></router-link>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,20 +81,10 @@
           <span>Pages</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="{{ route('password.request') }}">
-            {{ __('Forgot Password') }}
-          </a>
-
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Other Pages:</h6>
           <router-link :to="{ name: 'master' }" class="dropdown-item">Home</router-link>
           <router-link :to="{ name: 'profilecreate' }" class="dropdown-item">Create Profile</router-link>
-          <router-link :to="{ name: 'profileedit' }" class="dropdown-item">Edit Profile</router-link>
-          <router-link :to="{ name: 'profileshow' }" class="dropdown-item">Show Profile</router-link>
-          <router-link :to="{ name: 'resumescreate' }" class="dropdown-item">Create Resume</router-link>
-          <router-link :to="{ name: 'resumes' }" class="dropdown-item">Resumes</router-link>
-          <router-link :to="{ name: 'showresume' }" class="dropdown-item">Resume Show</router-link>
         </div>
       </li>
     </ul>

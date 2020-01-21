@@ -8,14 +8,15 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+.errors {
+  color: red;
+}
 .profile-create .text-center {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.education-add, .experience-add {
-  border: 1px solid #ADC8D8;
-  padding: 10px;
-  margin-top: 10px;
+.profile-create img {
+  width: 200px;
 }
 .profile-container img {
 border-radius: 50%;

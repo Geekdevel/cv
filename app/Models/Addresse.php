@@ -12,9 +12,7 @@ class Addresse extends Model
         'region',
         'city',
         'index',
-        'street',
-        'house',
-        'apartment'
+        'street'
     ];
 
     public function user()

@@ -20,12 +20,6 @@ let routes = [
     },
 
     {
-        path: '/master/profileshow',
-        name: 'profileshow',
-        component: require('./views/ProfileShow.vue').default
-    },
-
-    {
         path: '/master/resumeses',
         name: 'resumes',
         component: require('./views/Resumes.vue').default

@@ -1,484 +1,442 @@
 <template>
-    <div class="container">
+    <div class="container-fluid profile-create">
         <div class="row justify-content-center">
-            <div class="col-md-8 error">
+            <div class="col-md-12 error">
                 {{errormessages.error}}
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Profile create</div>
-
-                    <div class="card-body profile-create">
-                        <div>
+                <div>
+                    <div class="form-group row justify-content-center">
+                        <div class="col-12 col-md-6">
                             <div class="form-group row justify-content-center">
+                                <div class="col-4 text-center">
+                                    <label for="name">Name</label>
+                                </div>
+                                <div class="col-8 text-center">
+                                    <input class="form-control" type="text" id="name" name="name" v-model="form.name" @click="removeErrorName">
+                                    <p class="errors" v-if="errors.name.length">This field must be filled</p>
+                                </div>
+
+                                <div class="col-4 text-center">
+                                    <label for="phone">Phone</label>
+                                </div>
+                                <div class="col-8 text-center">
+                                    <input class="form-control" type="text" id="phone" name="phone" value="" v-model="form.phone" @click="removeErrorPhone">
+                                    <p class="errors" v-if="errors.phone.length">This field must be filled</p>
+                                </div>
+
+                                <div class="col-4 text-center">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="col-8 text-center">
+                                    <input class="form-control" type="email" id="email" name="email" value="" v-model="form.email" @click="removeErrorEmail">
+                                    <p class="errors" v-if="errors.email.length">This field must be filled</p>
+                                </div>
+
+                                <div class="col-4 text-center">
+                                    <label for="web_site">Sites</label>
+                                </div>
+                                <div class="col-8 text-center">
+                                    <input class="form-control" type="text" id="web_site" name="web_site" v-model="profileform.web_site">
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Vue-avatar-cropper -->
+                        <div class="col-12 col-md-6">
+                            <div class="row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 text-center">
+                                            <img v-if="profileform.photo" :src="profileform.photo" alt="Select an image">
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 text-center">
+                                            <button type="button" class="btn btn-info text-light" id="pick-avatar">Select an image</button>
+                                        </div>
+                                    </div>
+                                        <avatar-cropper
+                                            @uploaded="handleUploaded"
+                                            trigger="#pick-avatar"
+                                            :upload-url="'/api/custom/upload'"
+                                            :labels="{ submit: 'OK', cancel: 'Cancel'}"
+                                            :output-options="{width: 300, height: 300}"
+                                        />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <!-- Address -->
+                        <div class="col-md-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12">
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="country">Country</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <v-select
+                                                :options="countries"
+                                                :reduce="name => name.id"
+                                                label="name"
+                                                v-model="addressform.country"
+                                                @input="changeCountry(addressform.country, true)"
+                                            >
+                                            </v-select>
+                                            <p class="errors" v-if="errors.country.length">This field must be filled</p>
+                                        </div>
+
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="region">Region</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <v-select
+                                                :options="regions"
+                                                :reduce="name => name.id"
+                                                label="name"
+                                                v-model="addressform.region"
+                                            />
+                                            <p class="errors" v-if="errors.regions.length">This field must be filled</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="city">City</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <input class="form-control" type="text" id="city" name="city" v-model="addressform.city" @click="removeErrorCity">
+                                            <p class="errors" v-if="errors.city.length">This field must be filled</p>
+                                        </div>
+
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="index">Zip code</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                             <input class="form-control" type="text" id="index" name="index" v-model="addressform.index" @click="removeErrorIndex">
+                                             <p class="errors" v-if="errors.index.length">This field must be filled</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="street">Street</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <input class="form-control" type="text" id="street" name="street" v-model="addressform.street" @click="removeErrorStreet">
+                                            <p class="errors" v-if="errors.street.length">This field must be filled</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <!-- Accaunts -->
+                        <div class="col-md-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12">
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="dribbble">Dribbble</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <input class="form-control" type="text" id="dribbble" name="dribbble" v-model="profileform.dribbble">
+                                        </div>
+
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="behance">Behance</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <input class="form-control" type="text" id="behance" name="behance" v-model="profileform.behance">
+                                        </div>
+
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="git">Git</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <input class="form-control" type="text" id="git" name="git" v-model="profileform.git">
+                                        </div>
+
+                                        <div class="col-4 col-md-2 text-center">
+                                            <label for="linkedin">Linkedin</label>
+                                        </div>
+                                        <div class="col-8 col-md-4 text-center">
+                                            <input class="form-control" type="text" id="linkedin" name="linkedin" v-model="profileform.linkedin">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <!-- Languages -->
+                        <div class="col-md-12">
+                            <div class="form-group row justify-content-center language-add" v-for="(item, index) in lenguageform" :key="index">
+                                <div class="col-12 col-md-2 text-center">
+                                    <label for="language">Language</label>
+                                </div>
+                                <div class="col-12 col-md-3 text-center">
+                                    <input class="form-control" type="text" name="language" v-model="item.lenguage" @click="removeErrorLanguage">
+                                    <!-- <p class="errors" v-if="errors.language.length">This field must be filled</p> -->
+                                </div>
+
+                                <div class="col-12 col-md-2 text-center">
+                                    <label for="levelLanguage">Level</label>
+                                </div>
+                                <div class="col-12 col-md-3 text-center">
+                                    <v-select
+                                        :options="levels"
+                                        :reduce="level => level.id"
+                                        label="level"
+                                        v-model="item.level_id"
+                                        @input="removeErrorLanguageLevel"
+                                    />
+                                    <!-- <p class="errors" v-if="errors.language_level.length">This field must be filled</p> -->
+                                </div>
+                                <div class="col-12 col-md-2 text-center">
+                                    <button type="button" class="btn btn-danger" @click="removeLenguage(index)" v-if="lenguageform.length > 1">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-primary" id="language_add" @click="addLenguage">
+                                    +ADD Language
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <!-- Skills -->
+                        <div class="col-md-12">
+                            <div class="form-group row justify-content-center skill-add" v-for="(item, index) in skillform" :key="index">
+                                <div class="col-12 col-md-2 text-center">
+                                    <label for="skill">Skill</label>
+                                </div>
+                                <div class="col-12 col-md-3 text-center">
+                                    <input class="form-control" type="text" name="skill" v-model="item.skill">
+                                    <!-- <p class="errors" v-if="errors.skill.length">This field must be filled</p> -->
+                                </div>
+
+                                <div class="col-12 col-md-2 text-center">
+                                    <label for="levelSkill">Level</label>
+                                </div>
+                                <div class="col-12 col-md-3 text-center">
+                                    <v-select
+                                        :options="levels"
+                                        :reduce="level => level.id"
+                                        label="level"
+                                        v-model="item.level_id"
+                                    />
+                                    <!-- <p class="errors" v-if="errors.skill_level.length">This field must be filled</p> -->
+                                </div>
+                                <div class="col-12 col-md-2 text-center">
+                                    <button type="button" class="btn btn-danger" @click="removeSkill(index)" v-if="skillform.length > 1">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-primary" id="skill_add" @click="addSkill">
+                                    +ADD Skill
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <!-- Education -->
+                        <div class="col-12">
+                            <div class="education-add form-group row justify-content-center" v-for="(item, index) in educationform">
+                                <div class="col-12 col-md-6 text-center">
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-4 text-center">
+                                            <label for="university">University:</label>
+                                        </div>
+                                        <div class="col-8 text-center">
+                                            <input class="form-control" type="text" name="university" v-model="item.university">
+                                            <!-- <p class="errors" v-if="errors.education.item.university.length">This field must be filled</p> -->
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            <label for="professi">Professi:</label>
+                                        </div>
+                                        <div class="col-8 text-center">
+                                            <input class="form-control" type="text" name="professi" v-model="item.professi">
+                                            <!-- <p class="errors" v-if="errors.education.item.professi.length">This field must be filled</p> -->
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            <label for="diplom_level">Diplom level:</label>
+                                        </div>
+                                        <div class="col-8 text-center">
+                                            <input class="form-control" type="text" name="diplom_level" v-model="item.level">
+                                             <!-- <p class="errors" v-if="errors.education.item.diplom_level.length">This field must be filled</p> -->
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 text-center">
-                                            <label for="name">Name</label>
+                                            <label for="start">Start:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control" type="text" id="name" name="name" v-model="form.name">
+                                            <input class="form-control date" type="date" name="start" v-model="item.start" placeholder="Start">
+                                            <!-- <p class="errors" v-if="errors.education.item.start.length">This field must be filled</p> -->
                                         </div>
 
                                         <div class="col-4 text-center">
-                                            <label for="phone">Phone</label>
+                                            <label for="finish">Finish:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control" type="text" id="phone" name="phone" value="" v-model="form.phone">
-                                        </div>
-
-                                        <div class="col-4 text-center">
-                                            <label for="email">Email</label>
-                                        </div>
-                                        <div class="col-8 text-center">
-                                            <input class="form-control" type="email" id="email" name="email" value="" v-model="form.email">
-                                        </div>
-
-                                        <div class="col-4 text-center">
-                                            <label for="web_site">Sites</label>
-                                        </div>
-                                        <div class="col-8 text-center">
-                                            <input class="form-control" type="text" id="web_site" name="web_site" v-model="profileform.web_site">
+                                            <input class="form-control date" type="date" name="finish" v-model="item.finish" placeholder="Finish">
+                                            <!-- <p class="errors" v-if="errors.education.item.finish.length">This field must be filled</p> -->
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Vue-avatar-cropper -->
-                                <div class="col-12 col-md-6">
-                                    <div class="row justify-content-center">
-                                        <div class="col-12 text-center">
-                                            <div class="row justify-content-center">
-                                                <div class="col-12 text-center">
-                                                    <img v-if="profileform.photo" :src="profileform.photo" alt="Select an image">
-                                                </div>
-                                            </div>
-                                            <div class="row justify-content-center">
-                                                <div class="col-12 text-center">
-                                                    <button type="button" class="btn btn-info text-light" id="pick-avatar">Select an image</button>
-                                                </div>
-                                            </div>
-                                            <avatar-cropper
-                                              @uploaded="handleUploaded"
-                                              trigger="#pick-avatar"
-                                              :upload-url="'/api/custom/upload'"
-                                              :labels="{ submit: 'OK', cancel: 'Cancel'}"
-                                              :output-options="{width: 300, height: 300}"
-                                            />
-                                        </div>
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-2 text-center">
+                                        <button type="button" class="btn btn-danger" @click="removeEducation(index)" v-if="educationform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-primary" @click="addEducation">
+                                    +ADD Education
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="form-group row justify-content-center">
-                                <!-- Address -->
-                                <div class="col-md-12">
-                                    <div class="card address-card">
-                                        <div class="card-header">Fill in the data at your address</div>
-                                        <div class="card-body">
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group row justify-content-center">
-                                                        <div class="col-4 text-center">
-                                                            <label for="country">Country</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <v-select
-                                                                :options="countries"
-                                                                :reduce="name => name.id"
-                                                                label="name"
-                                                                v-model="addressform.country"
-                                                                @input="changeCountry(addressform.country, true)"
-                                                            >
-                                                            </v-select>
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="region">Region</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <v-select
-                                                                :options="regions"
-                                                                :reduce="name => name.id"
-                                                                label="name"
-                                                                v-model="addressform.region"
-                                                            />
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="city">City</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" id="city" name="city" v-model="addressform.city">
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="index">Zip code</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" id="index" name="index" v-model="addressform.index">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group row justify-content-center">
-                                                        <div class="col-4 text-center">
-                                                            <label for="street">Street</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" id="street" name="street" v-model="addressform.street">
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="house">House</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" id="house" name="house" v-model="addressform.house">
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="apartment">Apartment</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" id="apartment" name="apartment" v-model="addressform.apartment">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                    <div class="form-group row justify-content-center">
+                        <!-- Works -->
+                        <div class="col-12">
+                            <div class="experience-add" v-for="(item, index) in experienceform">
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-12 col-md-6 text-center">
+                                        <div class="form-group row justify-content-center">
+                                            <div class="col-4 text-center">
+                                                <label for="work">Work:</label>
+                                            </div>
+                                            <div class="col-8 text-center">
+                                                <input class="form-control" type="text" name="experience" v-model="item.experience">
                                             </div>
 
+                                            <div class="col-4 text-center">
+                                                <label for="position">Position:</label>
+                                            </div>
+                                            <div class="col-8 text-center">
+                                                <input class="form-control" type="text" name="position" v-model="item.position">
+                                            </div>
+
+                                            <div class="col-4 text-center">
+                                                <label for="professi">Profession:</label>
+                                            </div>
+                                            <div class="col-8 text-center">
+                                                <input class="form-control" type="text" name="profession" v-model="item.profession">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group row justify-content-center">
+                                            <div class="col-4 text-center">
+                                                <label for="start_work">Start:</label>
+                                            </div>
+                                            <div class="col-8 text-center">
+                                                <input class="form-control date" type="date" name="start_work" v-model="item.start">
+                                            </div>
+
+                                            <div class="col-4 text-center">
+                                                <label for="finish_work">Finish:</label>
+                                            </div>
+                                            <div class="col-8 text-center">
+                                                <input class="form-control date" type="date" name="finish_work" v-model="item.finish">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-
-                            <div class="form-group row justify-content-center">
-                                <!-- Accaunts -->
-                                <div class="col-md-12">
-                                    <div class="card accaunts-card">
-                                        <div class="card-header">Your accaunts</div>
-                                        <div class="card-body">
-                                            <div class="form-group row justify-content-center">
-                                                <div class="col-12">
-                                                    <div class="form-group row justify-content-center">
-                                                        <div class="col-2 text-center">
-                                                            <label for="dribbble">Dribbble</label>
-                                                        </div>
-                                                        <div class="col-4 text-center">
-                                                            <input class="form-control" type="text" id="dribbble" name="dribbble" v-model="profileform.dribbble">
-                                                        </div>
-
-                                                        <div class="col-2 text-center">
-                                                            <label for="behance">Behance</label>
-                                                        </div>
-                                                        <div class="col-4 text-center">
-                                                            <input class="form-control" type="text" id="behance" name="behance" v-model="profileform.behance">
-                                                        </div>
-
-                                                        <div class="col-2 text-center">
-                                                            <label for="git">Git</label>
-                                                        </div>
-                                                        <div class="col-4 text-center">
-                                                            <input class="form-control" type="text" id="git" name="git" v-model="profileform.git">
-                                                        </div>
-
-                                                        <div class="col-2 text-center">
-                                                            <label for="linkedin">Linkedin</label>
-                                                        </div>
-                                                        <div class="col-4 text-center">
-                                                            <input class="form-control" type="text" id="linkedin" name="linkedin" v-model="profileform.linkedin">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                           </div>
-                                        </div>
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-12 text-center">
+                                        <vue-editor v-model="item.functions" placeholder="Functions"></vue-editor>
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-2 text-center">
+                                        <button type="button" class="btn btn-danger" @click="removeExperience(index)" v-if="experienceform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group row justify-content-center">
-                                <!-- Languages -->
-                                <div class="col-md-12">
-                                    <div class="card language-card">
-                                        <div class="card-header">What languages do you speak?</div>
-                                        <div class="card-body language-body py-2" v-for="(item, index) in lenguageform" :key="index">
-                                            <div class="form-group row justify-content-center language-add">
-                                                <div class="col-2 text-center">
-                                                    <label for="language">Language</label>
-                                                </div>
-                                                <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" name="language" v-model="item.lenguage">
-                                                </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-primary" id="work_add" @click="addExperience">
+                                    +ADD Experience
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                                                <div class="col-2 text-center">
-                                                    <label for="levelLanguage">Level</label>
-                                                </div>
-                                                <div class="col-3 text-center">
-                                                    <v-select
-                                                        :options="levels"
-                                                        :reduce="level => level.id"
-                                                        label="level"
-                                                        v-model="item.level_id"
-                                                    />
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeLenguage(index)" v-if="lenguageform.length > 1">Remove</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="language_add" @click="addLenguage">
-                                                    +ADD
-                                                </button>
-                                            </div>
-                                        </div>
+                    <div class="form-group row justify-content-center">
+                        <!-- Projects -->
+                        <div class="col-md-12">
+                            <vue-editor v-model="projectsform.description" placeholder="Projects in which you participated"></vue-editor>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <!-- Hobbis -->
+                        <div class="col-md-12">
+                            <div class="hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
+                                <div class="form-group row justify-content-center hobbi-add">
+                                    <div class="col-12 col-md-2 text-center">
+                                        <label for="hobbi">Hobbi</label>
+                                    </div>
+                                    <div class="col-12 col-md-6 text-center">
+                                        <input class="form-control" type="text" name="hobbi" v-model="item.hobbi">
+                                    </div>
+
+                                    <div class="col-12 col-md-2 text-center">
+                                        <button type="button" class="btn btn-danger" @click="removeHobbi(indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group row justify-content-center">
-                                <!-- Skills -->
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">Skills</div>
-                                        <div class="card-body skill-body" v-for="(item, index) in skillform" :key="index">
-                                            <div class="form-group row justify-content-center skill-add">
-                                                <div class="col-2 text-center">
-                                                    <label for="skill">Skill</label>
-                                                </div>
-                                                <div class="col-3 text-center">
-                                                    <input class="form-control" type="text" name="skill" v-model="item.skill">
-                                                </div>
-
-                                                <div class="col-2 text-center">
-                                                    <label for="levelSkill">Level</label>
-                                                </div>
-                                                <div class="col-3 text-center">
-                                                    <v-select
-                                                        :options="levels"
-                                                        :reduce="level => level.id"
-                                                        label="level"
-                                                        v-model="item.level_id"
-                                                    />
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeSkill(index)" v-if="skillform.length > 1">Remove</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="skill_add" @click="addSkill">
-                                                    +ADD
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row justify-content-center">
-                                <!-- Education -->
-                                <div class="col-12">
-                                    <div class="card education-card">
-                                        <div class="card-header">Education</div>
-                                        <div class="card-body education-body" v-for="(item, index) in educationform">
-                                            <div class="education-add form-group row justify-content-center">
-                                                <div class="col-12 col-md-6 text-center">
-                                                    <div class="form-group row justify-content-center">
-                                                        <div class="col-4 text-center">
-                                                            <label for="university">University:</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" name="university" v-model="item.university">
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="professi">Professi:</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" name="professi" v-model="item.professi">
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="diplom_level">Diplom level:</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control" type="text" name="diplom_level" v-model="item.level">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group row justify-content-center">
-                                                        <div class="col-4 text-center">
-                                                            <label for="start">Start:</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control date" type="date" name="start" v-model="item.start" placeholder="Start">
-                                                        </div>
-
-                                                        <div class="col-4 text-center">
-                                                            <label for="finish">Finish:</label>
-                                                        </div>
-                                                        <div class="col-8 text-center">
-                                                            <input class="form-control date" type="date" name="finish" v-model="item.finish" placeholder="Finish">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-2 text-center">
-                                                        <button type="button" class="btn btn-danger" @click="removeEducation(index)" v-if="educationform.length > 1">Remove</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" @click="addEducation">
-                                                    +ADD
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row justify-content-center">
-                                <!-- Works -->
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">Experience works</div>
-                                        <div class="card-body experience-body" v-for="(item, index) in experienceform">
-                                            <div class="experience-add">
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-12 col-md-6 text-center">
-                                                        <div class="form-group row justify-content-center">
-                                                            <div class="col-4 text-center">
-                                                                <label for="work">Work:</label>
-                                                            </div>
-                                                            <div class="col-8 text-center">
-                                                                <input class="form-control" type="text" name="experience" v-model="item.experience">
-                                                            </div>
-
-                                                            <div class="col-4 text-center">
-                                                                <label for="position">Position:</label>
-                                                            </div>
-                                                            <div class="col-8 text-center">
-                                                                <input class="form-control" type="text" name="position" v-model="item.position">
-                                                            </div>
-
-                                                            <div class="col-4 text-center">
-                                                                <label for="professi">Profession:</label>
-                                                            </div>
-                                                            <div class="col-8 text-center">
-                                                                <input class="form-control" type="text" name="profession" v-model="item.profession">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-md-6">
-                                                        <div class="form-group row justify-content-center">
-                                                            <div class="col-4 text-center">
-                                                                <label for="start_work">Start:</label>
-                                                            </div>
-                                                            <div class="col-8 text-center">
-                                                                <input class="form-control date" type="date" name="start_work" v-model="item.start">
-                                                            </div>
-
-                                                            <div class="col-4 text-center">
-                                                                <label for="finish_work">Finish:</label>
-                                                            </div>
-                                                            <div class="col-8 text-center">
-                                                                <input class="form-control date" type="date" name="finish_work" v-model="item.finish">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-12 text-center">
-                                                        <label for="functions">Functions:</label>
-                                                        <vue-editor v-model="item.functions"></vue-editor>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row justify-content-center">
-                                                    <div class="col-2 text-center">
-                                                        <button type="button" class="btn btn-danger" @click="removeExperience(index)" v-if="experienceform.length > 1">Remove</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-footer">
-                                            <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="work_add" @click="addExperience">
-                                                    +ADD
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row justify-content-center">
-                                <!-- Projects -->
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">Projects in which you participated:</div>
-                                        <div class="card-body">
-                                            <vue-editor v-model="projectsform.description"></vue-editor>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row justify-content-center">
-                                <!-- Hobbis -->
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">Hobbis:</div>
-                                        <div class="card-body hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
-                                            <div class="form-group row justify-content-center hobbi-add">
-                                                <div class="col-2 text-center">
-                                                    <label for="hobbi">Hobbi</label>
-                                                </div>
-                                                <div class="col-6 text-center">
-                                                    <input class="form-control" type="text" name="hobbi" v-model="item.hobbi">
-                                                </div>
-
-                                                <div class="col-2 text-center">
-                                                    <button type="button" class="btn btn-danger" @click="removeHobbi(indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
-                                                    +ADD
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row justify-content-center">
-                                <div class="col-md-8 error">
-                                    {{errormessages.error}}
-                                </div>
-                            </div>
-
-                            <div class="row justify-content-center">
-                                <div class="col-12 text-center">
-                                    <button type="button" class="btn btn-success" :disabled="disabledForm" @click="checkForm">
-                                        Register
+                                <div class="col-md-12 text-center">
+                                    <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
+                                        +ADD Hobbi
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 error">
+                            {{errormessages.error}}
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-12 text-center">
+                            <button type="button" class="btn btn-success" :disabled="disabledForm" @click="checkForm">
+                                Register
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -505,6 +463,28 @@
 
         data() {
             return {
+                errors: {
+                    name: [],
+                    phone: [],
+                    email: [],
+                    country: [],
+                    regions: [],
+                    index: [],
+                    city: [],
+                    street: [],
+                    language: [{
+                        lenguage: null,
+                        level_id: null
+                    }],
+                    education: [{
+                        university: null,
+                        professi: null,
+                        start: null,
+                        finish: null,
+                        level: null
+                    }]
+                },
+
                 form: {
                     id: this.user.id,
                     name: null,
@@ -548,9 +528,7 @@
                     region: null,
                     city: null,
                     index: null,
-                    street: null,
-                    house: null,
-                    apartment: null
+                    street: null
                 },
 
                 profileform: {
@@ -585,6 +563,56 @@
         },
 
         methods: {
+            removeErrorName() {
+                this.errors.name = []
+                this.errormessages.error = null
+            },
+
+            removeErrorPhone() {
+                this.errors.phone = []
+                this.errormessages.error = null
+            },
+
+            removeErrorEmail() {
+                this.errors.email = []
+                this.errormessages.error = null
+            },
+
+            removeErrorCountry() {
+                this.errors.country = []
+                this.errormessages.error = null
+            },
+
+            removeErrorRegion() {
+                this.errors.regions = []
+                this.errormessages.error = null
+            },
+
+            removeErrorStreet() {
+                this.errors.street = []
+                this.errormessages.error = null
+            },
+
+            removeErrorCity() {
+                this.errors.city = []
+                this.errormessages.error = null
+            },
+
+            removeErrorIndex() {
+                this.errors.index = []
+                this.errormessages.error = null
+            },
+
+            removeErrorLanguage() {
+                this.errors.language = []
+                this.errormessages.error = null
+            },
+
+            removeErrorLanguageLevel() {
+                this.errors.language_level = []
+                this.errormessages.error = null
+            },
+
             handleUploaded(resp) {
                 this.profileform.photo = resp;
               },
@@ -594,7 +622,7 @@
                     this.addressform.region = null
                 }
 
-                axios.get('/api/geo/children/' + country)
+                axios.get('/api/geo/children/' + country + '?fields=id,name')
                     .then(response => {
                         this.regions = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                     })
@@ -666,30 +694,84 @@
             },
 
             checkForm() {
-                let data = {
-                    user: this.form,
-                    profileform: this.profileform,
-                    lenguageform: this.lenguageform,
-                    skillform: this.skillform,
-                    educationform: this.educationform,
-                    experienceform: this.experienceform,
-                    hobbiform: this.hobbiform,
-                    addressform: this.addressform,
-                    projectsform: this.projectsform
+                if (!this.form.name || this.form.name == "") {
+                    this.errors.name.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
                 }
-                axios.post('/profiles', data)
-                    .then(() => {
-                        this.$router.push('/master/profileshow')
-                    })
-                    .catch(error => {
-                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                        this.errormessages = error.response.data
-                    })
+                else if (!this.form.phone || this.form.phone == "") {
+                    this.errors.phone.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                else if (!this.form.email || this.form.email == "") {
+                    this.errors.email.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                else if (!this.addressform.country || this.addressform.country == "") {
+                    this.errors.country.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                else if (!this.addressform.region || this.addressform.region == "") {
+                    this.errors.regions.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                else if (!this.addressform.city || this.addressform.city == "") {
+                    this.errors.city.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                else if (!this.addressform.index || this.addressform.index == "") {
+                    this.errors.index.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                else if (!this.addressform.street || this.addressform.street == "") {
+                    this.errors.street.push(1)
+                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                }
+                // else if (!this.lenguageform.length) {
+                //     this.errors.language.push(1)
+                //     this.errormessages.error = 'The form contains errors! Fix them first.'
+                // }
+                // else if (this.lenguageform.length > 0) {
+                //     // this.lenguageform.foreach(item => {
+                //     //     console.log(item)
+                //     // })
+                //     // console.log(this.lenguageform.length)
+                //     // for (let i = 0; i < this.lenguageform.length; i++) {
+                //     //     if (this.lenguageform.lenguage)
+                //     //     this.errors.lenguage.push(1)
+                //     //     this.errormessages.error = 'The form contains errors! Fix them first.'
+                //     // }
+                // }
+                // else if (!this.lenguageform.level_id || this.lenguageform.level_id == "") {
+                //     this.errors.language_level.push(1)
+                //     this.errormessages.error = 'The form contains errors! Fix them first.'
+                // }
+                else {
+                    let data = {
+                        user: this.form,
+                        profileform: this.profileform,
+                        lenguageform: this.lenguageform,
+                        skillform: this.skillform,
+                        educationform: this.educationform,
+                        experienceform: this.experienceform,
+                        hobbiform: this.hobbiform,
+                        addressform: this.addressform,
+                        projectsform: this.projectsform
+                    }
+                    axios.post('/profiles', data)
+                        .then(() => {
+                            this.$router.push('/master/profileshow')
+                        })
+                        .catch(error => {
+                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                            this.errormessages = error.response.data
+                        })
+                }
+
             }
         },
 
         mounted() {
-            axios.get('/api/geo/countries')
+            axios.get('/api/geo/countries?fields=id,name')
                 .then(response => {
                     this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })

@@ -113,9 +113,7 @@ class ProfilesController extends Controller
             'region' => ['required'],
             'city' => ['required', 'string', 'min:3', 'max:100'],
             'index' => ['required', 'string', 'min:1', 'max:100'],
-            'street' => ['required', 'string', 'min:1', 'max:100'],
-            'house' => ['required', 'string', 'min:1', 'max:10'],
-            'apartment' => ['required', 'string', 'min:1', 'max:10']
+            'street' => ['required', 'string', 'min:1', 'max:100']
         ]);
         if ($address_data->fails()){
             return response()->json(['error' => 'No valid form address!'], 500);
@@ -314,9 +312,7 @@ class ProfilesController extends Controller
             'region' => ['required'],
             'city' => ['required', 'string', 'min:3', 'max:100'],
             'index' => ['required', 'string', 'min:1', 'max:100'],
-            'street' => ['required', 'string', 'min:1', 'max:100'],
-            'house' => ['required', 'string', 'min:1', 'max:10'],
-            'apartment' => ['required', 'string', 'min:1', 'max:10']
+            'street' => ['required', 'string', 'min:1', 'max:100']
         ]);
         if ($address_data->fails()){
             return response()->json(['error' => 'No valid form address!'], 500);
