@@ -31,8 +31,14 @@ let routes = [
         component: require('./views/ResumesCreate.vue').default
     },
 
+    // {
+    //     path: '/master/showresume/:slug',
+    //     name: 'showresume',
+    //     component: require('./views/ShowResume.vue').default
+    // },
+
     {
-        path: '/master/showresume/:slug',
+        path: '/master/showresume',
         name: 'showresume',
         component: require('./views/ShowResume.vue').default
     }

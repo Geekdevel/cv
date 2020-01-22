@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col-12 text-center">
-                                            <button type="button" class="btn btn-info text-light" id="pick-avatar">Select an image</button>
+                                            <button type="button" class="btn btn-info text-light" id="pick-avatar" @click="removeErrorPhoto">Select an image</button>
                                         </div>
                                     </div>
                                         <avatar-cropper
@@ -88,7 +88,6 @@
                                                 @input="changeCountry(addressform.country, true)"
                                             >
                                             </v-select>
-                                            <p class="errors" v-if="errors.country.length">This field must be filled</p>
                                         </div>
 
                                         <div class="col-4 col-md-2 text-center">
@@ -100,10 +99,11 @@
                                                 :reduce="name => name.id"
                                                 label="name"
                                                 v-model="addressform.region"
+                                                @input="removeErrorRegion"
                                             />
-                                            <p class="errors" v-if="errors.regions.length">This field must be filled</p>
                                         </div>
                                     </div>
+                                    <p class="errors text-center" v-if="errors.country.length || errors.regions.length">This field must be filled</p>
                                 </div>
 
                                 <div class="col-12">
@@ -187,7 +187,6 @@
                                 </div>
                                 <div class="col-12 col-md-3 text-center">
                                     <input class="form-control" type="text" name="language" v-model="item.lenguage" @click="removeErrorLanguage">
-                                    <!-- <p class="errors" v-if="errors.language.length">This field must be filled</p> -->
                                 </div>
 
                                 <div class="col-12 col-md-2 text-center">
@@ -199,13 +198,13 @@
                                         :reduce="level => level.id"
                                         label="level"
                                         v-model="item.level_id"
-                                        @input="removeErrorLanguageLevel"
+                                        @input="removeErrorLanguage"
                                     />
-                                    <!-- <p class="errors" v-if="errors.language_level.length">This field must be filled</p> -->
                                 </div>
                                 <div class="col-12 col-md-2 text-center">
                                     <button type="button" class="btn btn-danger" @click="removeLenguage(index)" v-if="lenguageform.length > 1">Remove</button>
                                 </div>
+                                <p class="errors" v-if="item.error">This field must be filled</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -225,8 +224,7 @@
                                     <label for="skill">Skill</label>
                                 </div>
                                 <div class="col-12 col-md-3 text-center">
-                                    <input class="form-control" type="text" name="skill" v-model="item.skill">
-                                    <!-- <p class="errors" v-if="errors.skill.length">This field must be filled</p> -->
+                                    <input class="form-control" type="text" name="skill" v-model="item.skill" @click="removeErrorSkill">
                                 </div>
 
                                 <div class="col-12 col-md-2 text-center">
@@ -238,12 +236,13 @@
                                         :reduce="level => level.id"
                                         label="level"
                                         v-model="item.level_id"
+                                        @input="removeErrorSkill"
                                     />
-                                    <!-- <p class="errors" v-if="errors.skill_level.length">This field must be filled</p> -->
                                 </div>
                                 <div class="col-12 col-md-2 text-center">
                                     <button type="button" class="btn btn-danger" @click="removeSkill(index)" v-if="skillform.length > 1">Remove</button>
                                 </div>
+                                <p class="errors" v-if="item.error">This field must be filled</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -265,24 +264,21 @@
                                             <label for="university">University:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control" type="text" name="university" v-model="item.university">
-                                            <!-- <p class="errors" v-if="errors.education.item.university.length">This field must be filled</p> -->
+                                            <input class="form-control" type="text" name="university" v-model="item.university" @click="removeErrorEducation">
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="professi">Professi:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control" type="text" name="professi" v-model="item.professi">
-                                            <!-- <p class="errors" v-if="errors.education.item.professi.length">This field must be filled</p> -->
+                                            <input class="form-control" type="text" name="professi" v-model="item.professi" @click="removeErrorEducation">
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="diplom_level">Diplom level:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control" type="text" name="diplom_level" v-model="item.level">
-                                             <!-- <p class="errors" v-if="errors.education.item.diplom_level.length">This field must be filled</p> -->
+                                            <input class="form-control" type="text" name="diplom_level" v-model="item.level" @click="removeErrorEducation">
                                         </div>
                                     </div>
                                 </div>
@@ -292,16 +288,14 @@
                                             <label for="start">Start:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control date" type="date" name="start" v-model="item.start" placeholder="Start">
-                                            <!-- <p class="errors" v-if="errors.education.item.start.length">This field must be filled</p> -->
+                                            <input class="form-control date" type="date" name="start" v-model="item.start" @click="removeErrorEducation">
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="finish">Finish:</label>
                                         </div>
                                         <div class="col-8 text-center">
-                                            <input class="form-control date" type="date" name="finish" v-model="item.finish" placeholder="Finish">
-                                            <!-- <p class="errors" v-if="errors.education.item.finish.length">This field must be filled</p> -->
+                                            <input class="form-control date" type="date" name="finish" v-model="item.finish" @click="removeErrorEducation">
                                         </div>
                                     </div>
                                 </div>
@@ -310,6 +304,7 @@
                                         <button type="button" class="btn btn-danger" @click="removeEducation(index)" v-if="educationform.length > 1">Remove</button>
                                     </div>
                                 </div>
+                                <p class="errors" v-if="item.error">This field must be filled</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -332,21 +327,21 @@
                                                 <label for="work">Work:</label>
                                             </div>
                                             <div class="col-8 text-center">
-                                                <input class="form-control" type="text" name="experience" v-model="item.experience">
+                                                <input class="form-control" type="text" name="experience" v-model="item.experience" @click="removeErrorExperience">
                                             </div>
 
                                             <div class="col-4 text-center">
                                                 <label for="position">Position:</label>
                                             </div>
                                             <div class="col-8 text-center">
-                                                <input class="form-control" type="text" name="position" v-model="item.position">
+                                                <input class="form-control" type="text" name="position" v-model="item.position" @click="removeErrorExperience">
                                             </div>
 
                                             <div class="col-4 text-center">
                                                 <label for="professi">Profession:</label>
                                             </div>
                                             <div class="col-8 text-center">
-                                                <input class="form-control" type="text" name="profession" v-model="item.profession">
+                                                <input class="form-control" type="text" name="profession" v-model="item.profession" @click="removeErrorExperience">
                                             </div>
                                         </div>
                                     </div>
@@ -357,14 +352,14 @@
                                                 <label for="start_work">Start:</label>
                                             </div>
                                             <div class="col-8 text-center">
-                                                <input class="form-control date" type="date" name="start_work" v-model="item.start">
+                                                <input class="form-control date" type="date" name="start_work" v-model="item.start" @click="removeErrorExperience">
                                             </div>
 
                                             <div class="col-4 text-center">
                                                 <label for="finish_work">Finish:</label>
                                             </div>
                                             <div class="col-8 text-center">
-                                                <input class="form-control date" type="date" name="finish_work" v-model="item.finish">
+                                                <input class="form-control date" type="date" name="finish_work" v-model="item.finish" @click="removeErrorExperience">
                                             </div>
                                         </div>
                                     </div>
@@ -372,7 +367,7 @@
 
                                 <div class="form-group row justify-content-center">
                                     <div class="col-12 text-center">
-                                        <vue-editor v-model="item.functions" placeholder="Functions"></vue-editor>
+                                        <vue-editor v-model="item.functions" placeholder="Functions" @click="removeErrorExperience"></vue-editor>
                                     </div>
                                 </div>
                                 <div class="form-group row justify-content-center">
@@ -380,6 +375,7 @@
                                         <button type="button" class="btn btn-danger" @click="removeExperience(index)" v-if="experienceform.length > 1">Remove</button>
                                     </div>
                                 </div>
+                                <p class="errors" v-if="item.error">This field must be filled</p>
                             </div>
                         </div>
 
@@ -408,13 +404,14 @@
                                         <label for="hobbi">Hobbi</label>
                                     </div>
                                     <div class="col-12 col-md-6 text-center">
-                                        <input class="form-control" type="text" name="hobbi" v-model="item.hobbi">
+                                        <input class="form-control" type="text" name="hobbi" v-model="item.hobbi" @click="removeErrorHobbi">
                                     </div>
 
                                     <div class="col-12 col-md-2 text-center">
                                         <button type="button" class="btn btn-danger" @click="removeHobbi(indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
                                     </div>
                                 </div>
+                                <p class="errors" v-if="item.error">This field must be filled</p>
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
@@ -471,18 +468,7 @@
                     regions: [],
                     index: [],
                     city: [],
-                    street: [],
-                    language: [{
-                        lenguage: null,
-                        level_id: null
-                    }],
-                    education: [{
-                        university: null,
-                        professi: null,
-                        start: null,
-                        finish: null,
-                        level: null
-                    }]
+                    street: []
                 },
 
                 form: {
@@ -494,12 +480,14 @@
 
                 lenguageform: [{
                     lenguage: null,
-                    level_id: null
+                    level_id: null,
+                    error: null
                 }],
 
                 skillform: [{
                     skill: null,
-                    level_id: null
+                    level_id: null,
+                    error: null
                 }],
 
                 educationform: [{
@@ -507,7 +495,8 @@
                     professi: null,
                     start: null,
                     finish: null,
-                    level: null
+                    level: null,
+                    error: null
                 }],
 
                 experienceform: [{
@@ -517,10 +506,12 @@
                     start: null,
                     finish: null,
                     functions: null,
+                    error: null
                 }],
 
                 hobbiform: [{
-                    hobbi: null
+                    hobbi: null,
+                    error: null
                 }],
 
                 addressform: {
@@ -563,6 +554,10 @@
         },
 
         methods: {
+            removeErrorPhoto() {
+                this.errormessages.error = null
+            },
+
             removeErrorName() {
                 this.errors.name = []
                 this.errormessages.error = null
@@ -578,12 +573,8 @@
                 this.errormessages.error = null
             },
 
-            removeErrorCountry() {
-                this.errors.country = []
-                this.errormessages.error = null
-            },
-
             removeErrorRegion() {
+                this.errors.country = []
                 this.errors.regions = []
                 this.errormessages.error = null
             },
@@ -604,12 +595,37 @@
             },
 
             removeErrorLanguage() {
-                this.errors.language = []
+                this.lenguageform.forEach((element) => {
+                    element.error = null
+                })
                 this.errormessages.error = null
             },
 
-            removeErrorLanguageLevel() {
-                this.errors.language_level = []
+            removeErrorSkill() {
+                this.skillform.forEach((element) => {
+                    element.error = null
+                })
+                this.errormessages.error = null
+            },
+
+            removeErrorEducation() {
+                this.educationform.forEach((element) => {
+                    element.error = null
+                })
+                this.errormessages.error = null
+            },
+
+            removeErrorExperience() {
+                this.experienceform.forEach((element) => {
+                    element.error = null
+                })
+                this.errormessages.error = null
+            },
+
+            removeErrorHobbi() {
+                this.hobbiform.forEach((element) => {
+                    element.error = null
+                })
                 this.errormessages.error = null
             },
 
@@ -638,7 +654,8 @@
 
             addHobbi() {
                 this.hobbiform.push({
-                    hobbi: null
+                    hobbi: null,
+                    error: null
                 })
             },
 
@@ -649,7 +666,8 @@
             addLenguage() {
                 this.lenguageform.push({
                     lenguage: null,
-                    level_id: null
+                    level_id: null,
+                    error: null
                 })
             },
 
@@ -660,7 +678,8 @@
             addSkill() {
                 this.skillform.push({
                     skill: null,
-                    level_id: null
+                    level_id: null,
+                    error: null
                 })
             },
 
@@ -670,7 +689,8 @@
                     professi: null,
                     start: null,
                     finish: null,
-                    level: null
+                    level: null,
+                    error: null
                 })
             },
 
@@ -686,6 +706,7 @@
                     start: null,
                     finish: null,
                     functions: null,
+                    error: null
                 })
             },
 
@@ -726,47 +747,92 @@
                     this.errors.street.push(1)
                     this.errormessages.error = 'The form contains errors! Fix them first.'
                 }
-                // else if (!this.lenguageform.length) {
-                //     this.errors.language.push(1)
-                //     this.errormessages.error = 'The form contains errors! Fix them first.'
-                // }
-                // else if (this.lenguageform.length > 0) {
-                //     // this.lenguageform.foreach(item => {
-                //     //     console.log(item)
-                //     // })
-                //     // console.log(this.lenguageform.length)
-                //     // for (let i = 0; i < this.lenguageform.length; i++) {
-                //     //     if (this.lenguageform.lenguage)
-                //     //     this.errors.lenguage.push(1)
-                //     //     this.errormessages.error = 'The form contains errors! Fix them first.'
-                //     // }
-                // }
-                // else if (!this.lenguageform.level_id || this.lenguageform.level_id == "") {
-                //     this.errors.language_level.push(1)
-                //     this.errormessages.error = 'The form contains errors! Fix them first.'
-                // }
-                else {
-                    let data = {
-                        user: this.form,
-                        profileform: this.profileform,
-                        lenguageform: this.lenguageform,
-                        skillform: this.skillform,
-                        educationform: this.educationform,
-                        experienceform: this.experienceform,
-                        hobbiform: this.hobbiform,
-                        addressform: this.addressform,
-                        projectsform: this.projectsform
-                    }
-                    axios.post('/profiles', data)
-                        .then(() => {
-                            this.$router.push('/master/profileshow')
-                        })
-                        .catch(error => {
-                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                            this.errormessages = error.response.data
-                        })
-                }
+                else if (this.lenguageform.length > 0) {
+                    this.lenguageform.forEach((element) => {
+                        if (!element.lenguage || element.lenguage == null || !element.level_id || element.level_id == null) {
+                            element.error += 1
+                            this.errormessages.error = 'The form contains errors! Fix them first.'
+                        }
+                    })
 
+                    if (this.skillform.length > 0) {
+                        this.skillform.forEach((element) => {
+                            if (!element.skill || element.skill == null || !element.level_id || element.level_id == null) {
+                                element.error += 1
+                                this.errormessages.error = 'The form contains errors! Fix them first.'
+                            }
+                        })
+
+                        if (this.educationform.length > 0) {
+                            this.educationform.forEach((element) => {
+                                if (!element.university || element.university == null || !element.professi || element.professi == null || !element.start || element.start == null || !element.finish || element.finish == null || !element.level || element.level == null) {
+                                    element.error += 1
+                                    this.errormessages.error = 'The form contains errors! Fix them first.'
+                                }
+                            })
+
+                            if (this.experienceform.length > 0) {
+                                this.experienceform.forEach((element) => {
+                                if (!element.experience || element.experience == null || !element.position || element.position == null || !element.profession || element.profession == null || !element.functions || element.functions == null || !element.start || element.start == null || !element.finish || element.finish == null) {
+                                        element.error += 1
+                                        this.errormessages.error = 'The form contains errors! Fix them first.'
+                                    }
+                                })
+
+                                if (this.hobbiform.length > 0) {
+                                    this.hobbiform.forEach((element) => {
+                                        if (!element.hobbi || element.hobbi == null) {
+                                            element.error += 1
+                                            this.errormessages.error = 'The form contains errors! Fix them first.'
+                                        }
+                                    })
+
+                                    if (!this.errormessages.error) {
+                                        let data = {
+                                            user: this.form,
+                                            profileform: this.profileform,
+                                            lenguageform: this.lenguageform,
+                                            skillform: this.skillform,
+                                            educationform: this.educationform,
+                                            experienceform: this.experienceform,
+                                            hobbiform: this.hobbiform,
+                                            addressform: this.addressform,
+                                            projectsform: this.projectsform
+                                        }
+                                        axios.post('/profiles', data)
+                                            .then(() => {
+                                                this.$router.push('/master/resumeses')
+                                            })
+                                            .catch(error => {
+                                                console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                                                this.errormessages = error.response.data
+                                            })
+                                    }
+                                    else {
+                                        this.errormessages.error = 'UUUUPS! ERRORS!'
+                                    }
+
+
+                                }
+                                else {
+                                    this.errormessages.error = 'The form contains errors! Indicate at least one of your hobbies.'
+                                }
+                            }
+                            else {
+                                this.errormessages.error = 'The form contains errors! If you do not have experience directly indicate this by filling out the appropriate form fields.'
+                            }
+                        }
+                        else {
+                            this.errormessages.error = 'The form contains errors! Have you studied somewhere?'
+                        }
+                    }
+                    else {
+                        this.errormessages.error = 'The form contains errors! Do not you have any skills at all?'
+                    }
+                }
+                else {
+                        this.errormessages.error = 'The form contains errors! Are you talking?'
+                }
             }
         },
 

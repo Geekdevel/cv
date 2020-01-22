@@ -92,12 +92,12 @@ class ProfilesController extends Controller
 
         $profile = $request->profileform;
         $profile_data = Validator::make($profile, [
-            'web_site' => ['string', 'min:3', 'max:100'],
+            'web_site' => ['nullable', 'string', 'max:100'],
             'photo' => ['string'],
-            'dribbble' => ['string', 'min:3', 'max:100'],
-            'behance' => ['string', 'min:3', 'max:100'],
-            'git' => ['string', 'min:3', 'max:100'],
-            'linkedin' => ['string', 'min:3', 'max:100']
+            'dribbble' => ['nullable', 'string', 'max:100'],
+            'behance' => ['nullable', 'string', 'max:100'],
+            'git' => ['nullable', 'string', 'max:100'],
+            'linkedin' => ['nullable', 'string', 'max:100']
         ]);
         if ($profile_data->fails()){
             return response()->json(['error' => 'No valid form profile!'], 500);
@@ -273,12 +273,12 @@ class ProfilesController extends Controller
 
         $profile = $request->profileform;
         $profile_data = Validator::make($profile, [
-            'web_site' => ['string', 'min:3', 'max:100'],
+            'web_site' => ['nullable', 'string', 'max:100'],
             'photo' => ['string'],
-            'dribbble' => ['string', 'min:3', 'max:100'],
-            'behance' => ['string', 'min:3', 'max:100'],
-            'git' => ['string', 'min:3', 'max:100'],
-            'linkedin' => ['string', 'min:3', 'max:100']
+            'dribbble' => ['nullable', 'string', 'max:100'],
+            'behance' => ['nullable', 'string', 'max:100'],
+            'git' => ['nullable', 'string', 'max:100'],
+            'linkedin' => ['nullable', 'string', 'max:100']
         ]);
         if ($profile_data->fails()){
             return response()->json(['error' => 'No valid form profile!'], 500);
