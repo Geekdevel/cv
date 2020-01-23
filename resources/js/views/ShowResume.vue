@@ -232,6 +232,7 @@
 
         created() {
             this.$set(this, 'form', this.user)
+            console.log(this.$route.params.slag)
         }
     }
 </script>

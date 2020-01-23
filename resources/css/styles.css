@@ -8,6 +8,30 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+.hobbi-form {
+  margin-top: 40px;
+}
+.add-btn-p {
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
+.add-btn-pe {
+  margin-top: -25px;
+  margin-bottom: 15px;
+}
+.add-btn-pex {
+  margin-top: -30px;
+  margin-bottom: 10px;
+}
+.education-add {
+  margin-bottom: 0px;
+}
+.experience-add {
+  padding-bottom: 0px;
+}
+/*.language-add {
+  margin-bottom: 10px;
+}*/
 .errors {
   color: red;
 }

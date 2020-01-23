@@ -34,7 +34,7 @@
 
 <body id="page-top">
 <div id="app">
-
+  {{-- <app-nav :user="{{ Auth::user() }}"></app-nav> --}}
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="/master"> {{ Auth::user()->name }} </a>
@@ -72,6 +72,9 @@
       <li class="nav-item active">
         <router-link :to="{ name: 'resumescreate' }" class="nav-link"> <i class="fas fa-pen-nib"></i> <span>Create Resume</span></router-link>
       </li>
+      {{-- <li class="nav-item active">
+        <router-link :to="{ name: 'showresume-slag', params: { slag: 'slag' } }" class="nav-link"> <i class="fas fa-pen-nib"></i> <span>111111111111</span></router-link>
+      </li> --}}
       <li class="nav-item active">
         <router-link :to="{ name: 'showresume' }" class="nav-link"> <i class="fas fa-file"></i> <span>Resume Show</span></router-link>
       </li>
