@@ -5,18 +5,20 @@
                     <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
                     <h1 class="name">{{ form.name }}</h1>
                     <h3 class="tagline">{{ resumeform.job_title }}</h3>
-                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model="resumeform.job_title" placeholder="Job Title" @click="chekErrorMessages" required>
+                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model.trim="$v.resumeform.job_title.$model" placeholder="Job Title" @click="chekErrorMessages">
+                    <div class="error" v-if="$v.resumeform.job_title.$error && !$v.resumeform.job_title.required">Must be completed!</div>
+                    <div class="error" v-if="!$v.resumeform.job_title.minLength">Field must have at least {{ $v.resumeform.job_title.$params.minLength.min }} characters.</div>
                 </div><!--//profile-container-->
 
                 <div class="contact-container container-block">
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
                         <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
-                        <li class="website"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
-                        <li class="linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
-                        <li class="github"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
-                        <li class="dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
-                        <li class="behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
+                        <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
+                        <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
+                        <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
+                        <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
+                        <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
                     </ul>
                 </div><!--//contact-container-->
                 <div class="education-container container-block">
@@ -53,11 +55,20 @@
                         {{errormessages.error}}
                     </div>
 
+                <section class="section slag-section">
+                    <div class="summary">
+                        <label for="slag"><h5>Slug for your resume:</h5></label>
+                        <h3>{{resumeform.slag}}</h3>
+                    </div><!--//summary-->
+                </section><!--//section-->
+
                 <section class="section summary-section">
                     <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
-                    <div class="summary">
+                    <div class="summary" :class="{ 'form-group--error': $v.resumeform.description.$error }">
                         <h5>Summarise your career here:</h5>
-                        <vue-editor v-model="resumeform.description" @click="chekErrorMessages" required></vue-editor>
+                        <vue-editor v-model.trim="$v.resumeform.description.$model" @click="chekErrorMessages"></vue-editor>
+                        <div class="error" v-if="$v.resumeform.description.$error && !$v.resumeform.description.required">Must be completed!</div>
+                        <div class="error" v-if="!$v.resumeform.description.minLength">Field must have at least {{ $v.resumeform.description.$params.minLength.min }} characters.</div>
                     </div><!--//summary-->
                 </section><!--//section-->
 
@@ -97,7 +108,11 @@
                     </div>
                 </section><!--//skills-section-->
 
-                <button class="button-save" type="button" :disabled="disabledForm" @click="checkForm">
+                <div class="error">
+                    {{errormessages.error}}
+                </div>
+
+                <button class="button-save" type="button" @click="checkForm">
                     Save
                 </button>
 
@@ -107,6 +122,7 @@
 
 <script>
     import { VueEditor } from "vue2-editor";
+    import { required, minLength, between } from 'vuelidate/lib/validators';
 
     export default {
         components: {
@@ -168,9 +184,10 @@
                 },
 
                 resumeform: {
+                    id: null,
+                    slag: null,
                     description: null,
-                    job_title: null,
-                    slag: null
+                    job_title: null
                 },
 
                 errormessages: {
@@ -179,30 +196,43 @@
             }
         },
 
-        mounted() {
-            slug = this.$route.params
-            console.log(slug)
-            // axios.post('/resume/profile')
-            //     .then(response =>{
-            //         this.profileform = response.data.profile
-            //         this.hobbiform = response.data.hobbi
-            //         this.experienceform = response.data.works
-            //         this.educationform = response.data.educations
-            //         this.lenguageform = response.data.lenguages
-            //         this.skillform = response.data.skills
-            //         this.projectsform = response.data.projects
-            //     })
-            //     .catch(error => {
-            //         console.log(error.response.data.message ? error.response.data.message : error.response.data)
-            //         this.errormessages = error.response.data
-            //     })
+        validations: {
+            resumeform: {
+                description: {
+                    required,
+                    minLength: minLength(10)
+                },
+
+                job_title: {
+                    required,
+                    minLength: minLength(2)
+                },
+            }
         },
 
-        computed: {
-            disabledForm() {
-                return !this.resumeform.job_title || !this.resumeform.slag || !this.resumeform.description ? true : false
-            }
-
+        mounted() {
+            axios.post('/resume/profile')
+                .then(response =>{
+                    this.profileform = response.data.profile
+                    this.hobbiform = response.data.hobbi
+                    this.experienceform = response.data.works
+                    this.educationform = response.data.educations
+                    this.lenguageform = response.data.lenguages
+                    this.skillform = response.data.skills
+                    this.projectsform = response.data.projects
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
+                })
+            axios.post('/resume/' + this.$route.params.slag)
+                .then(response => {
+                    this.resumeform = response.data
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
+                })
         },
 
         methods: {
@@ -215,24 +245,29 @@
             },
 
             checkForm() {
-                let data = {
-                    user: this.form,
-                    resumeform: this.resumeform
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.errormessages.error = 'UUUPS!!!'
                 }
-                axios.post('/resumes', data)
-                    .then(() => {
-                        this.$router.push('/master/resumeses')
-                    })
-                    .catch(error => {
-                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                        this.errormessages = error.response.data
-                    })
+                else {
+                    let data = {
+                        user: this.form,
+                        resumeform: this.resumeform
+                    }
+                    axios.put('/resumes/' + this.$route.params.slag, data)
+                        .then(() => {
+                            this.$router.push('/master/resumeses')
+                        })
+                        .catch(error => {
+                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                            this.errormessages = error.response.data
+                        })
+                }
             }
         },
 
         created() {
             this.$set(this, 'form', this.user)
-            console.log(this.$route.params.slag)
         }
     }
 </script>

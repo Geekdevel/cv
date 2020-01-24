@@ -710,13 +710,6 @@
 
         computed: {
             disabledForm() {
-                // if (this.$v.$error) {
-                //     return true
-                // }
-                // else {
-                //     return false
-                // }
-                //return !this.form.name || !this.form.email ? true : false
                 return false
             },
         },
@@ -829,7 +822,7 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
-            axios.get('/levels/all')
+            axios.post('/api/levels/all')
                 .then(response => {
                     this.levels = response.data
                 })

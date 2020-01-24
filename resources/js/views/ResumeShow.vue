@@ -5,9 +5,6 @@
                     <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
                     <h1 class="name">{{ form.name }}</h1>
                     <h3 class="tagline">{{ resumeform.job_title }}</h3>
-                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model.trim="$v.resumeform.job_title.$model" placeholder="Job Title" @click="chekErrorMessages">
-                    <div class="error" v-if="$v.resumeform.job_title.$error && !$v.resumeform.job_title.required">Must be completed!</div>
-                    <div class="error" v-if="!$v.resumeform.job_title.minLength">Field must have at least {{ $v.resumeform.job_title.$params.minLength.min }} characters.</div>
                 </div><!--//profile-container-->
 
                 <div class="contact-container container-block">
@@ -51,26 +48,14 @@
             </div><!--//sidebar-wrapper-->
 
             <div class="main-wrapper">
-                    <div class="error">
+<!--                     <div class="error">
                         {{errormessages.error}}
                     </div>
-
-                <section class="section slag-section">
-                    <div class="summary" :class="{ 'form-group--error': $v.resumeform.slag.$error }">
-                        <label for="slag"><h5>Slug for your resume:</h5></label>
-                        <input type="text" id="slag" name="slag" v-model.trim="$v.resumeform.slag.$model" @click="chekErrorMessages">
-                        <div class="error" v-if="$v.resumeform.slag.$error && !$v.resumeform.slag.required">Must be completed and unique!</div>
-                        <div class="error" v-if="!$v.resumeform.slag.minLength">Field must have at least {{ $v.resumeform.slag.$params.minLength.min }} characters.</div>
-                    </div><!--//summary-->
-                </section><!--//section-->
-
+ -->
                 <section class="section summary-section">
                     <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
-                    <div class="summary" :class="{ 'form-group--error': $v.resumeform.description.$error }">
-                        <h5>Summarise your career here:</h5>
-                        <vue-editor v-model.trim="$v.resumeform.description.$model" @click="chekErrorMessages"></vue-editor>
-                        <div class="error" v-if="$v.resumeform.description.$error && !$v.resumeform.description.required">Must be completed!</div>
-                        <div class="error" v-if="!$v.resumeform.description.minLength">Field must have at least {{ $v.resumeform.description.$params.minLength.min }} characters.</div>
+                    <div class="summary">
+                        <div class="intro" v-html="resumeform.description"></div>
                     </div><!--//summary-->
                 </section><!--//section-->
 
@@ -110,21 +95,12 @@
                     </div>
                 </section><!--//skills-section-->
 
-                <div class="error">
-                    {{errormessages.error}}
-                </div>
-
-                <button class="button-save" type="button" :disabled="disabledForm" @click="checkForm">
-                    Save
-                </button>
-
             </div><!--//main-body-->
         </div>
 </template>
 
 <script>
     import { VueEditor } from "vue2-editor";
-    import { required, minLength, between } from 'vuelidate/lib/validators';
 
     export default {
         components: {
@@ -149,7 +125,8 @@
                     linkedin: null,
                     git: null,
                     dribbble: null,
-                    behance: null
+                    behance: null,
+                    photo: null
                 },
 
                 educationform: [{
@@ -190,29 +167,6 @@
                     job_title: null,
                     slag: null
                 },
-
-                errormessages: {
-                    error: null
-                }
-            }
-        },
-
-        validations: {
-            resumeform: {
-                description: {
-                    required,
-                    minLength: minLength(10)
-                },
-
-                job_title: {
-                    required,
-                    minLength: minLength(2)
-                },
-
-                slag: {
-                    required,
-                    minLength: minLength(6)
-                }
             }
         },
 
@@ -226,6 +180,14 @@
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
+                })
+            axios.post('/resume/' + this.$route.params.slag)
+                .then(response => {
+                    this.resumeform = response.data
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
@@ -248,27 +210,6 @@
             thisProjectBar(value) {
                 return value * 25
             },
-
-            checkForm() {
-                this.$v.$touch()
-                if (this.$v.$invalid) {
-                    this.errormessages.error = 'UUUPS!!!'
-                }
-                else {
-                    let data = {
-                        user: this.form,
-                        resumeform: this.resumeform
-                    }
-                    axios.post('/resumes', data)
-                        .then(() => {
-                            this.$router.push('/master/resumeses')
-                        })
-                        .catch(error => {
-                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                            this.errormessages = error.response.data
-                        })
-                }
-            }
         },
 
         created() {

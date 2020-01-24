@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Level;
 
 class UploadController extends Controller
 {
@@ -15,6 +16,12 @@ class UploadController extends Controller
         else {
             return response()->json(['error' => 'Uuups!'], 500);
         }
+    }
+
+    public function allLevels()
+    {
+        $levels = Level::all();
+        return $levels;
     }
 
 }

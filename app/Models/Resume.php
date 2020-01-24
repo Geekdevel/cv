@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Support\Facades\DB;
 
 class Resume extends Model
 {
@@ -16,5 +17,11 @@ class Resume extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    static function slag( $slag )
+    {
+        $resume = Resume::where('slag', $slag)->first();
+        return $resume;
     }
 }

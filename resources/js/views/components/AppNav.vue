@@ -9,18 +9,9 @@
 
     <ul class="nav d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <li class="nav-item">
-        <button type="button" class="btn btn-sm btn-outline-light text-white order-1 order-sm-0" href="#">
+        <button class="btn btn-sm btn-outline-light text-white order-1 order-sm-0" @click="logautClick()">
           Logout
         </button>
-       <!--  <a class="btn btn-sm btn-outline-light text-white order-1 order-sm-0" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
-          </a> -->
-
-         <!--  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form> -->
       </li>
     </ul>
 
@@ -42,7 +33,13 @@
 
     methods: {
       logautClick() {
-
+        axios.post('/logout')
+          .then(response => {
+            this.$router.push("/login")
+          })
+          .catch(error => {
+            location.reload()
+          })
       }
     }
   }

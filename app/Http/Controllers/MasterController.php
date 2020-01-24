@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Level;
 
 class MasterController extends Controller
 {
@@ -27,10 +26,9 @@ class MasterController extends Controller
         return view('master');
     }
 
-    public function allLevels()
+    public function home()
     {
-        $levels = Level::all();
-        return $levels;
+        return view('master');
     }
 
 }

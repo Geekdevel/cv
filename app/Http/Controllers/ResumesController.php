@@ -50,10 +50,8 @@ class ResumesController extends Controller
      */
     public function index()
     {
-        // dd('ResumeController index');
         $user = auth()->user();
         $resumes = $user->resumes;
-        // dd($resumes);
         return $resumes;
     }
 
@@ -81,7 +79,6 @@ class ResumesController extends Controller
         if(count($user->resumes) < 3 || !isset($user->resumes)) {
             $user_id = $user->id;
 
-            // $resume = $request->resumeform;
             $resume += ['user_id' => $user_id];
             $resume_data = Validator::make($resume, [
                 'user_id' => ['required'],
@@ -93,27 +90,6 @@ class ResumesController extends Controller
                 return response()->json(['error' => 'No valid form resume!'], 409);
             }
             else {
-                // $data = [
-                //     'user' => $user,
-                //     'profile' => $request->profileform,
-                //     'educations' => $request->educationform,
-                //     'lenguages' => $request->lenguageform,
-                //     'hobbis' => $request->hobbiform,
-                //     'experience' => $request->experienceform,
-                //     'skills' => $request->skillform,
-                //     'resume' => $resume,
-                //     'projects' => $request->projectsform
-                // ];
-                // $namePdf = strip_tags($resume['slag']);
-                // // dd($resume['slag']);
-                // PDF::loadView('layouts/pdf', $data)->save(storage_path('/pdf/').$namePdf.'.pdf')->stream();
-                // $dataPdf = [
-                //     'user_id' => $user_id,
-                //     'field' => '/storage/pdf/'.$namePdf.'.pdf'
-                // ];
-                // // $field_id = Field::create($dataPdf)->id;
-                // $resume += ['field_id' => Field::create($dataPdf)->id];
-                // $slug = $resume['slag'];
                 Resume::create($resume);
                 return response()->json(['success' => 'Resume '.$slug.' user`s '.$user->name.' created!'], 201);
             }
@@ -134,6 +110,13 @@ class ResumesController extends Controller
         //
     }
 
+    public function getResume(Request $request)
+    {
+        $slag = $request->slag;
+        $resume = Resume::slag($slag);
+        return response()->json(['slag' => $resume->slag, 'job_title' => $resume->job_title, 'description' => $resume->description], 200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -152,9 +135,29 @@ class ResumesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slag)
     {
-        //
+        // dd($slag);
+        $resume = Resume::slag($slag);
+        // dd($slag);
+        $update_resume['job_title'] = $request->resumeform['job_title'];
+        $update_resume['description'] = $request->resumeform['description'];
+        $update_resume['user_id'] = $resume->user_id;
+        $update_resume['slag'] = $resume->slag;
+        // dd($resume);
+        $resume_data = Validator::make($update_resume, [
+            'user_id' => ['required'],
+            'slag' => ['string', 'min:3', 'max:255'],
+            'job_title' => ['string', 'min:3', 'max:100'],
+            'description' => ['string', 'min:3', 'max:10000']
+        ]);
+        if ($resume_data->fails()){
+                return response()->json(['error' => 'No valid form resume!'], 409);
+            }
+            else {
+                $resume->update($update_resume);
+                return response()->json(['success' => 'Resume '.$resume->slag.' update!'], 201);
+            }
     }
 
     /**
@@ -165,8 +168,8 @@ class ResumesController extends Controller
      */
     public function destroy(Resume $resume)
     {
-        // dd('Deleted '.$resume->slag);
         $resume->delete();
-        return response()->json(['success' => 'Resume '.$resume->slag.' deleted!'], 201);
+        $resumes = auth()->user()->resumes;
+        return $resumes;
     }
 }

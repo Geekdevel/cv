@@ -34,63 +34,11 @@
 
 <body id="page-top">
 <div id="app">
-  {{-- <app-nav :user="{{ Auth::user() }}"></app-nav> --}}
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-    <a class="navbar-brand mr-1" href="/master"> {{ Auth::user()->name }} </a>
-
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <ul class="nav d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <li class="nav-item">
-        <a class="btn btn-sm btn-outline-light text-white order-1 order-sm-0" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
-          </a>
-
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-      </li>
-    </ul>
-
-  </nav>
-
+  <app-nav :user="{{ Auth::user() }}"></app-nav>
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
-        <router-link :to="{ name: 'profileedit' }" class="nav-link"> <i class="fas fa-user-tag"></i> <span>Profile</span></router-link>
-      </li>
-      <li class="nav-item active">
-        <router-link :to="{ name: 'resumes' }" class="nav-link"> <i class="far fa-address-card"></i> <span>Resumes</span></router-link>
-      </li>
-      <li class="nav-item active">
-        <router-link :to="{ name: 'resumescreate' }" class="nav-link"> <i class="fas fa-pen-nib"></i> <span>Create Resume</span></router-link>
-      </li>
-      {{-- <li class="nav-item active">
-        <router-link :to="{ name: 'showresume-slag', params: { slag: 'slag' } }" class="nav-link"> <i class="fas fa-pen-nib"></i> <span>111111111111</span></router-link>
-      </li> --}}
-      <li class="nav-item active">
-        <router-link :to="{ name: 'showresume' }" class="nav-link"> <i class="fas fa-file"></i> <span>Resume Show</span></router-link>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <router-link :to="{ name: 'master' }" class="dropdown-item">Home</router-link>
-          <router-link :to="{ name: 'profilecreate' }" class="dropdown-item">Create Profile</router-link>
-        </div>
-      </li>
-    </ul>
+    <app-sidebar></app-sidebar>
 
     <div id="content-wrapper">
 

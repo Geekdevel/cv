@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 \Igaster\LaravelCities\Geo::ApiRoutes();
 
 Route::post('/custom/upload', 'UploadController@uploadPhoto');
+Route::post('/levels/all', 'UploadController@allLevels');
