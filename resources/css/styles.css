@@ -75,7 +75,7 @@ td {
 .wrapper {
   background: #42A8C0;
   max-width: 960px;
-  min-height: 1350px;
+  /*min-height: 1350px;*/
   margin: 0 auto;
   position: relative;
   -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -86,9 +86,9 @@ td {
   background: #42A8C0;
   position: absolute;
   right: 0;
-  width: 240px;
-  height: 100%;
-  min-height: 1350px;
+  width: 340px;
+  /*height: 100%;
+  min-height: 1350px;*/
   color: #fff;
 }
 .sidebar-wrapper a {
@@ -186,8 +186,8 @@ td {
 .main-wrapper {
   background: #fff;
   padding: 60px;
-  padding-right: 300px;
-  min-height: 1350px;
+  padding-right: 360px;
+  /*min-height: 1350px;*/
 }
 .main-wrapper .section-title {
   text-transform: uppercase;

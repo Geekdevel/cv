@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
 
-    <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    {{-- <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> --}}
     <style>
         img {
             border-radius: 50%;
@@ -27,7 +27,7 @@
           position: absolute;
           right: 0;
           width: 240px;
-          height: 100%;
+          /*height: 100%;*/
           color: #fff;
         }
         .sidebar-wrapper a {
