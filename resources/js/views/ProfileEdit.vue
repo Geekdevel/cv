@@ -837,6 +837,8 @@
                     this.projectsform = response.data.projects
 
                     this.changeCountry(this.addressform.country)
+                    this.addressform.country = Number(this.addressform.country)
+                    this.addressform.region = Number(this.addressform.region)
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)

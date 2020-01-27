@@ -8,6 +8,9 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+.pdf-load {
+  margin-left: 50%;
+}
 .hobbi-form {
   margin-top: 40px;
 }

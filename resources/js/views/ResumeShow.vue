@@ -94,7 +94,7 @@
                         </div><!--//item-->
                     </div>
                 </section><!--//skills-section-->
-
+                <a target="_blank" class="btn btn-danger pdf-load" :href="'/cvs/' + resumeform.slag + '/pdf'">PDF</a>
             </div><!--//main-body-->
         </div>
 </template>
@@ -171,7 +171,7 @@
         },
 
         mounted() {
-            axios.post('/resume/profile')
+            axios.post('/profiles/user')
                 .then(response =>{
                     this.profileform = response.data.profile
                     this.hobbiform = response.data.hobbi

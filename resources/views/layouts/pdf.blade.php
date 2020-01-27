@@ -5,11 +5,13 @@
     <title>Resume {{$user->name}}</title>
 
     <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
+{{--     <link href="/css/all.css" rel="stylesheet">
+ --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
     <style>
-        img{
-            width: 50px;
+        img {
+            border-radius: 50%;
+            height: 150px;
         }
         li {
             list-style-type: none;
@@ -234,29 +236,39 @@
     <div class="wrapper">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
-                    <img class="profile" src="{{ $user->profile->photo }}" alt="{{$user->name}}" height="50px" />
+                    <img class="profile" src="{!! $user->profile->photo !!}" alt="{{$user->name}}"/>
                     <h1 class="name">{{ $user->name }}</h1>
-                    <h3 class="tagline">{{ $resume['job_title'] }}</h3>
+                    <h3 class="tagline">{{ $resume->job_title }}</h3>
                 </div><!--//profile-container-->
 
                 <div class="contact-container container-block">
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fa fa-envelope"></i>{{ $user->email }}</li>
                         <li class="phone"><i class="fa fa-phone"></i> {{ $user->phone }}</li>
-                        <li class="website"><i class="fa fa-globe"></i> {{ $profile['web_site'] }}</li>
-                        <li class="linkedin"><i class="fab fa-linkedin"></i> {{ $profile['linkedin'] }}</li>
-                        <li class="github"><i class="fab fa-github"></i> {{ $profile['git'] }}</li>
-                        <li class="dribbble"><i class="fab fa-dribbble"></i> {{ $profile['dribbble'] }}</li>
-                        <li class="behance"><i class="fab fa-behance"></i> {{ $profile['behance'] }}</li>
+                        @if (isset($user->profile->web_site))
+                          <li class="website"><i class="fa fa-globe"></i> {{ $user->profile->web_site }}</li>
+                        @endif
+                        @if (isset($user->profile->linkedin))
+                          <li class="linkedin"><i class="fab fa-linkedin"></i> {{ $user->profile->linkedin }}</li>
+                        @endif
+                        @if (isset($user->profile->git))
+                          <li class="github"><i class="fab fa-github"></i> {{ $user->profile->git }}</li>
+                        @endif
+                        @if (isset($user->profile->dribbble))
+                          <li class="dribbble"><i class="fab fa-dribbble"></i> {{ $user->profile->dribbble }}</li>
+                        @endif
+                        @if (isset($user->profile->behance))
+                          <li class="behance"><i class="fab fa-behance"></i> {{ $user->profile->behance }}</li>
+                        @endif
                     </ul>
                 </div><!--//contact-container-->
                 <div class="education-container container-block">
                     <h2 class="container-block-title">Education</h2>
-                    @foreach($educations as $education)
+                    @foreach($user->educations as $education)
                         <div class="item">
-                            <h4 class="degree">{{ $education['level'] }}</h4>
-                            <h5 class="meta">{{ $education['university'] }}</h5>
-                            <div class="time">{{ $education['start'] }} - {{ $education['finish'] }}</div>
+                            <h4 class="degree">{{ $education->level }}</h4>
+                            <h5 class="meta">{{ $education->university }}</h5>
+                            <div class="time">{{ $education->start }} - {{ $education->finish }}</div>
                         </div><!--//item-->
                     @endforeach
                 </div><!--//education-container-->
@@ -264,9 +276,9 @@
                 <div class="languages-container container-block">
                     <h2 class="container-block-title">Languages</h2>
                     <ul class="list-unstyled interests-list">
-                        @foreach($lenguages as $lenguage)
+                        @foreach($user->languages as $lenguage)
                         <li>
-                            {{ $lenguage['lenguage'] }} <span class="lang-desc">( {{ $lenguage['level']['level'] }} )</span>
+                            {{ $lenguage->lenguage }} <span class="lang-desc">( {{ $lenguage->level->level }} )</span>
                         </li>
                         @endforeach
                     </ul>
@@ -275,9 +287,9 @@
                 <div class="interests-container container-block">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
-                        @foreach($hobbis as $hobbi)
+                        @foreach($user->hobbis as $hobbi)
                         <li>
-                            {{ $hobbi['hobbi'] }}
+                            {{ $hobbi->hobbi }}
                         </li>
                         @endforeach
                     </ul>
@@ -287,66 +299,59 @@
 
             <div class="main-wrapper">
 
-{{--                 <section class="section slag-section">
-                    <h2 class="section-title"><i class="fa fa-user"></i>Resume Slag</h2>
-                    <div class="summary">
-                        {!! $resume['slag'] !!}
-                    </div>
-                </section>
- --}}
                 <section class="section summary-section">
-                    <h2 class="section-title">{{-- <i class="fa fa-user"></i> --}}Career Profile</h2>
+                    <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
                     <div class="summary">
-                        {!! $resume['description'] !!}
+                        {!! $resume->description !!}
                     </div><!--//summary-->
                 </section><!--//section-->
 
                 <section class="section experiences-section">
-                    <h2 class="section-title">{{-- <i class="fa fa-briefcase"></i> --}}Experiences</h2>
+                    <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
 
-                    @foreach($experience as $item)
+                    @foreach($user->works as $item)
                         <div class="item">
                             <div class="meta">
                                 <div class="upper-row">
-                                    <h3 class="job-title">{{ $item['position'] }}</h3>
-                                    <div class="time">{{ $item['start'] }} - {{ $item['finish'] }}</div>
+                                    <h3 class="job-title">{{ $item->position }}</h3>
+                                    <div class="time">{{ $item->start }} - {{ $item->finish }}</div>
                                 </div><!--//upper-row-->
-                                <div class="company">{{ $item['experience'] }}</div>
+                                <div class="company">{{ $item->experience }}</div>
                             </div><!--//meta-->
                             <div class="details">
-                                {!! $item['functions'] !!}
+                                {!! $item->functions !!}
                             </div><!--//details-->
                         </div><!--//item-->
                     @endforeach
                 </section><!--//section-->
 
                 <section class="section projects-section">
-                    <h2 class="section-title">{{-- <i class="fa fa-archive"></i> --}}Projects</h2>
+                    <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
                     <div class="intro">
-                        {!! $projects['description'] !!}
+                        {!! $user->projects->description !!}
                     </div><!--//intro-->
                 </section><!--//section-->
 
                 <section class="skills-section section">
-                    <h2 class="section-title">{{-- <i class="fa fa-rocket"></i> --}}Skills &amp; Proficiency</h2>
+                    <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
                     <div class="skillset">
-                        <ul class="list-unstyled interests-list">
-                            @foreach($skills as $skill)
+                        {{-- <ul class="list-unstyled interests-list">
+                            @foreach($user->skills as $skill)
                             <li>
-                                {{ $skill['skill'] }} <span class="lang-desc">( {{ $skill['level']['level'] }} )</span>
+                                {{ $skill->skill }} <span class="lang-desc">( {{ $skill->level->level }} )</span>
                             </li>
                             @endforeach
-                        </ul>
-{{--                         @foreach($skills as $skill)
+                        </ul> --}}
+                        @foreach($user->skills as $skill)
                             <div class="item">
-                                <h3 class="level-title">{{ $skill['skill'] }}</h3>
+                                <h3 class="level-title">{{ $skill->skill }}</h3>
                                 <div class="level-bar">
-                                    <div class="level-bar-inner" data-level="{{ $skill['level_id']*25 }}%">
+                                    <div class="level-bar-inner" data-level="{{ ($skill->level_id)*25 }}%">
                                     </div>
                                 </div>
                             </div>
                         @endforeach
- --}}                    </div>
+                    </div>
                 </section><!--//skills-section-->
 
             </div><!--//main-body-->

@@ -23,5 +23,4 @@ class UploadController extends Controller
         $levels = Level::all();
         return $levels;
     }
-
 }

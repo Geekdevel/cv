@@ -19,30 +19,22 @@ use PDF;
 
 class ResumesController extends Controller
 {
-    public function getProfile(Request $request)
+    public function getPdf(Request $request, $slag)
     {
         $user = auth()->user();
-        $profile = $user->profile;
-        $lenguages = $user->languages;
-        $address = $user->address;
-        $educations = $user->educations;
-        $hobbi = $user->hobbis;
-        $skills = $user->skills;
-        $works = $user->works;
-        $projects = $user->projects;
-
-        return response()->json([
-            'profile' => $profile,
-            'lenguages' => $lenguages,
-            'address' => $address,
-            'educations' => $educations,
-            'hobbi' => $hobbi,
-            'skills' => $skills,
-            'works' => $works,
-            'projects' => $projects
-        ]);
+        $slag = $request->slag;
+        $resume = Resume::slag($slag);
+        // dd($resume->description);
+        // return PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+        $data = [
+            'user' => $user,
+            'resume' => $resume
+        ];
+        // dd(storage_path($data['user']->profile->photo));
+        // dd($data);
+        return PDF::loadView('layouts/pdf', $data)->stream('download.pdf');
+        // return view('layouts/pdf', compact('user', 'resume'));
     }
-
     /**
      * Display a listing of the resource.
      *

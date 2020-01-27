@@ -217,7 +217,7 @@
         },
 
         mounted() {
-            axios.post('/resume/profile')
+            axios.post('/profiles/user')
                 .then(response =>{
                     this.profileform = response.data.profile
                     this.hobbiform = response.data.hobbi
