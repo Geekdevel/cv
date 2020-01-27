@@ -5,9 +5,6 @@
     <title>Resume {{$user->name}}</title>
 
     <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-{{--     <link href="/css/all.css" rel="stylesheet">
- --}}
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <style>
         img {
             border-radius: 50%;
@@ -335,19 +332,13 @@
                 <section class="skills-section section">
                     <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
                     <div class="skillset">
-                        {{-- <ul class="list-unstyled interests-list">
-                            @foreach($user->skills as $skill)
-                            <li>
-                                {{ $skill->skill }} <span class="lang-desc">( {{ $skill->level->level }} )</span>
-                            </li>
-                            @endforeach
-                        </ul> --}}
                         @foreach($user->skills as $skill)
                             <div class="item">
-                                <h3 class="level-title">{{ $skill->skill }}</h3>
-                                <div class="level-bar">
-                                    <div class="level-bar-inner" data-level="{{ ($skill->level_id)*25 }}%">
-                                    </div>
+                                <h3 class="level-title" style="float: left; width: 30%;">{{ $skill->skill }}</h3>
+                                <div class="level-bar" style="margin-left: 30%;">
+                                  <div class="level-bar-inner" style="width: {{ ($skill->level_id)*25 }}%;">
+                                  {{-- <div class="level-bar-inner" data-level="50%"> --}}
+                                  </div>
                                 </div>
                             </div>
                         @endforeach

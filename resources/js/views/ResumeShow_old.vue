@@ -84,7 +84,7 @@
                         <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
                             <h3 class="level-title">{{ itemSkill.skill }}</h3>
                             <div class="level-bar">
-                                <div class="level-bar-inner" :data-level="itemSkill.level_id * 25 + `%`">
+                                <div class="level-bar-inner" :data-level="thisProjectBar(itemSkill.level_id)+`%`">
                                 </div>
                             </div><!--//level-bar-->
                         </div><!--//item-->
@@ -189,27 +189,20 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
-                // var levelBarInner = document.querySelectorAll('.level-bar-inner')
-                // levelBarInner.each(() => {
-                //     var itemWidth = this.querySelector('data-level')
-                //     this.animate({
-                //         width: itemWith
-                //     }, 800)
-                // })
         },
 
-        // computed: {
-        //     disabledForm() {
-        //         return false
-        //     }
+        computed: {
+            disabledForm() {
+                return false
+            }
 
-        // },
+        },
 
-        // methods: {
-        //     thisProjectBar(value) {
-        //         return value * 25
-        //     },
-        // },
+        methods: {
+            thisProjectBar(value) {
+                return value * 25
+            },
+        },
 
         created() {
             this.$set(this, 'form', this.user)

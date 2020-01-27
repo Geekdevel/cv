@@ -15,7 +15,8 @@
         "igaster/laravel_cities": "^1.3",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^1.1"
+        "laravel/ui": "^1.1",
+        "guzzlehttp/guzzle": "^6.5"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

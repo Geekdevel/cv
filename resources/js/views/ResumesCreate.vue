@@ -103,7 +103,7 @@
                         <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
                             <h3 class="level-title">{{ itemSkill.skill }}</h3>
                             <div class="level-bar">
-                                <div class="level-bar-inner" :data-level="thisProjectBar(itemSkill.level_id)+`%`">
+                                <div class="level-bar-inner" :data-level="itemSkill.level_id * 25 + `%`">
                                 </div>
                             </div><!--//level-bar-->
                         </div><!--//item-->
@@ -243,10 +243,6 @@
         methods: {
             chekErrorMessages() {
                 return this.errormessages.error = null
-            },
-
-            thisProjectBar(value) {
-                return value * 25
             },
 
             checkForm() {
