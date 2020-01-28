@@ -4,9 +4,73 @@
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
 
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> --}}
+
+    {{-- <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> --}}
+
 {{--     <link href="/storage/pdf/stylePdf.css" rel="stylesheet" type="text/css">
  --}}
  <style>
+    /*{{--@font-face {
+        font-family: "FontAwesomeRegular";
+        font-weight: normal;
+        font-style : normal;
+        src : url("/sb-admin/fontawesome-free/webfonts/fa-regular-400.ttf");
+    }
+    .fa {
+        font-family: "FontAwesomeRegular";
+    }--}}*/
+
+@font-face {
+font-family: "FontAwesomeRegular";
+font-weight: normal;
+font-style : normal;
+       src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-regular-400.ttf") format("truetype");
+}
+@font-face {
+font-family: "FontAwesomeBrands";
+font-weight: normal;
+font-style : normal;
+       src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-brands-400.ttf") format("truetype");
+}
+@font-face {
+font-family: "FontAwesomeSolid";
+font-weight: bold;
+font-style : normal;
+       src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-solid-900.ttf") format("truetype");
+}
+
+.fa{
+    font-weight: normal !important;
+     font-family: FontAwesomeRegular !important;
+}
+
+.fas{
+    font-weight: bold !important;
+     font-family: FontAwesomeSolid !important;
+}
+.fas:before{
+    font-weight: bold !important;
+    font-family: FontAwesomeSolid !important;
+}
+.fab{
+    font-weight: normal !important;
+     font-family: FontAwesomeBrands !important;
+}
+.fab:before{
+     font-weight: normal !important;
+    font-family: FontAwesomeBrands !important;
+}
+.far{
+    font-weight: normal !important;
+     font-family: FontAwesomeRegular !important;
+}
+.far:before{
+     font-weight: normal !important;
+    font-family: FontAwesomeRegular !important;
+}
+
+
 body {
   font-family: 'Roboto', sans-serif;
   color: #545E6C;
@@ -48,6 +112,34 @@ li {
     padding-left: 10px;
     padding-right: 10px;
 }
+.section-title {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2d7788;
+  margin-top: 0;
+  margin-bottom: 20px;
+  height: 32px;
+}
+.section-title .fa {
+  width: 40px;
+  height: 32px;
+  margin-right: 8px;
+  margin-bottom: -11px;
+  display: inline-block;
+  color: #fff;
+  border-radius: 20px;
+  background-clip: padding-box;
+  background: #2d7788;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 16px;
+  top: -2px;
+}
+.section-title span {
+    /*margin-top: -10px;*/
+   /* height: 32px;*/
+}
 
 
 </style>
@@ -56,7 +148,7 @@ li {
     <div class="wrapper" style="margin: 0 auto; position: relative;">
             <div class="sidebar-wrapper" style="background: #42A8C0; position: absolute; right: 0; width: 300px; color: #fff;">
                 <div class="profile-container" style="padding: 30px; background: rgba(0, 0, 0, 0.2); text-align: center; color: #fff;">
-                    <img class="profile" src="'http://resumevue3.test/'{!! $user->profile->photo !!}" alt="{{$user->name}}" style="width: 150px; border-radius: 50%; margin: 10px 25% 10px 25%;" />
+                    <img class="profile" src="{!! $url !!}" alt="{{$user->name}}" style="width: 150px; border-radius: 50%; margin: 10px 25% 10px 25%;" />
                     <h1 class="name">{{ $user->name }}</h1>
                     <h3 class="tagline">{{ $resume->job_title }}</h3>
                 </div><!--//profile-container-->
@@ -120,14 +212,15 @@ li {
             <div class="main-wrapper" style="padding-right: 310px;">
 
                 <section class="section summary-section">
-                    <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                    <h2 class="section-title"><i class="fa fa-user">(&#xf359;)</i><span>Career Profile</span></h2>
                     <div class="summary">
                         {!! $resume->description !!}
                     </div><!--//summary-->
                 </section><!--//section-->
 
                 <section class="section experiences-section">
-                    <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
+                    <p>icon-music (&#xf359;)</p>
+                    <h2 class="section-title"><i class="fa fa-briefcase"></i><span>Experiences</span></h2>
 
                     @foreach($user->works as $item)
                         <div class="item">
@@ -146,22 +239,23 @@ li {
                 </section><!--//section-->
 
                 <section class="section projects-section">
-                    <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
+                    <h2 class="section-title"><i class="fa fa-archive"></i><span>Projects</span></h2>
                     <div class="intro">
                         {!! $user->projects->description !!}
                     </div><!--//intro-->
                 </section><!--//section-->
 
                 <section class="skills-section section">
-                    <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
+                    <h2 class="section-title"><i class="fa fa-rocket"></i><span>Skills &amp; Proficiency</span></h2>
                     <div class="skillset">
                         @foreach($user->skills as $skill)
                             <div class="item">
                                 <h3 class="level-title" style="width: 30%;">{{ $skill->skill }}</h3>
                                 <div class="level-bar" style="margin-left: 30%;">
-                                  <div class="level-bar-inner" style="width: {{ ($skill->level_id)*25 }}%; background-color: #42A8C0">
-                                  {{-- <div class="level-bar-inner" data-level="50%"> --}}
+                                  <div class="level-bar-inner" style="width: {{ ($skill->level_id)*25 }}%; background-color: #42A8C0; height: 20px; margin-top: -40px;">
+                                    {{ ($skill->level_id)*25 }}%
                                   </div>
+
                                 </div>
                             </div>
                         @endforeach
