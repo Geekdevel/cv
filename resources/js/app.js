@@ -1,6 +1,14 @@
 import './bootstrap';
 import './sb-admin/sb-admin.js';
 import './orbit/main.js';
+
+// import './daterangepicker-master/moment.js';
+// import './daterangepicker-master/daterangepicker.js';
+// import './daterangepicker-master/example/browserify/main.js';
+// import './daterangepicker-master/example/browserify/bundle.js';
+// import './daterangepicker-master/example/amd/main.js';
+// import './daterangepicker-master/example/amd/require.js';
+
 import AppNav from './views/components/AppNav';
 import AppSidebar from './views/components/AppSidebar';
 // import './sb-admin/sb-admin.min.js';

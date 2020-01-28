@@ -7,7 +7,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group row justify-content-center">
                                 <div class="col-4 text-center">
-                                    <label for="name">Name</label>
+                                    <label for="name">Name <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.name.$error }">
                                     <input class="form-control" type="text" id="name" name="name" v-model.trim="$v.form.name.$model">
@@ -16,7 +16,7 @@
                                 </div>
 
                                 <div class="col-4 text-center">
-                                    <label for="phone">Phone</label>
+                                    <label for="phone">Phone <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
                                     <input class="form-control" type="text" id="phone" name="phone" v-model.trim="$v.form.phone.$model">
@@ -25,7 +25,7 @@
                                 </div>
 
                                 <div class="col-4 text-center">
-                                    <label for="email">Email</label>
+                                    <label for="email">Email <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.email.$error }">
                                     <input class="form-control" type="email" id="email" name="email" v-model.trim="$v.form.email.$model">
@@ -52,6 +52,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col-12 text-center">
+                                            <span class="be-sure-to-fill-out">*</span>
                                             <button type="button" class="btn btn-info text-light" id="pick-avatar">Select an image</button>
                                         </div>
                                     </div>
@@ -71,10 +72,15 @@
                         <!-- Address -->
                         <div class="col-md-12">
                             <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Your address</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
                                 <div class="col-12">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="country">Country</label>
+                                            <label for="country">Country <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.country.$error }">
                                             <v-select
@@ -89,7 +95,7 @@
                                         </div>
 
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="region">Region</label>
+                                            <label for="region">Region <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.region.$error }">
                                             <v-select
@@ -106,7 +112,7 @@
                                 <div class="col-12">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="city">City</label>
+                                            <label for="city">City <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.city.$error }">
                                             <input class="form-control" type="text" id="city" name="city" v-model.trim="$v.addressform.city.$model">
@@ -115,7 +121,7 @@
                                         </div>
 
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="index">Zip code</label>
+                                            <label for="index">Zip code <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.index.$error }">
                                              <input class="form-control" type="text" id="index" name="index" v-model.trim="$v.addressform.index.$model">
@@ -126,7 +132,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="street">Street</label>
+                                            <label for="street">Street <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.street.$error }">
                                             <input class="form-control" type="text" id="street" name="street" v-model.trim="$v.addressform.street.$model">
@@ -142,6 +148,11 @@
                     <div class="form-group row justify-content-center">
                         <!-- Accaunts -->
                         <div class="col-md-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Examples of your work (portfolio)</h4>
+                                </div>
+                            </div>
                             <div class="form-group row justify-content-center">
                                 <div class="col-12">
                                     <div class="form-group row justify-content-center">
@@ -181,9 +192,14 @@
                     <div class="form-group row justify-content-center">
                         <!-- Languages -->
                         <div class="col-md-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Languages spoken</h4>
+                                </div>
+                            </div>
                             <div class="form-group row justify-content-center language-add" v-for="(item, index) in $v.lenguageform.$each.$iter" :key="index">
                                 <div class="col-12 col-md-2 text-center">
-                                    <label for="language">Language</label>
+                                    <label for="language">Language <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-12 col-md-3 text-center" :class="{ 'form-group--error': item.$error }">
                                     <input class="form-control" type="text" name="language" v-model.trim="item.lenguage.$model">
@@ -191,7 +207,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-2 text-center">
-                                    <label for="levelLanguage">Level</label>
+                                    <label for="levelLanguage">Level <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-12 col-md-3 text-center" :class="{ 'form-group--error': item.$error }">
                                     <v-select
@@ -219,9 +235,14 @@
                     <div class="form-group row justify-content-center">
                         <!-- Skills -->
                         <div class="col-md-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Professional skills and level of knowledge</h4>
+                                </div>
+                            </div>
                             <div class="form-group row justify-content-center skill-add" v-for="(item, index) in $v.skillform.$each.$iter" :key="index">
                                 <div class="col-12 col-md-2 text-center">
-                                    <label for="skill">Skill</label>
+                                    <label for="skill">Skill <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-12 col-md-3 text-center" :class="{ 'form-group--error': item.$error }">
                                     <input class="form-control" type="text" name="skill" v-model.trim="item.skill.$model">
@@ -230,7 +251,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-2 text-center">
-                                    <label for="levelSkill">Level</label>
+                                    <label for="levelSkill">Level <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
                                 <div class="col-12 col-md-3 text-center" :class="{ 'form-group--error': item.$error }">
                                     <v-select
@@ -259,11 +280,16 @@
                     <div class="form-group row justify-content-center">
                         <!-- Education -->
                         <div class="col-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Education</h4>
+                                </div>
+                            </div>
                             <div class="education-add form-group row justify-content-center" v-for="(item, index) in $v.educationform.$each.$iter">
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 text-center">
-                                            <label for="university">University:</label>
+                                            <label for="university">University: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                             <input class="form-control" type="text" name="university" v-model.trim="item.university.$model">
@@ -272,7 +298,7 @@
                                         </div>
 
                                         <div class="col-4 text-center">
-                                            <label for="professi">Professi:</label>
+                                            <label for="professi">Professi: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                             <input class="form-control" type="text" name="professi" v-model.trim="item.professi.$model">
@@ -281,7 +307,7 @@
                                         </div>
 
                                         <div class="col-4 text-center">
-                                            <label for="diplom_level">Diplom level:</label>
+                                            <label for="diplom_level">Diplom level: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                             <input class="form-control" type="text" name="diplom_level" v-model.trim="item.level.$model">
@@ -293,7 +319,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 text-center">
-                                            <label for="start">Start:</label>
+                                            <label for="start">Start: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                             <input class="form-control date" type="date" name="start" v-model.trim="item.start.$model">
@@ -328,14 +354,19 @@
                     </div>
 
                     <div class="form-group row justify-content-center">
-                        <!-- Works -->
+                        <!-- Experience -->
                         <div class="col-12">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Experience</h4>
+                                </div>
+                            </div>
                             <div class="experience-add" v-for="(item, index) in $v.experienceform.$each.$iter">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-12 col-md-6 text-center">
                                         <div class="form-group row justify-content-center">
                                             <div class="col-4 text-center">
-                                                <label for="work">Work:</label>
+                                                <label for="work">Company name: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                                 <input class="form-control" type="text" name="experience" v-model.trim="item.experience.$model">
@@ -344,7 +375,7 @@
                                             </div>
 
                                             <div class="col-4 text-center">
-                                                <label for="position">Position:</label>
+                                                <label for="position">Position: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                                 <input class="form-control" type="text" name="position" v-model.trim="item.position.$model">
@@ -353,16 +384,7 @@
                                             </div>
 
                                             <div class="col-4 text-center">
-                                                <label for="professi">Profession:</label>
-                                            </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <input class="form-control" type="text" name="profession" v-model.trim="item.profession.$model">
-                                                <div class="error" v-if="item.$error && !item.profession.required">Field is required.</div>
-                                                <div class="error" v-if="!item.profession.minLength">Field must have at least {{ item.profession.$params.minLength.min }} characters.</div>
-                                            </div>
-
-                                            <div class="col-4 text-center">
-                                                <label for="start_work">Start:</label>
+                                                <label for="start_work">Start: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                                 <input class="form-control date" type="date" name="start_work" v-model.trim="item.start.$model">
@@ -384,10 +406,10 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group row justify-content-center">
                                             <div class="col-4 text-center">
-                                                <label for="functions">Functions:</label>
+                                                <label for="functions">Functions: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <vue-editor v-model.trim="item.functions.$model" placeholder="Functions"></vue-editor>
+                                                <vue-editor :editor-toolbar="customToolbar" v-model.trim="item.functions.$model" placeholder="Functions"></vue-editor>
                                                 <div class="error" v-if="item.$error && !item.functions.required">Field is required.</div>
                                                 <div class="error" v-if="!item.functions.minLength">Field must have at least {{ item.functions.$params.minLength.min }} characters.</div>
                                             </div>
@@ -415,26 +437,28 @@
                     <div class="form-group row justify-content-center">
                         <!-- Projects -->
                         <div class="col-md-12 text-center">
-                            <label for="projects">Projects in which you participated:</label>
+                            <label for="projects"><h4>Projects in which you participated</h4></label>
                         </div>
-                        <div class="col-md-12" :class="{ 'form-group--error': $v.projectsform.description.$error }">
-                            <vue-editor v-model.trim="$v.projectsform.description.$model" placeholder="Projects in which you participated"></vue-editor>
-                            <div class="error text-center" v-if="$v.projectsform.description.$error && !$v.projectsform.description.required">Field is required.</div>
-                            <div class="error text-center" v-if="!$v.projectsform.description.minLength">Field must have at least {{ $v.projectsform.description.$params.minLength.min }} characters.</div>
+                        <div class="col-md-12">
+                            <vue-editor :editor-toolbar="customToolbar" v-model="projectsform.description" placeholder="Projects in which you participated"></vue-editor>
                         </div>
                     </div>
 
                     <div class="form-group row justify-content-center hobbi-form">
                         <!-- Hobbis -->
                         <div class="col-md-12">
-                            <div class="hobbi-body" v-for="(item, indexHobbi) in $v.hobbiform.$each.$iter" :key="indexHobbi">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4>Your interests</h4>
+                                </div>
+                            </div>
+                            <div class="hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
                                 <div class="form-group row justify-content-center hobbi-add">
                                     <div class="col-12 col-md-2 text-center">
-                                        <label for="hobbi">Hobbi</label>
+                                        <label for="hobbi">Interest</label>
                                     </div>
-                                    <div class="col-12 col-md-6 text-center" :class="{ 'form-group--error': item.$error }">
-                                        <input class="form-control" type="text" name="hobbi" v-model.trim="item.hobbi.$model">
-                                        <div class="error" v-if="item.$error && !item.hobbi.required">Field is required.</div>
+                                    <div class="col-12 col-md-6 text-center">
+                                        <input class="form-control" type="text" name="hobbi" v-model="item.hobbi">
                                     </div>
 
                                     <div class="col-12 col-md-2 text-center">
@@ -445,7 +469,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
                                     <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
-                                        +ADD Hobbi
+                                        +ADD Interest
                                     </button>
                                 </div>
                             </div>
@@ -475,7 +499,6 @@
     import { VueEditor } from "vue2-editor";
     import AvatarCropper from "vue-avatar-cropper";
     import vSelect from "vue-select";
-    // import { validationMixin } from 'vuelidate';
     import { required, minLength, between } from 'vuelidate/lib/validators';
 
     export default {
@@ -491,6 +514,12 @@
 
         data() {
             return {
+                customToolbar: [
+                  ["bold", "italic", "underline"],
+                  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+                  [{ 'align': ''}, { 'align': 'center'}, { 'align': 'justify'}, { 'align': 'right' }]
+                ],
+
                 form: {
                     id: this.user.id,
                     name: null,
@@ -522,7 +551,6 @@
                 experienceform: [{
                     experience: null,
                     position: null,
-                    profession: null,
                     start: null,
                     finish: null,
                     functions: null,
@@ -673,10 +701,6 @@
                         required,
                         minLength: minLength(3)
                     },
-                    profession: {
-                        required,
-                        minLength: minLength(3)
-                    },
                     start: {
                         required,
                         minLength: minLength(4)
@@ -691,21 +715,6 @@
                     }
                 }
             },
-
-            projectsform: {
-                description: {
-                    required,
-                    minLength: minLength(3)
-                }
-            },
-
-            hobbiform: {
-                $each: {
-                    hobbi: {
-                        required
-                    }
-                }
-            }
         },
 
         computed: {
@@ -776,7 +785,6 @@
                 this.experienceform.push({
                     experience: null,
                     position: null,
-                    profession: null,
                     start: null,
                     finish: null,
                     functions: null,

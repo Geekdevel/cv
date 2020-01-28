@@ -10,7 +10,6 @@ class Work extends Model
         'user_id',
         'experience',
         'position',
-        'profession',
         'start',
         'finish',
         'functions',

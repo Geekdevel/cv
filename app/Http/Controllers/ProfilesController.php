@@ -163,7 +163,7 @@ class ProfilesController extends Controller
                 'university' => ['required', 'string', 'min:3', 'max:100'],
                 'professi' => ['required', 'string', 'min:3', 'max:100'],
                 'start' => ['required', 'string', 'min:3', 'max:100'],
-                'finish' => ['required', 'string', 'min:3', 'max:100'],
+                'finish' => ['nullable', 'string', 'max:100'],
                 'level' => ['required', 'string', 'min:3', 'max:100']
             ]);
             if ($education_data->fails()){
@@ -181,9 +181,8 @@ class ProfilesController extends Controller
                 'user_id' => ['required'],
                 'experience' => ['required', 'string', 'min:3', 'max:100'],
                 'position' => ['required', 'string', 'min:3', 'max:100'],
-                'profession' => ['required', 'string', 'min:3', 'max:100'],
                 'start' => ['required', 'string', 'min:3', 'max:100'],
-                'finish' => ['required', 'string', 'min:3', 'max:100'],
+                'finish' => ['nullable', 'string', 'max:100'],
                 'functions' => ['required', 'min:3', 'max:10000'],
             ]);
             if ($work_data->fails()){
@@ -198,7 +197,7 @@ class ProfilesController extends Controller
         $projects +=['user_id' => $user_id];
         $projects_data = Validator::make($projects, [
                 'user_id' => ['required'],
-                'description' => ['string', 'max:10000']
+                'description' => ['nullable', 'string', 'max:10000']
             ]);
         if ($projects_data->fails()) {
             return response()->json(['error' => 'No valid form projects!'], 500);
@@ -212,7 +211,7 @@ class ProfilesController extends Controller
             $hobbi += ['user_id' => $user_id];
             $hobbi_data = Validator::make($hobbi, [
                 'user_id' => ['required'],
-                'hobbi' => ['required', 'string', 'min:3', 'max:255']
+                'hobbi' => ['nullable', 'string', 'max:255']
             ]);
             if ($hobbi_data->fails()){
                 return response()->json(['error' => 'No valid form hobbi!'], 500);
@@ -291,7 +290,7 @@ class ProfilesController extends Controller
         $projects = $request->projectsform;
         $projects +=['user_id' => $user_id];
         $projects_data = Validator::make($projects, [
-                'description' => ['string', 'max:10000']
+                'description' => ['nullable', 'string', 'max:10000']
             ]);
         if ($projects_data->fails()) {
             return response()->json(['error' => 'No valid form projects!'], 500);
@@ -424,7 +423,7 @@ class ProfilesController extends Controller
                     'university' => ['required', 'string', 'min:3', 'max:100'],
                     'professi' => ['required', 'string', 'min:3', 'max:100'],
                     'start' => ['required', 'string', 'min:3', 'max:100'],
-                    'finish' => ['required', 'string', 'min:3', 'max:100'],
+                    'finish' => ['nullable', 'string', 'max:100'],
                     'level' => ['required', 'string', 'min:3', 'max:100']
                 ]);
                 if ($education_data->fails()){
@@ -449,7 +448,7 @@ class ProfilesController extends Controller
                     'university' => ['required', 'string', 'min:3', 'max:100'],
                     'professi' => ['required', 'string', 'min:3', 'max:100'],
                     'start' => ['required', 'string', 'min:3', 'max:100'],
-                    'finish' => ['required', 'string', 'min:3', 'max:100'],
+                    'finish' => ['nullable', 'string', 'max:100'],
                     'level' => ['required', 'string', 'min:3', 'max:100']
                     ]);
                     if ($education_data->fails()) {
@@ -475,9 +474,8 @@ class ProfilesController extends Controller
                     'user_id' => ['required'],
                     'experience' => ['required', 'string', 'min:3', 'max:100'],
                     'position' => ['required', 'string', 'min:3', 'max:100'],
-                    'profession' => ['required', 'string', 'min:3', 'max:100'],
                     'start' => ['required', 'string', 'min:3', 'max:100'],
-                    'finish' => ['required', 'string', 'min:3', 'max:100'],
+                    'finish' => ['nullable', 'string', 'max:100'],
                     'functions' => ['required', 'min:3', 'max:10000'],
                 ]);
                 if ($work_data->fails()){
@@ -501,9 +499,8 @@ class ProfilesController extends Controller
                         'user_id' => ['required'],
                         'experience' => ['required', 'string', 'min:3', 'max:100'],
                         'position' => ['required', 'string', 'min:3', 'max:100'],
-                        'profession' => ['required', 'string', 'min:3', 'max:100'],
                         'start' => ['required', 'string', 'min:3', 'max:100'],
-                        'finish' => ['required', 'string', 'min:3', 'max:100'],
+                        'finish' => ['nullable', 'string', 'max:100'],
                         'functions' => ['required', 'min:3', 'max:10000'],
                     ]);
                     if ($work_data->fails()) {
@@ -527,7 +524,7 @@ class ProfilesController extends Controller
                 $hobbi += ['user_id' => $user_id];
                 $hobbi_data = Validator::make($hobbi, [
                     'user_id' => ['required'],
-                    'hobbi' => ['required', 'string', 'min:3', 'max:255']
+                    'hobbi' => ['nullable', 'string', 'max:255']
                 ]);
                 if ($hobbi_data->fails()){
                     return response()->json(['error' => 'No valid form hobbi!'], 500);
@@ -549,7 +546,7 @@ class ProfilesController extends Controller
                     $hobbis[$i] += ['user_id' => $user_id];
                     $hobbi_data = Validator::make($hobbis[$i], [
                     'user_id' => ['required'],
-                    'hobbi' => ['required', 'string', 'min:3', 'max:255']
+                    'hobbi' => ['nullable', 'string', 'max:255']
                 ]);
                     if ($hobbi_data->fails()) {
                         return response()->json(['error' => 'No valid form hobbi!'], 500);

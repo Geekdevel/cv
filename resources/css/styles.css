@@ -8,6 +8,10 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+.be-sure-to-fill-out {
+  color: red;
+  font-size: 25px;
+}
 .pdf-load {
   margin-left: 50%;
 }
