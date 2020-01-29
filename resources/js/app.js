@@ -11,6 +11,8 @@ import './orbit/main.js';
 
 import AppNav from './views/components/AppNav';
 import AppSidebar from './views/components/AppSidebar';
+// import VueTelInput from 'vue-tel-input';
+import AppTel from './views/components/AppTel';
 // import './sb-admin/sb-admin.min.js';
 //import './sb-admin/demo/datatables-demo.js';
 // import './sb-admin/demo/chart-area-demo.js';
@@ -20,6 +22,11 @@ import router from './routes';
 
 Vue.component('app-nav', AppNav)
 Vue.component('app-sidebar', AppSidebar)
+// Vue.use(VueTelInput)
+Vue.component('app-tel', AppTel)
+// Vue.use(VueTelInput, [globalOptions = {
+//     enabledCountryCode: true
+//   }])
 
 new Vue({
     el: '#app',

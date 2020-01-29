@@ -20,6 +20,7 @@
                                 </div>
                                 <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
                                     <input class="form-control" type="text" id="phone" name="phone" v-model.trim="$v.form.phone.$model">
+                                    <!-- <vue-tel-input class="form-control" v-model.trim="$v.form.phone.$model"></vue-tel-input> -->
                                     <div class="error" v-if="$v.form.phone.$error && !$v.form.phone.required">Field is required.</div>
                                     <div class="error" v-if="!$v.form.phone.minLength">Field must have at least {{ $v.form.phone.$params.minLength.min }} characters.</div>
                                 </div>
