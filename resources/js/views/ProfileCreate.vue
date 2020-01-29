@@ -322,19 +322,19 @@
                                             <label for="start">Start: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control date" type="date" name="start" v-model.trim="item.start.$model">
+                                            <date-picker v-model.trim="item.start.$model" valueType="format" format="YYYY-MM-DD"></date-picker>
                                             <div class="error" v-if="item.$error && !item.start.required">Field is required.</div>
-                                            <div class="error" v-if="!item.start.minLength">Field must have at least {{ item.start.$params.minLength.min }} characters.</div>
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="finish">Finish:</label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control date" type="date" name="finish" v-model.trim="item.finish.$model">
-                                            <div class="error" v-if="item.$error && !item.finish.required">Field is required.</div>
-                                            <div class="error" v-if="!item.finish.minLength">Field must have at least {{ item.finish.$params.minLength.min }} characters.</div>
+                                            <date-picker v-model.trim="item.finish.$model" valueType="format" format="YYYY-MM-DD"></date-picker>
                                         </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="error col-12 text-center" v-if="validDateEducation">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
                                     </div>
                                 </div>
                                 <div class="form-group row justify-content-center">
@@ -387,7 +387,7 @@
                                                 <label for="start_work">Start: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <input class="form-control date" type="date" name="start_work" v-model.trim="item.start.$model">
+                                                <date-picker v-model.trim="item.start.$model" valueType="format"></date-picker>
                                                 <div class="error" v-if="item.$error && !item.start.required">Field is required.</div>
                                                 <div class="error" v-if="!item.start.minLength">Field must have at least {{ item.start.$params.minLength.min }} characters.</div>
                                             </div>
@@ -396,10 +396,9 @@
                                                 <label for="finish_work">Finish:</label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <input class="form-control date" type="date" name="finish_work" v-model.trim="item.finish.$model">
-                                                <div class="error" v-if="item.$error && !item.finish.required">Field is required.</div>
-                                                <div class="error" v-if="!item.finish.minLength">Field must have at least {{ item.finish.$params.minLength.min }} characters.</div>
+                                                <date-picker v-model.trim="item.finish.$model" valueType="format"></date-picker>
                                             </div>
+                                            <div class="error col-12 text-center" v-if="validDateExperience">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
                                         </div>
                                     </div>
 
@@ -484,7 +483,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col-12 text-center">
-                            <button type="button" class="btn btn-success" :disabled="disabledForm" @click="checkForm">
+                            <button type="button" class="btn btn-success" @click="checkForm">
                                 Register
                             </button>
                         </div>
@@ -500,12 +499,15 @@
     import AvatarCropper from "vue-avatar-cropper";
     import vSelect from "vue-select";
     import { required, minLength, between } from 'vuelidate/lib/validators';
+    import DatePicker from 'vue2-datepicker';
+    import 'vue2-datepicker/index.css';
 
     export default {
         components: {
             VueEditor,
             AvatarCropper,
-            vSelect
+            vSelect,
+            DatePicker
           },
 
         props: {
@@ -586,6 +588,9 @@
                 errormessages: {
                     error: null
                 },
+
+                dateEducationError: null,
+                dateExperienceError: null,
 
                 regions: [],
                 levels: [],
@@ -681,8 +686,8 @@
                         minLength: minLength(4)
                     },
                     finish: {
-                        required,
-                        minLength: minLength(4)
+                        // required,
+                        // minLength: minLength(4)
                     },
                     level: {
                         required,
@@ -706,8 +711,8 @@
                         minLength: minLength(4)
                     },
                     finish: {
-                        required,
-                        minLength: minLength(4)
+                        // required,
+                        // minLength: minLength(4)
                     },
                     functions: {
                         required,
@@ -718,9 +723,95 @@
         },
 
         computed: {
-            disabledForm() {
-                return false
+            validDateEducation() {
+                if (this.educationform.length && this.educationform[0].start != null) {
+                     for (let i=0; i<this.educationform.length; i++) {
+                        if (this.educationform[i].finish == null) {
+                            this.dateEducationError = null
+                            return false
+                        }
+                        else {
+                            let str_start = this.educationform[i].start
+                            let str_finish = this.educationform[i].finish
+                            let arr_start = str_start.split('-')
+                            let arr_finish = str_finish.split('-')
+                            if (Number(arr_start[0]) > Number(arr_finish[0])) {
+                                this.dateEducationError = 1
+                                return true
+                            }
+                            else if (Number(arr_start[0]) == Number(arr_finish[0])) {
+                                if (Number(arr_start[1]) > Number(arr_finish[1])) {
+                                    this.dateEducationError = 1
+                                    return true
+                                }
+                                else if (Number(arr_start[1]) == Number(arr_finish[1])) {
+                                    if (Number(arr_start[2]) > Number(arr_finish[2])) {
+                                       this.dateEducationError = 1
+                                        return true
+                                    }
+                                    else {
+                                        this.dateEducationError = null
+                                        return false
+                                    }
+                                }
+                            }
+                            else {
+                                this.dateEducationError = null
+                                return false
+                            }
+                        }
+                    }
+                }
+                else {
+                    this.dateEducationError = null
+                    return false
+                }
             },
+
+            validDateExperience() {
+                if (this.experienceform.length && this.experienceform[0].start != null) {
+                     for (let i=0; i<this.experienceform.length; i++) {
+                        if (this.experienceform[i].finish == null) {
+                            this.dateExperienceError = null
+                            return false
+                        }
+                        else {
+                            let str_start = this.experienceform[i].start
+                            let str_finish = this.experienceform[i].finish
+                            let arr_start = str_start.split('-')
+                            let arr_finish = str_finish.split('-')
+                            if (Number(arr_start[0]) > Number(arr_finish[0])) {
+                                this.dateExperienceError = 1
+                                return true
+                            }
+                            else if (Number(arr_start[0]) == Number(arr_finish[0])) {
+                                if (Number(arr_start[1]) > Number(arr_finish[1])) {
+                                    this.dateExperienceError = 1
+                                    return true
+                                }
+                                else if (Number(arr_start[1]) == Number(arr_finish[1])) {
+                                    if (Number(arr_start[2]) > Number(arr_finish[2])) {
+                                       this.dateExperienceError = 1
+                                        return true
+                                    }
+                                    else {
+                                        this.dateExperienceError = null
+                                        return false
+                                    }
+                                }
+                            }
+                            else {
+                                this.dateExperienceError = null
+                                return false
+                            }
+                        }
+                    }
+                }
+                else {
+                    this.dateExperienceError = null
+                    return false
+                }
+            }
         },
 
         methods: {
@@ -794,7 +885,7 @@
 
             checkForm() {
                 this.$v.$touch()
-                if (this.$v.$invalid) {
+                if (this.$v.$invalid || this.dateEducationError==1 || this.dateExperienceError==1) {
                     this.errormessages = 'UUUPS!!!'
                 }
                 else {

@@ -26,7 +26,7 @@
                     <div class="item" v-for="education in educationform">
                         <h4 class="degree">{{ education.level }}</h4>
                         <h5 class="meta">{{ education.university }}</h5>
-                        <div class="time">{{ education.start }} - {{ education.finish }}</div>
+                        <div class="time">{{ education.start }} - <span v-if="education.finish">{{ education.finish }}</span><span v-if="!education.finish">By current time</span></div>
                     </div><!--//item-->
                 </div><!--//education-container-->
 
@@ -81,7 +81,7 @@
                         <div class="meta">
                             <div class="upper-row">
                                 <h3 class="job-title">{{ itemExperience.position }}</h3>
-                                <div class="time">{{ itemExperience.start }} - {{ itemExperience.finish }}</div>
+                                <div class="time">{{ itemExperience.start }} - <span v-if="itemExperience.finish">{{ itemExperience.finish }}</span><span v-if="!itemExperience.finish">By current time</span></div>
                             </div><!--//upper-row-->
                             <div class="company">{{ itemExperience.experience }}</div>
                         </div><!--//meta-->
