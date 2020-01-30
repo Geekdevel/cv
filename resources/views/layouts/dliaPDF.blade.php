@@ -252,8 +252,8 @@ li {
                             <div class="item">
                                 <h3 class="level-title" style="width: 30%;">{{ $skill->skill }}</h3>
                                 <div class="level-bar" style="margin-left: 30%;">
-                                  <div class="level-bar-inner" style="width: {{ ($skill->level_id)*25 }}%; background-color: #42A8C0; height: 20px; margin-top: -40px;">
-                                    {{ ($skill->level_id)*25 }}%
+                                  <div class="level-bar-inner" style="width: {{ ($skill->level_id)*20 }}%; background-color: #42A8C0; height: 20px; margin-top: -40px;">
+                                    {{ ($skill->level_id)*20 }}%
                                   </div>
 
                                 </div>

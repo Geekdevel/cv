@@ -2,12 +2,12 @@
         <div class="wrapper">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
-                    <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
+                    <img id="profile-photo-image-wrapper" @click="gouToProfileEdit" class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
                     <h1 class="name">{{ form.name }}</h1>
-                    <h3 class="tagline">{{ resumeform.job_title }}</h3>
+                    <h3 class="tagline" id="jobTitleName" @click="gouToResumeEdit">{{ resumeform.job_title }}</h3>
                 </div><!--//profile-container-->
 
-                <div class="contact-container container-block">
+                <div class="contact-container container-block" id="contact-container-edited" @click="gouToProfileEdit">
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
                         <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
@@ -36,7 +36,7 @@
                     </ul>
                 </div><!--//interests-->
 
-                <div class="interests-container container-block">
+                <div class="interests-container container-block" v-if="hobbiform[0].hobbi">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
                         <li v-for="item in hobbiform">
@@ -72,7 +72,7 @@
                     </div><!--//item-->
                 </section><!--//section-->
 
-                <section class="section projects-section">
+                <section class="section projects-section" v-if="projectsform.description">
                     <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
                     <div class="intro" v-html="projectsform.description">
                     </div><!--//intro-->
@@ -84,7 +84,8 @@
                         <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
                             <h3 class="level-title">{{ itemSkill.skill }}</h3>
                             <div class="level-bar">
-                                <div class="level-bar-inner" :data-level="itemSkill.level_id * 25 + `%`">
+                                <div class="level-bar-inner" :style="`width: `+itemSkill.level_id * 20+`%;`">
+                                    <span>{{itemSkill.level_id * 20}}%</span>
                                 </div>
                             </div><!--//level-bar-->
                         </div><!--//item-->
@@ -189,27 +190,17 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
-                // var levelBarInner = document.querySelectorAll('.level-bar-inner')
-                // levelBarInner.each(() => {
-                //     var itemWidth = this.querySelector('data-level')
-                //     this.animate({
-                //         width: itemWith
-                //     }, 800)
-                // })
         },
 
-        // computed: {
-        //     disabledForm() {
-        //         return false
-        //     }
+        methods: {
+            gouToProfileEdit() {
+                this.$router.push('/master/profileedit')
+            },
 
-        // },
-
-        // methods: {
-        //     thisProjectBar(value) {
-        //         return value * 25
-        //     },
-        // },
+            gouToResumeEdit() {
+                this.$router.push('/master/editresume/' + this.$route.params.slag)
+            }
+        },
 
         created() {
             this.$set(this, 'form', this.user)

@@ -31,3 +31,5 @@ Route::resource('/resumes', 'ResumesController');
 Route::post('/resume/{slag}', 'ResumesController@getResume');
 
 Route::get('/cvs/{slag}/pdf', 'ResumesController@getPdf');
+
+Route::get('/cvs/{slag}/public', 'ResumesController@publicShowResume');

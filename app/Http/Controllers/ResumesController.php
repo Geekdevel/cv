@@ -126,6 +126,13 @@ class ResumesController extends Controller
         //
     }
 
+    public function publicShowResume(Request $request, $slag)
+    {
+        $resume = Resume::slag($slag);
+        $user = $resume->user;
+        return view('resume', ['resume' => $resume, 'user' => $user]);
+    }
+
     /**
      * Update the specified resource in storage.
      *

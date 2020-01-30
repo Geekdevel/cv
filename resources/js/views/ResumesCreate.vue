@@ -39,7 +39,7 @@
                     </ul>
                 </div><!--//interests-->
 
-                <div class="interests-container container-block">
+                <div class="interests-container container-block" v-if="hobbiform[0].hobbi">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
                         <li v-for="item in hobbiform">
@@ -68,7 +68,7 @@
                     <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
                     <div class="summary" :class="{ 'form-group--error': $v.resumeform.description.$error }">
                         <h5>Summarise your career here:</h5>
-                        <vue-editor v-model.trim="$v.resumeform.description.$model" @click="chekErrorMessages"></vue-editor>
+                        <vue-editor :editor-toolbar="customToolbar" v-model.trim="$v.resumeform.description.$model" @click="chekErrorMessages"></vue-editor>
                         <div class="error" v-if="$v.resumeform.description.$error && !$v.resumeform.description.required">Must be completed!</div>
                         <div class="error" v-if="!$v.resumeform.description.minLength">Field must have at least {{ $v.resumeform.description.$params.minLength.min }} characters.</div>
                     </div><!--//summary-->
@@ -91,7 +91,7 @@
                     </div><!--//item-->
                 </section><!--//section-->
 
-                <section class="section projects-section">
+                <section class="section projects-section" v-if="projectsform.description">
                     <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
                     <div class="intro" v-html="projectsform.description">
                     </div><!--//intro-->
@@ -103,7 +103,8 @@
                         <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
                             <h3 class="level-title">{{ itemSkill.skill }}</h3>
                             <div class="level-bar">
-                                <div class="level-bar-inner" :data-level="itemSkill.level_id * 25 + `%`">
+                                <div class="level-bar-inner" :style="`width: `+itemSkill.level_id * 20+`%;`">
+                                    <span>{{itemSkill.level_id * 20}}%</span>
                                 </div>
                             </div><!--//level-bar-->
                         </div><!--//item-->
@@ -137,6 +138,12 @@
 
         data() {
             return {
+                customToolbar: [
+                  ["bold", "italic", "underline"],
+                  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+                  [{ 'align': ''}, { 'align': 'center'}, { 'align': 'justify'}, { 'align': 'right' }]
+                ],
+
                 form: {
                     id: this.user.id,
                     name: null,
