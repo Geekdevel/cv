@@ -80,7 +80,7 @@ class ProfilesController extends Controller
         $user_data = Validator::make($user, [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email,'.$user_id],
-            'phone' => ['required', 'string', 'min:10', 'max:13', 'unique:users,phone,'.$user_id]
+            'phone' => ['required', 'string', 'min:10', 'max:25', 'unique:users,phone,'.$user_id]
         ]);
         if ($user_data->fails()){
             return response()->json(['error' => 'No valid form user!'], 500);
@@ -260,7 +260,7 @@ class ProfilesController extends Controller
         $user_data = Validator::make($user, [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email,'.$user_id],
-            'phone' => ['required', 'string', 'min:10', 'max:13', 'unique:users,phone,'.$user_id]
+            'phone' => ['required', 'string', 'min:10', 'max:25', 'unique:users,phone,'.$user_id]
         ]);
         if ($user_data->fails()){
             return response()->json(['error' => 'No valid form user!'], 500);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Level;
+use App\Models\Skill_level;
 
 class UploadController extends Controller
 {
@@ -22,5 +23,11 @@ class UploadController extends Controller
     {
         $levels = Level::all();
         return $levels;
+    }
+
+    public function allSkillLevels()
+    {
+        $skillLevels = Skill_level::all();
+        return $skillLevels;
     }
 }

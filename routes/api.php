@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/custom/upload', 'UploadController@uploadPhoto');
 Route::post('/levels/all', 'UploadController@allLevels');
+Route::post('/skillLevels/all', 'UploadController@allSkillLevels');

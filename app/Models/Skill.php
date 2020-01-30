@@ -23,6 +23,6 @@ class Skill extends Model
 
     public function level()
     {
-        return $this->belongsTo('App\Models\Level');
+        return $this->belongsTo('App\Models\Skill_level');
     }
 }

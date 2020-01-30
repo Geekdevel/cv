@@ -18,9 +18,13 @@
                                 <div class="col-4 text-center">
                                     <label for="phone">Phone <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
-                                <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
+                                <!-- <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
                                     <input class="form-control" type="text" id="phone" name="phone" v-model.trim="$v.form.phone.$model">
-                                    <!-- <vue-tel-input class="form-control" v-model.trim="$v.form.phone.$model"></vue-tel-input> -->
+                                    <div class="error" v-if="$v.form.phone.$error && !$v.form.phone.required">Field is required.</div>
+                                    <div class="error" v-if="!$v.form.phone.minLength">Field must have at least {{ $v.form.phone.$params.minLength.min }} characters.</div>
+                                </div> -->
+                                <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
+                                    <vue-tel-input id="phone" class="form-control" name="phone" v-model.trim="$v.form.phone.$model" v-bind="bindProps"></vue-tel-input>
                                     <div class="error" v-if="$v.form.phone.$error && !$v.form.phone.required">Field is required.</div>
                                     <div class="error" v-if="!$v.form.phone.minLength">Field must have at least {{ $v.form.phone.$params.minLength.min }} characters.</div>
                                 </div>
@@ -256,7 +260,7 @@
                                 </div>
                                 <div class="col-12 col-md-3 text-center" :class="{ 'form-group--error': item.$error }">
                                     <v-select
-                                        :options="levels"
+                                        :options="skillLevels"
                                         :reduce="level => level.id"
                                         label="level"
                                         v-model.trim="item.level_id.$model"
@@ -502,6 +506,7 @@
     import { required, minLength, between } from 'vuelidate/lib/validators';
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
+    import VueTelInput from 'vue-tel-input';
 
     export default {
         components: {
@@ -517,6 +522,32 @@
 
         data() {
             return {
+                bindProps: {
+                  mode: "international",
+                  defaultCountry: "FR",
+                  disabledFetchingCountry: false,
+                  disabled: false,
+                  disabledFormatting: false,
+                  placeholder: "Enter a phone number",
+                  required: false,
+                  enabledCountryCode: true,
+                  enabledFlags: true,
+                  preferredCountries: ["AU", "BR"],
+                  onlyCountries: [],
+                  ignoredCountries: [],
+                  autocomplete: "off",
+                  name: "telephone",
+                  maxLen: 25,
+                  wrapperClasses: "",
+                  inputClasses: "",
+                  dropdownOptions: {
+                    disabledDialCode: false
+                  },
+                  inputOptions: {
+                    showDialCode: false
+                  }
+                },
+
                 customToolbar: [
                   ["bold", "italic", "underline"],
                   [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
@@ -590,6 +621,7 @@
 
                 regions: [],
                 levels: [],
+                skillLevels: [],
                 countries: []
 
             };
@@ -829,6 +861,14 @@
             axios.post('/api/levels/all')
                 .then(response => {
                     this.levels = response.data
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
+                })
+            axios.post('/api/skillLevels/all')
+                .then(response => {
+                    this.skillLevels = response.data
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
