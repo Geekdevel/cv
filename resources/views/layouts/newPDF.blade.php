@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume {{$user->name}}</title>
+ <style>
+body {
+  /*font-family: 'Roboto', sans-serif;*/
+  font-family: "Nunito", sans-serif;
+  color: #545E6C;
+  background: #f5f5f5;
+  font-size: 14px;
+  padding: 0px;
+  /*-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;*/
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+p {
+  line-height: 1.5;
+}
+li {
+    list-style-type: none;
+}
+.fa-li {
+    width: 16px;
+}
+.fa-title {
+    width: 60px;
+    margin-top: 20px;
+}
+.container-block {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.section-title {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2d7788;
+  margin-top: 0;
+  margin-bottom: 20px;
+  height: 32px;
+}
+.section-title .fa {
+  width: 40px;
+  height: 32px;
+  margin-right: 8px;
+  margin-bottom: -11px;
+  display: inline-block;
+  color: #fff;
+  border-radius: 20px;
+  background-clip: padding-box;
+  background: #2d7788;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 16px;
+  top: -2px;
+}
+
+</style>
+</head>
+<body>
+    <!-- {{storage_path('/')}}</br>
+    {{$user->profile->photo}}</br>
+    <img src="{{$user->profile->photo}}" alt=""></br>
+    <img src="http://resumevue3.test{{$user->profile->photo}}"></br>
+    <p>http://resumevue3.test{{$user->profile->photo}}</p>
+    <p>http://resumevue3.test/storage/files/upload/image/1503012020526.jpeg</p>
+    <img src="http://resumevue3.test/storage/IconsFontAvesome/fa-archive-v-krug.png" alt=""> -->
+
+
+
+    <div class="wrapper" style="margin: 0 auto; position: relative;">
+        <div class="sidebar-wrapper" style="background: #42A8C0; position: absolute; right: 0; width: 300px; color: #fff;">
+            <div class="profile-container" style="padding: 10px; background: rgba(0, 0, 0, 0.2); text-align: center; color: #fff;">
+                <!-- <img class="profile" src="http://resumevue3.test{{$user->profile->photo}}" alt="{{$user->name}}" style="width: 150px; border-radius: 75px; margin: 0px 25% 0px 25%;" /> -->
+                <img class="profile" src="{{$url}}" alt="{{$user->name}}" style="width: 150px; border-radius: 75px; margin: 0px 25% 0px 25%;" />
+                <h1 class="name">{{ $user->name }}</h1>
+                <h3 class="tagline">{{ $resume->job_title }}</h3>
+            </div><!--//profile-container-->
+
+            <div class="contact-container container-block">
+                <ul class="list-unstyled contact-list">
+                    <li class="email">
+                        <!-- <i class="fa fa-envelope"></i> -->
+                        <!-- {{storage_path('/')}} -->
+                       <!--  <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-envelope-bel.png" alt="fa-envelope"> -->
+                        <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-envelope-bel.png')}}" alt="fa-envelope">
+                        {{ $user->email }}
+                    </li>
+                    <li class="phone">
+                        <!-- <i class="fa fa-phone"></i> -->
+                        <!-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-phone-bel.png" alt="fa-envelope"> -->
+                        <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-phone-bel.png')}}" alt="fa-envelope">
+                         {{ $user->phone }}
+                    </li>
+                    @if (isset($user->profile->web_site))
+                        <li class="website">
+                            <!-- <i class="fa fa-globe"></i> -->
+                            <!-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-globe-bel.png" alt="fa-globe"> -->
+                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-globe-bel.png')}}" alt="fa-globe">
+                             {{ $user->profile->web_site }}
+                        </li>
+                    @endif
+                    @if (isset($user->profile->linkedin))
+                        <li class="linkedin">
+                            <!-- <i class="fab fa-linkedin"></i> -->
+                            <!-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-linkedin-bel.png" alt="fa-linkedin"> -->
+                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-linkedin-bel.png')}}" alt="fa-linkedin">
+                             {{ $user->profile->linkedin }}
+                        </li>
+                    @endif
+                    @if (isset($user->profile->git))
+                        <li class="github">
+                            <!-- <i class="fab fa-github"></i> -->
+                            <!-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-github-bel.png" alt="fa-github"> -->
+                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-github-bel.png')}}" alt="fa-github">
+                             {{ $user->profile->git }}
+                        </li>
+                    @endif
+                    @if (isset($user->profile->dribbble))
+                        <li class="dribbble">
+                            <!-- <i class="fab fa-dribbble"></i> -->
+                           <!--  <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-dribbble-bel.png" alt="fa-dribbble"> -->
+                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-dribbble-bel.png')}}" alt="fa-dribbble">
+                             {{ $user->profile->dribbble }}
+                        </li>
+                    @endif
+                    @if (isset($user->profile->behance))
+                        <li class="behance">
+                            <!-- <i class="fab fa-behance"></i> -->
+                            <!-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-behance-bel.png" alt="fa-behance"> -->
+                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-behance-bel.png')}}" alt="fa-behance">
+                             {{ $user->profile->behance }}
+                        </li>
+                    @endif
+                </ul>
+            </div><!--//contact-container-->
+            <div class="education-container container-block">
+                <h2 class="container-block-title">Education</h2>
+                @foreach($user->educations as $education)
+                    <div class="item">
+                        <h4 class="degree">{{ $education->level }}</h4>
+                        <h5 class="meta">{{ $education->university }}</h5>
+                        <div class="time">{{ $education->start }} - {{ $education->finish ? $education->finish : 'By current time' }}</div>
+                    </div><!--//item-->
+                @endforeach
+            </div><!--//education-container-->
+
+            <div class="languages-container container-block">
+                <h2 class="container-block-title">Languages</h2>
+                <ul class="list-unstyled interests-list">
+                    @foreach($user->languages as $lenguage)
+                        <li>
+                            {{ $lenguage->lenguage }} <span class="lang-desc">( {{ $lenguage->level->level }} )</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div><!--//interests-->
+
+            @if (!empty(implode($user->hobbis->pluck('hobbi')->all())))
+                <div class="interests-container container-block">
+                    <h2 class="container-block-title">Interests</h2>
+                    <ul class="list-unstyled interests-list">
+                        @foreach($user->hobbis as $hobbi)
+                            <li>
+                                {{ $hobbi->hobbi }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div><!--//interests-->
+            @endif
+        </div><!--//sidebar-wrapper-->
+
+        <div class="main-wrapper" style="padding-right: 310px;">
+
+            <section class="section summary-section">
+                <h2 class="section-title">
+                    <!-- <i class="fa fa-user"></i> -->
+                    <!-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fas-fa-user-krug.png" alt="fas-fa-user-krug"> -->
+                    <img class="fa-title" src="{{storage_path('IconsFontAvesome/fas-fa-user-krug.png')}}" alt="fas-fa-user-krug">
+                    <span>Career Profile</span>
+                </h2>
+                <div class="summary" style="padding-top: 20px;">
+                    {!! $resume->description !!}
+                </div><!--//summary-->
+            </section><!--//section-->
+
+            <section class="section experiences-section">
+                <h2 class="section-title">
+                    <!-- <i class="fa fa-briefcase"></i> -->
+                    <!-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fa-briefcase-krug.png" alt="fa-briefcase-krug"> -->
+                    <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-briefcase-krug.png')}}" alt="fa-briefcase-krug">
+                    <span>Experiences</span>
+                </h2>
+                @foreach($user->works as $item)
+                    <div class="item" style="padding-top: 20px;">
+                        <div class="meta">
+                            <div class="upper-row">
+                                <h3 class="job-title" style="display: inline;">{{ $item->position }}</h3>
+                                <div class="time" style="display: inline; margin-right: 0px;">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
+                            </div><!--//upper-row-->
+                            <div class="company">{{ $item->experience }}</div>
+                        </div><!--//meta-->
+                        <div class="details">
+                            {!! $item->functions !!}
+                        </div><!--//details-->
+                    </div><!--//item-->
+                @endforeach
+            </section><!--//section-->
+
+            @if(!empty($user->projects->description))
+                <section class="section projects-section">
+                    <h2 class="section-title">
+                        <!-- <i class="fa fa-archive"></i> -->
+                       <!--  <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fa-archive-v-krug.png" alt="fa-archive-v-krug"> -->
+                        <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-archive-v-krug.png')}}" alt="fa-archive-v-krug">
+                        <span>Projects</span>
+                    </h2>
+                    <div class="intro" style="padding-top: 20px;">
+                        {!! $user->projects->description !!}
+                    </div><!--//intro-->
+                </section><!--//section-->
+            @endif
+
+            <section class="skills-section section">
+                <h2 class="section-title">
+                    <!-- <i class="fa fa-rocket"></i> -->
+                    <!-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fa-rocket-krug.png" alt="fa-rocket-krug"> -->
+                    <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-rocket-krug.png')}}" alt="fa-rocket-krug">
+                    <span>Skills &amp; Proficiency</span>
+                </h2>
+                <div class="skillset" style="padding-top: 20px;">
+                    @foreach($user->skills as $skill)
+                        <div class="item">
+                            <h3 class="level-title" style="width: 30%;">{{ $skill->skill }}</h3>
+                            <div class="level-bar" style="margin-left: 30%;">
+                                <div class="level-bar-inner" style="width: {{ ($skill->level_id)*20 }}%; background-color: #42A8C0; height: 20px; margin-top: -40px;">
+                                    {{ ($skill->level_id)*20 }}%
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </section><!--//skills-section-->
+
+        </div><!--//main-body-->
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
