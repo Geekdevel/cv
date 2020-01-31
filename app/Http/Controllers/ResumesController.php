@@ -40,7 +40,7 @@ class ResumesController extends Controller
         //dd($data);
         //return PDF::loadView('layouts/dliaPDF', $data)->stream('download.pdf');
         return PDF::loadView('layouts/newPDF', $data)->stream('download.pdf');
-        //return view('layouts/dliaPDF', compact('user', 'resume', 'url'));
+        //return view('layouts/newPDF', compact('user', 'resume', 'url'));
     }
     /**
      * Display a listing of the resource.
