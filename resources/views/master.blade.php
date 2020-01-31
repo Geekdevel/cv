@@ -1,39 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.index')
 
-<head>
+@section('description')
+This is the site where you can create your resume
+@endsection
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@section('author')
+{{ Auth::user()->name }}
+@endsection
 
-  <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('keywords')
+Profile, resume, create, ...
+@endsection
 
-  <meta name="description" content="@yield('description', 'This resume vue')">
-  <meta name="author" content="@yield('author', 'I am')">
-  <meta name="keywords" content="@yield('keywords', 'resume, vue, test')">
+@section('title')
+Admin panel {{ Auth::user()->name }}
+@endsection
 
-
-  <title>
-    @yield('title', 'Resume Vue')
-  </title>
-
-  <!-- Custom fonts for this template-->
-  <link href="/sb-admin/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Custom styles for this template-->
-  <link href="/css/sb-admin.css" rel="stylesheet">
-  <link href="/css/all.css" rel="stylesheet">
-  <link href="/css/app.css" rel="stylesheet">
-
-  <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-</head>
-
-<body id="page-top">
-<div id="app">
+@section('content')
   <app-nav :user="{{ Auth::user() }}"></app-nav>
   <div id="wrapper">
 
@@ -63,8 +46,4 @@
 
   </div>
   <!-- /#wrapper -->
-</div>
-</body>
-
-</html>
-
+@endsection
