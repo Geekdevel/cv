@@ -1,54 +1,6 @@
 <template>
         <div class="wrapper">
-            <div class="sidebar-wrapper">
-                <div class="profile-container">
-                    <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
-                    <h1 class="name">{{ form.name }}</h1>
-                    <h3 class="tagline">{{ resumeform.job_title }}</h3>
-                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model.trim="$v.resumeform.job_title.$model" placeholder="Job Title" @click="chekErrorMessages">
-                    <div class="error" v-if="$v.resumeform.job_title.$error && !$v.resumeform.job_title.required">Must be completed!</div>
-                    <div class="error" v-if="!$v.resumeform.job_title.minLength">Field must have at least {{ $v.resumeform.job_title.$params.minLength.min }} characters.</div>
-                </div><!--//profile-container-->
 
-                <div class="contact-container container-block">
-                    <ul class="list-unstyled contact-list">
-                        <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
-                        <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
-                        <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
-                        <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
-                        <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
-                        <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
-                        <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
-                    </ul>
-                </div><!--//contact-container-->
-                <div class="education-container container-block">
-                    <h2 class="container-block-title">Education</h2>
-                    <div class="item" v-for="education in educationform">
-                        <h4 class="degree">{{ education.level }}</h4>
-                        <h5 class="meta">{{ education.university }}</h5>
-                        <div class="time">{{ education.start }} - <span v-if="education.finish">{{ education.finish }}</span><span v-if="!education.finish">By current time</span></div>
-                    </div><!--//item-->
-                </div><!--//education-container-->
-
-                <div class="languages-container container-block">
-                    <h2 class="container-block-title">Languages</h2>
-                    <ul class="list-unstyled interests-list">
-                        <li v-for="(lenguage, index) in lenguageform" :key="index">
-                            {{ lenguage.lenguage }} <span class="lang-desc">( {{ lenguage.level.level }} )</span>
-                        </li>
-                    </ul>
-                </div><!--//interests-->
-
-                <div class="interests-container container-block" v-if="hobbiform[0].hobbi">
-                    <h2 class="container-block-title">Interests</h2>
-                    <ul class="list-unstyled interests-list">
-                        <li v-for="item in hobbiform">
-                            {{ item.hobbi }}
-                        </li>
-                    </ul>
-                </div><!--//interests-->
-
-            </div><!--//sidebar-wrapper-->
 
             <div class="main-wrapper">
                     <div class="error">
@@ -120,6 +72,57 @@
                 </button>
 
             </div><!--//main-body-->
+
+            <div class="sidebar-wrapper">
+                <div class="profile-container">
+                    <img class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
+                    <h1 class="name">{{ form.name }}</h1>
+                    <h3 class="tagline">{{ resumeform.job_title }}</h3>
+                    <input type="text" id="jobTitle" name="jobTitle" width="100%" v-model.trim="$v.resumeform.job_title.$model" placeholder="Job Title" @click="chekErrorMessages">
+                    <div class="error" v-if="$v.resumeform.job_title.$error && !$v.resumeform.job_title.required">Must be completed!</div>
+                    <div class="error" v-if="!$v.resumeform.job_title.minLength">Field must have at least {{ $v.resumeform.job_title.$params.minLength.min }} characters.</div>
+                </div><!--//profile-container-->
+
+                <div class="contact-container container-block">
+                    <ul class="list-unstyled contact-list">
+                        <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
+                        <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
+                        <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
+                        <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
+                        <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
+                        <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
+                        <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
+                    </ul>
+                </div><!--//contact-container-->
+                <div class="education-container container-block">
+                    <h2 class="container-block-title">Education</h2>
+                    <div class="item" v-for="education in educationform">
+                        <h4 class="degree">{{ education.level }}</h4>
+                        <h5 class="meta">{{ education.university }}</h5>
+                        <div class="time">{{ education.start }} - <span v-if="education.finish">{{ education.finish }}</span><span v-if="!education.finish">By current time</span></div>
+                    </div><!--//item-->
+                </div><!--//education-container-->
+
+                <div class="languages-container container-block">
+                    <h2 class="container-block-title">Languages</h2>
+                    <ul class="list-unstyled interests-list">
+                        <li v-for="(lenguage, index) in lenguageform" :key="index">
+                            {{ lenguage.lenguage }} <span class="lang-desc">( {{ lenguage.level.level }} )</span>
+                        </li>
+                    </ul>
+                </div><!--//interests-->
+
+                <div class="interests-container container-block" v-if="hobbiform[0].hobbi">
+                    <h2 class="container-block-title">Interests</h2>
+                    <ul class="list-unstyled interests-list">
+                        <li v-for="item in hobbiform">
+                            {{ item.hobbi }}
+                        </li>
+                    </ul>
+                </div><!--//interests-->
+
+            </div><!--//sidebar-wrapper-->
+
         </div>
 </template>
 

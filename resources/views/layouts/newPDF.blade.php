@@ -45,6 +45,15 @@ li {
     width: 370px;
     margin-top: 0px;
 }
+/*.upper-row {
+   margin-bottom: -50px;
+}*/
+.main-wrapper .time {
+    color: #97AAC3;
+}
+.main-wrapper .company {
+    color: #97AAC3;
+}
 .profile-container {
     padding: 10px;
     background: rgba(0, 0, 0, 0.2);
