@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> --}}
  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 body {
   /*font-family: 'Roboto', sans-serif;*/
   font-family: 'Roboto', sans-serif;
