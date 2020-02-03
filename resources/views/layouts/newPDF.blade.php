@@ -6,9 +6,11 @@
     {{-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> --}}
  <style>
 @font-face {
-    font-family: Roboto;
-    src: {{url('fonts/Roboto/Roboto-Light.ttf')}};
-    }
+    font-family: 'Roboto';
+    src: url({{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}) format("truetype");
+    font-weight: 400; // use the matching font-weight here ( 100, 200, 300, 400, etc).
+    font-style: normal; // use the matching font-style here
+}
 body {
   /*font-family: 'Nunito';*/
   font-family: 'Roboto';
