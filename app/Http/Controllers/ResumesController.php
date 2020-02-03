@@ -24,9 +24,9 @@ class ResumesController extends Controller
         $user = auth()->user();
         $slag = $request->slag;
         $resume = Resume::slag($slag);
-        $pre_url = explode('/', $user->profile->photo);
-        $p_url = array_splice($pre_url, 2);
-        $url = storage_path(implode('/', $p_url));
+        // $pre_url = explode('/', $user->profile->photo);
+        // $p_url = array_splice($pre_url, 2);
+        // $url = storage_path(implode('/', $p_url));
         // dd($url);
         // dd(storage_path($user->profile->photo));
         // dd($resume->description);
@@ -34,7 +34,7 @@ class ResumesController extends Controller
         $data = [
             'user' => $user,
             'resume' => $resume,
-            'url' => $url
+            // 'url' => $url
         ];
         // dd(storage_path($data['user']->profile->photo));
         //dd($data);

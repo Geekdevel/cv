@@ -30,26 +30,19 @@ li {
 }
 .wrapper {
     margin: 0 auto;
-   /* padding-top: 0px;*/
-    /*position: relative;*/
-    /*display: inline-block;*/
-   /* padding-top: 400px;*/
 }
 .sidebar-wrapper {
     background: #42A8C0;
     display: block;
     float: right;
-    /*position: absolute;*/
     right: 0;
     width: 300px;
     color: #fff;
-   /* margin-top: -700px;*/
 }
 .main-wrapper {
     display: block;
     float: left;
     width: 370px;
-    /*padding-right: 310px;*/
     margin-top: 0px;
 }
 .profile-container {
@@ -122,11 +115,10 @@ li {
 <body>
     <div class="wrapper">
         <div class="main-wrapper">
-
             <section class="section summary-section">
                 <h2 class="section-title">
-                    {{-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fas-fa-user-krug.png" alt="fas-fa-user-krug"> --}}
-                    <img class="fa-title" src="{{storage_path('IconsFontAvesome/fas-fa-user-krug.png')}}" alt="fas-fa-user-krug">
+                    <img class="fa-title" src="{{ url('IconsFontAvesome/fas-fa-user-krug.png') }}" alt="fas-fa-user-krug">
+                    {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fas-fa-user-krug.png')}}" alt="fas-fa-user-krug"> --}}
                     <span>Career Profile</span>
                 </h2>
                 <div class="summary">
@@ -136,8 +128,8 @@ li {
 
             <section class="section experiences-section">
                 <h2 class="section-title">
-                    {{-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fa-briefcase-krug.png" alt="fa-briefcase-krug"> --}}
-                    <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-briefcase-krug.png')}}" alt="fa-briefcase-krug">
+                    <img class="fa-title" src="{{ url('IconsFontAvesome/fa-briefcase-krug.png') }}" alt="fa-briefcase-krug">
+                    {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-briefcase-krug.png')}}" alt="fa-briefcase-krug"> --}}
                     <span>Experiences</span>
                 </h2>
                 @foreach($user->works as $item)
@@ -159,8 +151,8 @@ li {
             @if(!empty($user->projects->description))
                 <section class="section projects-section">
                     <h2 class="section-title">
-                        {{-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fa-archive-v-krug.png" alt="fa-archive-v-krug"> --}}
-                        <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-archive-v-krug.png')}}" alt="fa-archive-v-krug">
+                        <img class="fa-title" src="{{ url('IconsFontAvesome/fa-archive-v-krug.png') }}" alt="fa-archive-v-krug">
+                        {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-archive-v-krug.png')}}" alt="fa-archive-v-krug"> --}}
                         <span>Projects</span>
                     </h2>
                     <div class="intro">
@@ -171,8 +163,8 @@ li {
 
             <section class="skills-section section">
                 <h2 class="section-title">
-                    {{-- <img class="fa-title" src="http://resumevue3.test/storage/IconsFontAvesome/fa-rocket-krug.png" alt="fa-rocket-krug"> --}}
-                    <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-rocket-krug.png')}}" alt="fa-rocket-krug">
+                    <img class="fa-title" src="{{ url('IconsFontAvesome/fa-rocket-krug.png') }}" alt="fa-rocket-krug">
+                    {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-rocket-krug.png')}}" alt="fa-rocket-krug"> --}}
                     <span>Skills &amp; Proficiency</span>
                 </h2>
                 <div class="skillset">
@@ -193,8 +185,9 @@ li {
 
         <div class="sidebar-wrapper">
             <div class="profile-container">
+                <img class="profile" src="{{ url($user->profile->photo) }}" alt="{{$user->name}}"/>
                 {{-- <img class="profile" src="http://resumevue3.test{{$user->profile->photo}}" alt="{{$user->name}}"/> --}}
-                <img class="profile" src="{{$url}}" alt="{{$user->name}}"/>
+                {{-- <img class="profile" src="{{$url}}" alt="{{$user->name}}"/> --}}
                 <h1 class="name">{{ $user->name }}</h1>
                 <h3 class="tagline">{{ $resume->job_title }}</h3>
             </div><!--//profile-container-->
@@ -202,47 +195,47 @@ li {
             <div class="contact-container container-block">
                 <ul class="list-unstyled contact-list">
                     <li class="email">
-                        {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-envelope-bel.png" alt="fa-envelope"> --}}
-                        <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-envelope-bel.png')}}" alt="fa-envelope">
+                        <img class="fa-li" src="{{ url('IconsFontAvesome/fa-envelope-bel.png') }}" alt="fa-envelope">
+                        {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-envelope-bel.png')}}" alt="fa-envelope"> --}}
                         {{ $user->email }}
                     </li>
                     <li class="phone">
-                        {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-phone-bel.png" alt="fa-envelope"> --}}
-                        <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-phone-bel.png')}}" alt="fa-envelope">
+                        <img class="fa-li" src="{{ url('IconsFontAvesome/fa-phone-bel.png') }}" alt="fa-envelope">
+                        {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-phone-bel.png')}}" alt="fa-envelope"> --}}
                          {{ $user->phone }}
                     </li>
                     @if (isset($user->profile->web_site))
                         <li class="website">
-                            {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-globe-bel.png" alt="fa-globe"> --}}
-                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-globe-bel.png')}}" alt="fa-globe">
+                            <img class="fa-li" src="{{ url('IconsFontAvesome/fa-globe-bel.png') }}" alt="fa-globe">
+                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-globe-bel.png')}}" alt="fa-globe"> --}}
                              {{ $user->profile->web_site }}
                         </li>
                     @endif
                     @if (isset($user->profile->linkedin))
                         <li class="linkedin">
-                            {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-linkedin-bel.png" alt="fa-linkedin"> --}}
-                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-linkedin-bel.png')}}" alt="fa-linkedin">
+                            <img class="fa-li" src="{{ url('IconsFontAvesome/fa-linkedin-bel.png') }}" alt="fa-linkedin">
+                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-linkedin-bel.png')}}" alt="fa-linkedin"> --}}
                              {{ $user->profile->linkedin }}
                         </li>
                     @endif
                     @if (isset($user->profile->git))
                         <li class="github">
-                            {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-github-bel.png" alt="fa-github"> --}}
-                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-github-bel.png')}}" alt="fa-github">
+                            <img class="fa-li" src="{{ url('IconsFontAvesome/fa-github-bel.png') }}" alt="fa-github">
+                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-github-bel.png')}}" alt="fa-github"> --}}
                              {{ $user->profile->git }}
                         </li>
                     @endif
                     @if (isset($user->profile->dribbble))
                         <li class="dribbble">
-                            {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-dribbble-bel.png" alt="fa-dribbble"> --}}
-                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-dribbble-bel.png')}}" alt="fa-dribbble">
+                            <img class="fa-li" src="{{ url('IconsFontAvesome/fa-dribbble-bel.png') }}" alt="fa-dribbble">
+                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-dribbble-bel.png')}}" alt="fa-dribbble"> --}}
                              {{ $user->profile->dribbble }}
                         </li>
                     @endif
                     @if (isset($user->profile->behance))
                         <li class="behance">
-                            {{-- <img class="fa-li" src="http://resumevue3.test/storage/IconsFontAvesome/fa-behance-bel.png" alt="fa-behance"> --}}
-                            <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-behance-bel.png')}}" alt="fa-behance">
+                            <img class="fa-li" src="{{ url('IconsFontAvesome/fa-behance-bel.png') }}" alt="fa-behance">
+                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-behance-bel.png')}}" alt="fa-behance"> --}}
                              {{ $user->profile->behance }}
                         </li>
                     @endif
