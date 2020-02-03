@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
  <style>
+    @font-face {
+    font-family: Nunito;
+    src: url('fonts/Nunito_Sans/NunitoSans-Black.ttf');
+   }
 body {
   /*font-family: 'Roboto', sans-serif;*/
   font-family: "Nunito", sans-serif;
@@ -39,6 +43,9 @@ li {
     width: 300px;
     color: #fff;
 }
+.sidebar-wrapper li {
+    margin-left: -35px;
+}
 .main-wrapper {
     display: block;
     float: left;
@@ -61,7 +68,7 @@ li {
     color: #fff;
 }
 .fa-li {
-    width: 16px;
+    width: 18px;
 }
 .fa-title {
     width: 60px;
@@ -109,15 +116,63 @@ li {
 }
 .level-title {
     width: 30%;
+    font-size: 14px;
+    /*display: block;
+    float: left;*/
 }
 .level-bar {
     margin-left: 30%;
+    /*display: block;
+    float: right;*/
 }
 .level-bar-inner {
     background-color: #42A8C0;
     height: 20px;
     margin-top: -40px;
 }
+.skill-level-procent {
+    padding-bottom: 5px;
+}
+/*.level-bar-inner span {
+    margin-bottom: 5px;
+}*/
+.container-block {
+    padding-left: 15px;
+}
+.sidebar-wrapper .name {
+    font-size: 32px;
+    font-weight: 900;
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+.container-block-title {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    /*margin-top: 0;*/
+    margin-bottom: 15px;
+    /*line-height: 1.2;*/
+}
+.container-block .meta {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    font-size: 1.125rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.sidebar-wrapper .degree {
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 5px;
+    /*line-height: 1.2;*/
+    font-weight: 500;
+}
+.lang-desc {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+
 
 </style>
 </head>
@@ -182,7 +237,7 @@ li {
                             <h3 class="level-title">{{ $skill->skill }}</h3>
                             <div class="level-bar">
                                 <div class="level-bar-inner" style="width: {{ ($skill->level_id)*20 }}%;">
-                                    {{ ($skill->level_id)*20 }}%
+                                    <span class="skill-level-procent">{{ ($skill->level_id)*20 }}%</span>
                                 </div>
                             </div>
                         </div>

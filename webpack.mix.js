@@ -15,4 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/sb-admin/sb-admin.scss', 'public/css')
     .styles(['resources/css/styles.css'], 'public/css/all.css')
-    .copy('resources/IconsFontAvesome', 'public/IconsFontAvesome');
+    .copy('resources/IconsFontAvesome', 'public/IconsFontAvesome')
+    .copy('resources/fonts', 'public/fonts');
