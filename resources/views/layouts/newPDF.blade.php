@@ -60,6 +60,7 @@ li {
 }
 .main-wrapper .company {
     color: #97AAC3;
+    /*margin-top: 50px;*/
 }
 .profile-container {
     padding: 10px;

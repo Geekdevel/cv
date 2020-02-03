@@ -1,7 +1,7 @@
 <template>
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <router-link :to="{ name: 'profileedit' }" class="nav-link"> <i class="fas fa-user-tag"></i> <span>Profile</span></router-link>
+        <router-link v-if="chekProfileWisUser" :to="{ name: 'profileedit' }" class="nav-link"> <i class="fas fa-user-tag"></i> <span>Profile</span></router-link>
       </li>
       <li class="nav-item active">
         <router-link :to="{ name: 'resumes' }" class="nav-link"> <i class="far fa-address-card"></i> <span>Resumes</span></router-link>
@@ -23,3 +23,22 @@
       </li>
     </ul>
 </template>
+<script>
+  export default {
+
+    props: {
+      user: {}
+    },
+
+    computed: {
+      chekProfileWisUser() {
+        if (this.user.profile){
+          return true
+        }
+        else {
+          return false
+        }
+      }
+    }
+  }
+</script>

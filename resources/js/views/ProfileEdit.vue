@@ -18,11 +18,6 @@
                                 <div class="col-4 text-center">
                                     <label for="phone">Phone <span class="be-sure-to-fill-out">*</span></label>
                                 </div>
-                                <!-- <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
-                                    <input class="form-control" type="text" id="phone" name="phone" v-model.trim="$v.form.phone.$model">
-                                    <div class="error" v-if="$v.form.phone.$error && !$v.form.phone.required">Field is required.</div>
-                                    <div class="error" v-if="!$v.form.phone.minLength">Field must have at least {{ $v.form.phone.$params.minLength.min }} characters.</div>
-                                </div> -->
                                 <div class="col-8 text-center" :class="{ 'form-group--error': $v.form.phone.$error }">
                                     <vue-tel-input id="phone" class="form-control" name="phone" v-model.trim="$v.form.phone.$model" v-bind="bindProps"></vue-tel-input>
                                     <div class="error" v-if="$v.form.phone.$error && !$v.form.phone.required">Field is required.</div>
@@ -835,7 +830,7 @@
                         experienceform: this.experienceform,
                         hobbiform: this.hobbiform,
                         addressform: this.addressform,
-                        projectsform: this.projectsform
+                        projectsform: this.projectsform && this.projectsform.description ? this.projectsform : { description: null }
                     }
                     axios.put('/profiles/' + this.profileform.id, data)
                         .then(() => {
@@ -876,18 +871,21 @@
                 })
             axios.post('/profiles/user')
                 .then(response =>{
-                    this.profileform = response.data.profile
-                    this.addressform = response.data.address
+                    this.profileform = response.data.profile && response.data.profile.web_site ? response.data.profile : { web_site: null }
+                    this.addressform = response.data.address && response.data.address.country ? response.data.address : { country: null }
                     this.hobbiform = response.data.hobbi
                     this.experienceform = response.data.works
                     this.educationform = response.data.educations
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
-                    this.projectsform = response.data.projects
+                    this.projectsform = response.data.projects && response.data.projects.description ? response.data.projects : { description: null }
 
-                    this.changeCountry(this.addressform.country)
-                    this.addressform.country = Number(this.addressform.country)
-                    this.addressform.region = Number(this.addressform.region)
+                    if (this.addressform.country != null) {
+                        this.changeCountry(this.addressform.country)
+                        this.addressform.country = Number(this.addressform.country)
+                        this.addressform.region = Number(this.addressform.region)
+                    }
+
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)

@@ -21,7 +21,7 @@ Admin panel {{ Auth::user()->name }}
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <app-sidebar></app-sidebar>
+    <app-sidebar :user="{{ Auth::user() }}"></app-sidebar>
 
     <div id="content-wrapper">
 

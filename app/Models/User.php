@@ -47,6 +47,10 @@ class User extends Authenticatable implements MustVerifyEmail
          'deleted_at'
     ];
 
+    protected $with = [
+        'profile'
+    ];
+
     public function address()
     {
         return $this->hasOne('App\Models\Addresse');
