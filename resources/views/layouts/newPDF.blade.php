@@ -5,10 +5,9 @@
     <title>Resume {{$user->name}}</title>
     {{-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> --}}
  <style>
-    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 body {
   /*font-family: 'Roboto', sans-serif;*/
-  font-family: 'Roboto', sans-serif;
+  /*font-family: 'Roboto', sans-serif;*/
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
