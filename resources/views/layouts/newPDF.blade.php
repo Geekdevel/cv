@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
  <style>
-    @font-face {
-    font-family: Nunito;
-    src: {{url('fonts/Nunito_Sans/NunitoSans-Black.ttf')}};
-   }
 body {
   /*font-family: 'Roboto', sans-serif;*/
-  font-family: "Nunito", sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
@@ -36,6 +33,7 @@ li {
     margin: 0 auto;
 }
 .sidebar-wrapper {
+    /*font-family: 'Roboto', sans-serif;*/
     background: #42A8C0;
     display: block;
     float: right;
@@ -253,7 +251,7 @@ li {
                 <img class="profile" src="{{ url($user->profile->photo) }}" alt="{{$user->name}}"/>
                 {{-- <img class="profile" src="http://resumevue3.test{{$user->profile->photo}}" alt="{{$user->name}}"/> --}}
                 {{-- <img class="profile" src="{{$url}}" alt="{{$user->name}}"/> --}}
-                <h1 class="name">{{ $user->name }}</h1>
+                <h1 class="name" style="font-family: 'Roboto', sans-serif; line-height: 1.2;">{{ $user->name }}</h1>
                 <h3 class="tagline">{{ $resume->job_title }}</h3>
             </div><!--//profile-container-->
 
