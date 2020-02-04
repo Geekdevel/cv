@@ -8,7 +8,7 @@
 @font-face {
     font-family: 'Roboto';
     src: url(fonts/Roboto-Light.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
-    font-weight: 400;
+    /*font-weight: 400;*/
     font-style: normal;
 }
 body {
