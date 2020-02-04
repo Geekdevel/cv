@@ -7,7 +7,7 @@
  <style>
 @font-face {
     font-family: 'Roboto';
-    src: url({{storage_path('fonts/Roboto-Light.ttf')}}); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Roboto-Light.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
     font-weight: 400;
     font-style: normal;
 }
