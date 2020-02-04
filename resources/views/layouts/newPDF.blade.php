@@ -27,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Roboto';
+  font-family: 'Roboto' !important;
   font-weight: 700;
   /*font-family: 'Roboto';*/
 }
@@ -56,7 +56,7 @@ li {
 .main-wrapper {
     display: block;
     float: left;
-    width: 370px;
+    width: 300px;
     margin-top: 0px;
 }
 /*.upper-row {
