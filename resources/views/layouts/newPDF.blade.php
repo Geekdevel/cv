@@ -13,7 +13,7 @@
 }
 body {
   /*font-family: 'Nunito';*/
-  font-family: 'Roboto';
+  /*font-family: 'Roboto';*/
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
@@ -185,16 +185,17 @@ li {
 </head>
 <body>
     {{-- {{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}</br> --}}
-    {{ url(asset('fonts/Roboto/Roboto-Light.ttf'))}}</br>
+    {{-- {{ url(asset('fonts/Roboto/Roboto-Light.ttf'))}}</br> --}}
     <div class="wrapper">
         <div class="main-wrapper">
             <section class="section summary-section">
                 <h2 class="section-title">
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fas-fa-user-krug.png') }}" alt="fas-fa-user-krug">
                     {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fas-fa-user-krug.png')}}" alt="fas-fa-user-krug"> --}}
-                    <span>Career Profile</span>
+                    <span style="font-family: 'Roboto';">Career Profile</span>
                 </h2>
                 <div class="summary">
+                    {{ url(asset('fonts/Roboto/Roboto-Light.ttf')) }}
                     {!! $resume->description !!}
                 </div>
             </section>
@@ -261,7 +262,7 @@ li {
                 <img class="profile" src="{{ url($user->profile->photo) }}" alt="{{$user->name}}"/>
                 {{-- <img class="profile" src="http://resumevue3.test{{$user->profile->photo}}" alt="{{$user->name}}"/> --}}
                 {{-- <img class="profile" src="{{$url}}" alt="{{$user->name}}"/> --}}
-                <h1 class="name">{{ $user->name }}</h1>
+                <h1 class="name" style="font-family: 'Roboto' !important;">{{ $user->name }}</h1>
                 <h3 class="tagline">{{ $resume->job_title }}</h3>
             </div><!--//profile-container-->
 
