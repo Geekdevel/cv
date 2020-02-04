@@ -7,9 +7,9 @@
  <style>
 @font-face {
     font-family: 'Roboto';
-    src: url({{ storage_path('fonts/Roboto-Light.ttf') }}) format("truetype"); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Roboto-Light.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
     font-weight: 400;
-    font-style: light;
+    font-style: normal;
 }
 body {
   /*font-family: 'Nunito';*/
@@ -188,7 +188,7 @@ li {
     {{-- {{ url(asset('fonts/Roboto/Roboto-Light.ttf'))}}</br> --}}
     <div class="wrapper">
         <div class="main-wrapper">
-            {{ storage_path('fonts/Roboto-Light.ttf') }}
+            {{-- {{ storage_path('fonts/Roboto-Light.ttf') }} --}}
             <section class="section summary-section">
                 <h2 class="section-title">
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fas-fa-user-krug.png') }}" alt="fas-fa-user-krug">
