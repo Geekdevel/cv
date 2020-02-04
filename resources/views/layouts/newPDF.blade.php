@@ -7,13 +7,13 @@
  <style>
 @font-face {
     font-family: 'Roboto';
-    src: url(fonts/Roboto-Light.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url({{storage_path('fonts/Roboto-Light.ttf')}}); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
     font-weight: 400;
     font-style: normal;
 }
 body {
   /*font-family: 'Nunito';*/
-  /*font-family: 'Roboto';*/
+  font-family: 'Roboto';
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
@@ -263,7 +263,7 @@ li {
                 <img class="profile" src="{{ url($user->profile->photo) }}" alt="{{$user->name}}"/>
                 {{-- <img class="profile" src="http://resumevue3.test{{$user->profile->photo}}" alt="{{$user->name}}"/> --}}
                 {{-- <img class="profile" src="{{$url}}" alt="{{$user->name}}"/> --}}
-                <h1 class="name" style="font-family: 'Roboto' !important;">{{ $user->name }}</h1>
+                <h1 class="name">{{ $user->name }}</h1>
                 <h3 class="tagline">{{ $resume->job_title }}</h3>
             </div><!--//profile-container-->
 
