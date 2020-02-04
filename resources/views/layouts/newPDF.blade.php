@@ -27,6 +27,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: 'Roboto';
   font-weight: 700;
   /*font-family: 'Roboto';*/
 }
@@ -228,7 +229,7 @@ li {
                     <h2 class="section-title">
                         <img class="fa-title" src="{{ url('IconsFontAvesome/fa-archive-v-krug.png') }}" alt="fa-archive-v-krug">
                         {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-archive-v-krug.png')}}" alt="fa-archive-v-krug"> --}}
-                        <span>Projects</span>
+                        <span style="font-family: 'Roboto';">Projects</span>
                     </h2>
                     <div class="intro">
                         {!! $user->projects->description !!}
