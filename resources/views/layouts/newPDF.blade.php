@@ -7,7 +7,7 @@
  <style>
 @font-face {
     font-family: 'Roboto';
-    src: url({{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}) format("truetype");
+    src: url({{ url(asset('fonts\Roboto\Roboto-Light.ttf')) }}) format("truetype"); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
     font-weight: 400;
     font-style: normal;
 }
@@ -28,7 +28,7 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  font-family: 'Roboto';
+  /*font-family: 'Roboto';*/
 }
 p {
   line-height: 1.5;
@@ -184,7 +184,7 @@ li {
 </style>
 </head>
 <body>
-    {{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}</br>
+    {{-- {{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}</br> --}}
     {{ url(asset('fonts/Roboto/Roboto-Light.ttf'))}}</br>
     <div class="wrapper">
         <div class="main-wrapper">
