@@ -185,7 +185,7 @@ li {
 </head>
 <body>
     {{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}</br>
-    {{ url('fonts/Roboto/Roboto-Light.ttf')}}</br>
+    {{ url(asset('fonts/Roboto/Roboto-Light.ttf'))}}</br>
     <div class="wrapper">
         <div class="main-wrapper">
             <section class="section summary-section">
