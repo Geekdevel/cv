@@ -47,6 +47,7 @@ li {
     right: 0;
     width: 300px;
     color: #fff;
+    height: 100%;
 }
 .sidebar-wrapper li {
     margin-left: -35px;
@@ -183,7 +184,8 @@ li {
 </style>
 </head>
 <body>
-    url({{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}) format("truetype");
+    {{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}
+    {{ url('fonts\Roboto\Roboto-Light.ttf')}}
     <div class="wrapper">
         <div class="main-wrapper">
             <section class="section summary-section">
