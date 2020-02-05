@@ -38,8 +38,8 @@ class ResumesController extends Controller
         ];
         // dd(storage_path($data['user']->profile->photo));
         //dd($data);
-        //return PDF::loadView('layouts/dliaPDF', $data)->stream('download.pdf');
-        return PDF::loadView('layouts/newPDF', $data)->stream('download.pdf');
+        return PDF::loadView('layouts/dliaPDF', $data)->stream('download.pdf');
+        //return PDF::loadView('layouts/newPDF', $data)->stream('download.pdf');
         //return view('layouts/newPDF', compact('user', 'resume', 'url'));
     }
     /**

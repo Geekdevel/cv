@@ -87,10 +87,19 @@
     'bold' => $fontDir . '/edf46fab0f27ea184250069f85b7eb1b',
   ),
   'nunito' => array(
-    'normal' => $fontDir . '/758a0c26ef854ff3046de991b9f346f7',
+    'normal' => $fontDir . '/nunito-normal_b9bdebee0cb3eb815b7445e915960cb9',
+    '300' => $fontDir . '/nunito-300_b9bdebee0cb3eb815b7445e915960cb9',
+    '500' => $fontDir . '/nunito-500_b9bdebee0cb3eb815b7445e915960cb9',
+    '600' => $fontDir . '/nunito-600_b9bdebee0cb3eb815b7445e915960cb9',
+    'bold' => $fontDir . '/nunito-bold_b9bdebee0cb3eb815b7445e915960cb9',
+    '900' => $fontDir . '/nunito-900_b9bdebee0cb3eb815b7445e915960cb9',
   ),
   'roboto' => array(
-    'normal' => $fontDir . '/cf99a9d56c411ce3fa8a2fc49c520e74',
+    'normal' => $fontDir . '/roboto-normal_f037aab5ef22464817e8189033d6f857',
     'light' => $fontDir . '/Roboto-Light',
+    '300' => $fontDir . '/roboto-300_f037aab5ef22464817e8189033d6f857',
+    '500' => $fontDir . '/roboto-500_f037aab5ef22464817e8189033d6f857',
+    '600' => $fontDir . '/roboto-600_f037aab5ef22464817e8189033d6f857',
+    'bold' => $fontDir . '/roboto-bold_f037aab5ef22464817e8189033d6f857',
   ),
 ) ?>

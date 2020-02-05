@@ -6,14 +6,44 @@
     {{-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> --}}
  <style>
 @font-face {
-    font-family: 'Roboto';
-    src: url(fonts/Roboto-Light.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
-    /*font-weight: 400;*/
-    font-style: normal;
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    font-weight: 300;
+    /*font-style: normal;*/
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    font-weight: 400;
+    /*font-style: normal;*/
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    font-weight: 500;
+    /*font-style: normal;*/
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    font-weight: 600;
+    /*font-style: normal;*/
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    font-weight: 700;
+    /*font-style: normal;*/
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    font-weight: 900;
+    /*font-style: normal;*/
 }
 body {
   /*font-family: 'Nunito';*/
-  font-family: 'Roboto';
+  font-family: 'Nunito';
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
@@ -27,7 +57,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Roboto' !important;
+  font-family: 'Nunito' !important;
   font-weight: 700;
   /*font-family: 'Roboto';*/
 }
@@ -42,11 +72,12 @@ li {
 }
 .sidebar-wrapper {
     /*font-family: 'Roboto', sans-serif;*/
+    /*margin-top: 0;*/
     background: #42A8C0;
     display: block;
     float: right;
-    right: 0;
-    width: 300px;
+    /*right: 0;*/
+    width: 320px;
     color: #fff;
     height: 100%;
 }
@@ -54,9 +85,10 @@ li {
     margin-left: -35px;
 }
 .main-wrapper {
+    /*background: green;*/
     display: block;
     float: left;
-    width: 300px;
+    width: 370px;
     margin-top: 0px;
 }
 /*.upper-row {
@@ -185,19 +217,14 @@ li {
 </style>
 </head>
 <body>
-    {{-- {{ storage_path('fonts\Roboto\Roboto-Light.ttf') }}</br> --}}
-    {{-- {{ url(asset('fonts/Roboto/Roboto-Light.ttf'))}}</br> --}}
     <div class="wrapper">
         <div class="main-wrapper">
-            {{-- {{ storage_path('fonts/Roboto-Light.ttf') }} --}}
             <section class="section summary-section">
                 <h2 class="section-title">
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fas-fa-user-krug.png') }}" alt="fas-fa-user-krug">
-                    {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fas-fa-user-krug.png')}}" alt="fas-fa-user-krug"> --}}
-                    <span style="font-family: 'Roboto';">Career Profile</span>
+                    <span style="font-family: 'Nunito';">Career Profile</span>
                 </h2>
                 <div class="summary">
-                    {{-- {{ url(asset('fonts/Roboto/Roboto-Light.ttf')) }} --}}
                     {!! $resume->description !!}
                 </div>
             </section>
@@ -205,14 +232,13 @@ li {
             <section class="section experiences-section">
                 <h2 class="section-title">
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fa-briefcase-krug.png') }}" alt="fa-briefcase-krug">
-                    {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-briefcase-krug.png')}}" alt="fa-briefcase-krug"> --}}
                     <span>Experiences</span>
                 </h2>
                 @foreach($user->works as $item)
                     <div class="item-exp">
                         <div class="meta">
-                            <div class="upper-row">
-                                <h3 class="job-title">{{ $item->position }}</h3>
+                            <div class="upper-row" style="margin-top: 50px;">
+                                <h3 class="job-title" style="margin-top: -30px;">{{ $item->position }}</h3>
                                 <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
                             </div><!--//upper-row-->
                             <div class="company">{{ $item->experience }}</div>
@@ -228,7 +254,6 @@ li {
                 <section class="section projects-section">
                     <h2 class="section-title">
                         <img class="fa-title" src="{{ url('IconsFontAvesome/fa-archive-v-krug.png') }}" alt="fa-archive-v-krug">
-                        {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-archive-v-krug.png')}}" alt="fa-archive-v-krug"> --}}
                         <span style="font-family: 'Roboto';">Projects</span>
                     </h2>
                     <div class="intro">
@@ -240,7 +265,6 @@ li {
             <section class="skills-section section">
                 <h2 class="section-title">
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fa-rocket-krug.png') }}" alt="fa-rocket-krug">
-                    {{-- <img class="fa-title" src="{{storage_path('IconsFontAvesome/fa-rocket-krug.png')}}" alt="fa-rocket-krug"> --}}
                     <span>Skills &amp; Proficiency</span>
                 </h2>
                 <div class="skillset">
@@ -262,8 +286,6 @@ li {
         <div class="sidebar-wrapper">
             <div class="profile-container">
                 <img class="profile" src="{{ url($user->profile->photo) }}" alt="{{$user->name}}"/>
-                {{-- <img class="profile" src="http://resumevue3.test{{$user->profile->photo}}" alt="{{$user->name}}"/> --}}
-                {{-- <img class="profile" src="{{$url}}" alt="{{$user->name}}"/> --}}
                 <h1 class="name">{{ $user->name }}</h1>
                 <h3 class="tagline">{{ $resume->job_title }}</h3>
             </div><!--//profile-container-->
@@ -272,46 +294,39 @@ li {
                 <ul class="list-unstyled contact-list">
                     <li class="email">
                         <img class="fa-li" src="{{ url('IconsFontAvesome/fa-envelope-bel.png') }}" alt="fa-envelope">
-                        {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-envelope-bel.png')}}" alt="fa-envelope"> --}}
                         {{ $user->email }}
                     </li>
                     <li class="phone">
                         <img class="fa-li" src="{{ url('IconsFontAvesome/fa-phone-bel.png') }}" alt="fa-envelope">
-                        {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-phone-bel.png')}}" alt="fa-envelope"> --}}
                          {{ $user->phone }}
                     </li>
                     @if (isset($user->profile->web_site))
                         <li class="website">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-globe-bel.png') }}" alt="fa-globe">
-                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-globe-bel.png')}}" alt="fa-globe"> --}}
                              {{ $user->profile->web_site }}
                         </li>
                     @endif
                     @if (isset($user->profile->linkedin))
                         <li class="linkedin">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-linkedin-bel.png') }}" alt="fa-linkedin">
-                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-linkedin-bel.png')}}" alt="fa-linkedin"> --}}
                              {{ $user->profile->linkedin }}
                         </li>
                     @endif
                     @if (isset($user->profile->git))
                         <li class="github">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-github-bel.png') }}" alt="fa-github">
-                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-github-bel.png')}}" alt="fa-github"> --}}
                              {{ $user->profile->git }}
                         </li>
                     @endif
                     @if (isset($user->profile->dribbble))
                         <li class="dribbble">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-dribbble-bel.png') }}" alt="fa-dribbble">
-                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-dribbble-bel.png')}}" alt="fa-dribbble"> --}}
                              {{ $user->profile->dribbble }}
                         </li>
                     @endif
                     @if (isset($user->profile->behance))
                         <li class="behance">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-behance-bel.png') }}" alt="fa-behance">
-                            {{-- <img class="fa-li" src="{{storage_path('IconsFontAvesome/fa-behance-bel.png')}}" alt="fa-behance"> --}}
                              {{ $user->profile->behance }}
                         </li>
                     @endif
