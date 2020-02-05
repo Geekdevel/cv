@@ -42,7 +42,8 @@ class ProfilesController extends Controller
             'hobbi' => $hobbi,
             'skills' => $skills,
             'works' => $works,
-            'projects' => $projects
+            'projects' => $projects,
+            'user' => $user
         ]);
     }
 

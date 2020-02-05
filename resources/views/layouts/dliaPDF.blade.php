@@ -3,53 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Resume {{$user->name}}</title>
-    {{-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> --}}
  <style>
 @font-face {
     font-family: 'Nunito';
-    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 300;
-    /*font-style: normal;*/
 }
 @font-face {
     font-family: 'Nunito';
-    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 400;
-    /*font-style: normal;*/
 }
 @font-face {
     font-family: 'Nunito';
-    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 500;
-    /*font-style: normal;*/
 }
 @font-face {
     font-family: 'Nunito';
-    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 600;
-    /*font-style: normal;*/
 }
 @font-face {
     font-family: 'Nunito';
-    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 700;
-    /*font-style: normal;*/
 }
 @font-face {
     font-family: 'Nunito';
-    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf); /* in http://domain/publick/fonts/Roboto/Roboto-Light.ttf*/
+    src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 900;
-    /*font-style: normal;*/
 }
 body {
-  /*font-family: 'Nunito';*/
   font-family: 'Nunito';
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
   padding: 0px;
-  /*-webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;*/
 }
 h1,
 h2,
@@ -67,9 +57,6 @@ h6 {
   font-weight: 500;
   color: #2d7788;
 }
-/*p {
-  line-height: 1.5;
-}*/
 li {
     list-style-type: none;
 }
@@ -102,27 +89,17 @@ p {
 .wrapper {
     margin: 0 auto;
     padding: 0;
-    /*position: relative;*/
-    /*background: red;*/
-    /*height: 100%;*/
-    /*display: flex;
-    flex-direction: row;*/
 }
 .main-wrapper {
   width: 370px;
   height: 99%;
-  /*left: 0;*/
-  /*position: absolute;*/
   float: left;
   display: block;
-  /*background: green;*/
 }
 .sidebar-wrapper {
   width: 320px;
   height: 99%;
   background: #42A8C0;
-  /*right: 0;*/
- /* position: absolute;*/
   float: right;
   display: block;
   color: #fff;
@@ -137,7 +114,6 @@ p {
   margin-top: 0;
 }
 .contact-list {
-  /*background: green;*/
   margin: 0;
   padding-left: 0;
 }
@@ -148,7 +124,6 @@ p {
   margin-bottom: 5px;
 }
 .container-block {
-  /*background: green;*/
   padding-left: 20px;
 }
 .container-block-title {
@@ -156,7 +131,6 @@ p {
   font-size: 16px;
   font-weight: 700;
   margin-top: 10px;
-  /*margin-top: 20px;*/
   margin-bottom: 5px;
 }
 .sidebar-wrapper .degree {
@@ -165,30 +139,44 @@ p {
   margin-bottom: 5px;
 }
 .sidebar-wrapper .education-container .item {
-  margin-bottom: 15px;
-  /*background: green;*/
+  /*background: red;*/
+  margin-top: -15px;
+  margin-bottom: 0;
 }
 .sidebar-wrapper .education-container .item:last-child {
   margin-bottom: 0;
-  /*background: green;*/
 }
 .sidebar-wrapper .education-container .meta {
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-bottom: 0px;
-  margin-top: 3;
+  width: 70%;
+  text-align: left;
+  /*background: green;*/
+  /*margin-top: 3;
+  width: 30%;*/
+}
+.meta-level-education {
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 0px;
+  text-align: right;
+  margin-left: -90%;
+  padding-right: 10px;
+  margin-top: -40px;
   /*background: blue;*/
-  width: 30%;
+  /*margin-top: 3;
+  width: 30%;*/
 }
 .sidebar-wrapper .education-container .time-education {
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-bottom: 0px;
-  /*background: red;*/
-  text-align: right;
-  padding-right: 10px;
-  margin-left: 30%;
-  margin-top: -40px;
+  margin-top: -5px;
+  /*text-align: right;
+  padding-right: 10px;*/
+  /*margin-left: 30%;
+  margin-top: -40px;*/
 }
 .interests-list {
   padding-left: 0;
@@ -200,86 +188,56 @@ p {
 .lang-desc {
   color: rgba(255, 255, 255, 0.6);
 }
-.item-exp {
-/*  background: red;
-*/}
 .meta-exp {
   padding-top: 0;
   margin-bottom: 0;
-/*  background: green;
-*/
-  /*background: #D8D8AD;*/
 }
 .upper-row {
   margin-top: 0;
-/*  background: blue;
-*/  height: 32px;
-  /*display: inline-block;*/
+  height: 32px;
   position: relative;
 }
 .company {
   color: #97AAC3;
-/*  background: pink;
-*/}
+}
 .job-title {
-/*  background: #D8D8AD;
-*/  position: absolute;
-  /*float: left;*/
-  /*display: block;*/
+  position: absolute;
 }
 .time {
   position: absolute;
   right: 0;
- /* margin-top: -10px;*/
   text-align: right;
   color: #97AAC3;
-/*  background: #D9941B;
-*/}
+}
 .section-title {
-  /*background: #D9941B;*/
   margin-bottom: 0;
 }
 .details {
-  /*background: red;*/
   margin-top: 0;
 }
 .details p {
   margin-bottom: 0;
   margin-top: 0;
-  /*background: green;*/
-  /*margin-top: 0;*/
 }
 .summary p {
-  /*background: red;*/
   margin-bottom: 0;
 }
-/*.meta-exp {
-  background: #D8D8AD;
-}*/
 .intro p {
-  /*background: blue;*/
   margin-bottom: 0;
   margin-top: 0;
 }
 .intro p:first-child {
   margin-top: 10;
 }
-/*.skills-section {
-  background: green;
-}*/
 .skillset {
     padding-top: 20px;
 }
 .level-title {
     width: 30%;
     font-size: 14px;
-    /*display: block;
-    float: left;*/
 }
 .level-bar {
     margin-left: 30%;
-    /*display: block;
-    float: right;*/
 }
 .level-bar-inner {
     background-color: #42A8C0;
@@ -287,16 +245,6 @@ p {
     padding-top: 0;
     margin-top: -40px;
 }
-.skill-level-procent {
-    /*padding-bottom: 5px;*/
-    /*background: green;*/
-   /* margin-top: -5px;
-    padding-top: 0;*/
-}
-
-
-
-
 </style>
 </head>
 <body>
@@ -320,11 +268,16 @@ p {
                 @foreach($user->works as $item)
                     <div class="item-exp">
                         <div class="meta-exp">
-                            <div class="upper-row">
+                            {{-- <div class="upper-row">
                                 <h3 class="job-title">{{ $item->position }}</h3>
                                 <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
                             </div>
-                            <div class="company">{{ $item->experience }}</div>
+                            <div class="company">{{ $item->experience }}</div> --}}
+                            <div class="upper-row">
+                                <h3 class="job-title">{{ $item->experience }}</h3>
+                                <div class="time">{{ $item->position }}</div>
+                            </div>
+                            <div class="company">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
                         </div>
                         <div class="details">
                             {!! $item->functions !!}
@@ -419,8 +372,9 @@ p {
                 <h2 class="container-block-title">Education</h2>
                 @foreach($user->educations as $education)
                     <div class="item">
-                        <h4 class="degree">{{ $education->level }}</h4>
-                        <h5 class="meta">{{ $education->university }}</h5>
+                        <h4 class="meta">{{ $education->university }}</h4>
+                        <h4 class="meta-level-education">{{ $education->level }}</h4>
+                        <h4 class="degree">{{ $education->professi }}</h4>
                         <div class="time-education">{{ $education->start }} - {{ $education->finish ? $education->finish : 'By current time' }}</div>
                     </div>
                 @endforeach

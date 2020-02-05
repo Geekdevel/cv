@@ -50,8 +50,9 @@
             <h2 class="container-block-title">Education</h2>
             @foreach($user->educations as $education)
                 <div class="item">
-                    <h4 class="degree">{{ $education->level }}</h4>
                     <h5 class="meta">{{ $education->university }}</h5>
+                    <h5 class="meta-level-education">{{ $education->level }}</h5>
+                    <h4 class="degree">{{ $education->professi }}</h4>
                     <div class="time">{{ $education->start }} - {{ $education->finish ? $education->finish : 'By current time' }}</div>
                 </div><!--//item-->
             @endforeach
@@ -97,10 +98,10 @@
                 <div class="item">
                     <div class="meta">
                         <div class="upper-row">
-                            <h3 class="job-title">{{ $item->position }}</h3>
-                            <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
+                            <h3 class="company">{{ $item->experience }}</h3>
+                            <div class="job-title">{{ $item->position }}</div>
                         </div><!--//upper-row-->
-                        <div class="company">{{ $item->experience }}</div>
+                        <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
                     </div><!--//meta-->
                     <div class="details">
                         {!! $item->functions !!}

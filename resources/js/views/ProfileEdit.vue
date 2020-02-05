@@ -879,6 +879,7 @@
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects && response.data.projects.description ? response.data.projects : { description: null }
+                    this.form = response.data.user
 
                     if (this.addressform.country != null) {
                         this.changeCountry(this.addressform.country)
@@ -893,9 +894,9 @@
                 })
         },
 
-        created() {
-            this.$set(this, 'form', this.user)
-        },
+        // created() {
+        //     this.$set(this, 'form', this.user)
+        // },
 
         computed: {
             validDateEducation() {

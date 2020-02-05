@@ -171,11 +171,20 @@ td {
   font-weight: 500;
   margin-bottom: 0px;
   margin-top: 0;
+  width: 70%;
+  text-align: left;
+}
+.sidebar-wrapper .education-container .meta-level-education {
+  text-align: right;
+  margin-left: 70%;
+  margin-top: -21px;
+  margin-right: 0;
 }
 .sidebar-wrapper .education-container .time {
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-bottom: 0px;
+  width: 60%;
 }
 .sidebar-wrapper .languages-container .lang-desc {
   color: rgba(255, 255, 255, 0.6);
@@ -248,20 +257,20 @@ td {
   overflow: hidden;
   margin-bottom: 2px;
 }
-.main-wrapper .job-title {
+.main-wrapper .company {
   color: #3F4650;
   font-size: 16px;
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 500;
 }
-.main-wrapper .time {
+.main-wrapper .job-title {
   position: absolute;
   right: 0;
   top: 0;
   color: #97AAC3;
 }
-.main-wrapper .company {
+.main-wrapper .time {
   margin-bottom: 10px;
   color: #97AAC3;
 }
