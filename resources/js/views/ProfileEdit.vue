@@ -545,7 +545,7 @@
 
                 customToolbar: [
                   ["bold", "italic", "underline"],
-                  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+                  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                   [{ 'align': ''}, { 'align': 'center'}, { 'align': 'justify'}, { 'align': 'right' }]
                 ],
 

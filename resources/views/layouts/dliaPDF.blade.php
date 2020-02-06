@@ -57,7 +57,13 @@ h6 {
   font-weight: 500;
   color: #2d7788;
 }
-li {
+.interests-container li {
+    list-style-type: none;
+}
+.languages-container li {
+    list-style-type: none;
+}
+.contact-container li {
     list-style-type: none;
 }
 p {
@@ -245,6 +251,17 @@ p {
     padding-top: 0;
     margin-top: -40px;
 }
+/*vue2-editor styles*/
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+/*end vue2-editor styles*/
 </style>
 </head>
 <body>

@@ -8,6 +8,17 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+/*vue2-editor styles*/
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+/*end vue2-editor styles*/
 .be-sure-to-fill-out {
   color: red;
   font-size: 25px;
