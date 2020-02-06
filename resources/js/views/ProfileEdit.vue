@@ -1,5 +1,11 @@
 <template>
-    <div class="container-fluid profile-create">
+    <div class="container-fluid" v-if="loading">
+        <div class="row justify-content-center align-items-center">
+            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+        </div>
+    </div>
+
+    <div class="container-fluid profile-create" v-else-if="!loading">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -326,12 +332,19 @@
                                             <div class="error" v-if="item.$error && !item.start.required">Field is required.</div>
                                         </div>
 
-                                        <div class="col-4 text-center">
+                                        <div class="col-4 text-center" v-if="!item.checkboxFinishEducation">
                                             <label for="finish">Finish:</label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }" v-if="!item.checkboxFinishEducation">
                                             <date-picker v-model.trim="item.finish.$model" valueType="format" format="YYYY-MM-DD"></date-picker>
                                         </div>
+
+                                        <!-- <div class="col-4 text-center">
+                                            <label for="checkboxFinishEducation">{{ item.checkboxFinishEducation }}</label>
+                                        </div>
+                                        <div class="col-8 text-center">
+                                            <input type="checkbox" name="checkboxFinishEducation" v-model="item.checkboxFinishEducation">
+                                        </div> -->
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="error col-12 text-center" v-if="validDateEducation">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
@@ -502,13 +515,15 @@
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
     import VueTelInput from 'vue-tel-input';
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
     export default {
         components: {
             VueEditor,
             AvatarCropper,
             vSelect,
-            DatePicker
+            DatePicker,
+            PulseLoader
           },
 
         props: {
@@ -517,6 +532,10 @@
 
         data() {
             return {
+                loading: true,
+                color: '#14CFE8',
+                size: '100px',
+
                 bindProps: {
                   mode: "international",
                   defaultCountry: "FR",
@@ -571,7 +590,8 @@
                     professi: null,
                     start: null,
                     finish: null,
-                    level: null
+                    level: null,
+                    // checkboxFinishEducation: false
                 }],
 
                 experienceform: [{
@@ -746,6 +766,26 @@
         },
 
         methods: {
+            // checkAddresse (url) {
+            //     let arrUrlChecked = url.split('/')
+            //     let arrUrlChec = []
+            //     arrUrlChecked.forEach(elem => {
+            //         if ( elem != 'http:' && elem != 'https:') {
+            //             arrUrlChec.push(elem)
+            //         }
+            //     })
+            //     let urlNextChecked = arrUrlChec.join('/')
+            //     let arrUrlNextChecked = urlNextChecked.split('.')
+            //     let arrWwwDelete = []
+            //     arrUrlNextChecked.forEach(elem => {
+            //         if ( elem != 'www' ) {
+            //             arrWwwDelete.push(elem)
+            //         }
+            //     })
+            //     let validDate = arrWwwDelete.join('.')
+            //     return validDate
+            // },
+
             removeItem(name, index) {
                 this[name].splice(index, 1)
             },
@@ -821,6 +861,12 @@
                     this.errormessages = 'UUUPS!!!'
                 }
                 else {
+                    // this.profileform.web_site = checkAddresse(this.profileform.web_site)
+                    // this.profileform.dribbble = checkAddresse(this.profileform.dribbble)
+                    // this.profileform.behance = checkAddresse(this.profileform.behance)
+                    // this.profileform.git = checkAddresse(this.profileform.git)
+                    // this.profileform.linkedin = checkAddresse(this.profileform.linkedin)
+
                     let data = {
                         user: this.form,
                         profileform: this.profileform,
@@ -886,6 +932,8 @@
                         this.addressform.country = Number(this.addressform.country)
                         this.addressform.region = Number(this.addressform.region)
                     }
+
+                    this.loading = false
 
                 })
                 .catch(error => {

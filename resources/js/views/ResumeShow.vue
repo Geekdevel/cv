@@ -1,5 +1,11 @@
 <template>
-        <div class="wrapper">
+    <div class="container-fluid" v-if="loading">
+        <div class="row justify-content-center align-items-center">
+            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+        </div>
+    </div>
+
+        <div class="wrapper" v-else-if="!loading">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
                     <img id="profile-photo-image-wrapper" @click="gouToProfileEdit" class="profile" v-if="profileform.photo" :src="profileform.photo" alt="form.name"/>
@@ -11,10 +17,15 @@
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
                         <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
+                        <!-- <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="`https://www.` + profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li> -->
                         <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
+                        <!-- <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="`https://` + profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li> -->
                         <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
+                        <!-- <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="`https://` + profileform.git" target="_blank"> {{ profileform.git }}</a></li> -->
                         <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
+                        <!-- <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="`https://` + profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li> -->
                         <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
+                        <!-- <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="`https://` + profileform.behance" target="_blank"> {{ profileform.behance }}</a></li> -->
                         <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
                     </ul>
                 </div><!--//contact-container-->
@@ -99,10 +110,12 @@
 
 <script>
     import { VueEditor } from "vue2-editor";
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
     export default {
         components: {
-            VueEditor
+            VueEditor,
+            PulseLoader
           },
 
         props: {
@@ -111,6 +124,10 @@
 
         data() {
             return {
+                loading: true,
+                color: '#14CFE8',
+                size: '100px',
+
                 form: {
                     id: this.user.id,
                     name: null,
@@ -192,6 +209,7 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
+            this.loading = false
         },
 
         methods: {

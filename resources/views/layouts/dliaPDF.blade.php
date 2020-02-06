@@ -37,7 +37,7 @@
 body {
   font-family: 'Nunito';
   color: #545E6C;
-  background: #f5f5f5;
+  /*background: #f5f5f5;*/
   font-size: 14px;
   padding: 0px;
 }

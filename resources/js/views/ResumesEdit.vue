@@ -1,5 +1,11 @@
 <template>
-        <div class="wrapper">
+    <div class="container-fluid" v-if="loading">
+        <div class="row justify-content-center align-items-center">
+            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+        </div>
+    </div>
+
+        <div class="wrapper" v-else-if="!loading">
             <div class="sidebar-wrapper">
                 <div class="profile-container">
                     <img id="profile-photo-image-wrapper" class="profile" v-if="profileform.photo" :src="profileform.photo" @click="gouToProfileEdit" alt="form.name"/>
@@ -59,8 +65,8 @@
                 <section class="section slag-section">
                     <div class="summary">
                         <label for="slag"><h6>Slug for your resume:</h6></label>
-                        <h6>Private: {{slugPrivate}}</h6>
-                        <h6>Public: {{slugPublic}}</h6>
+                        <h6> <a :href="slugPrivate" target="_blank">Private: {{slugPrivate}}</a></h6>
+                        <h6> <a :href="slugPublic" target="_blank"> Public: {{slugPublic}}</a></h6>
                     </div><!--//summary-->
                 </section><!--//section-->
 
@@ -126,10 +132,12 @@
 <script>
     import { VueEditor } from "vue2-editor";
     import { required, minLength, between } from 'vuelidate/lib/validators';
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
     export default {
         components: {
-            VueEditor
+            VueEditor,
+            PulseLoader
           },
 
         props: {
@@ -138,6 +146,10 @@
 
         data() {
             return {
+                loading: true,
+                color: '#14CFE8',
+                size: '100px',
+
                 slugPublic: null,
                 slugPrivate: null,
                 inputJobTitle: null,
@@ -272,6 +284,7 @@
             let urlPublic = arrPublic.join('/')
             this.slugPrivate = urlShow
             this.slugPublic = urlPublic + '/public'
+            this.loading = false
         },
 
         computed: {},

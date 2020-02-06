@@ -1,5 +1,11 @@
 <template>
-        <div class="wrapper">
+    <div class="container-fluid" v-if="loading">
+        <div class="row justify-content-center align-items-center">
+            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+        </div>
+    </div>
+
+        <div class="wrapper" v-else-if="!loading">
 
 
             <div class="main-wrapper">
@@ -130,10 +136,12 @@
 <script>
     import { VueEditor } from "vue2-editor";
     import { required, minLength, between } from 'vuelidate/lib/validators';
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
     export default {
         components: {
-            VueEditor
+            VueEditor,
+            PulseLoader
           },
 
         props: {
@@ -142,6 +150,10 @@
 
         data() {
             return {
+                loading: true,
+                color: '#14CFE8',
+                size: '100px',
+
                 customToolbar: [
                   ["bold", "italic", "underline"],
                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -238,6 +250,8 @@
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects
                     this.form = response.data.user
+
+                    this.loading = false
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)

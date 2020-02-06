@@ -18,3 +18,4 @@ package-lock.json
 .DS_Store
 resources/.DS_Store
 resources/js/.DS_Store
+yarn.lock

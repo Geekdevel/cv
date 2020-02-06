@@ -1,11 +1,20 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">List your resumes</div>
+    <div class="container-fluid" v-if="loading">
+        <div class="row justify-content-center align-items-center">
+            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+        </div>
+    </div>
 
-                    <div class="card-body">
+    <div class="container" v-else-if="!loading">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>List your resumes</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
                         <table class="text-center">
                             <thead>
                                 <tr>
@@ -17,7 +26,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(item, index) in resumes" :key="index">
-                                    <td>{{ item.slag }}</td>
+                                    <td>
+                                        <a :href="slugPublic + `/cvs/` + item.slag + `/public`" target="_blank">
+                                            {{ item.slag }}
+                                        </a>
+                                    </td>
                                     <td>
                                         <router-link :to="{ name: 'showresume-slag', params: { slag: item.slag } }" class="nav-link">
                                             <div class="btn btn-success">
@@ -48,13 +61,25 @@
 </template>
 
 <script>
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+
     export default {
+        components: {
+            PulseLoader
+          },
+
         props: {
             user: {}
         },
 
         data() {
             return {
+                loading: true,
+                color: '#14CFE8',
+                size: '100px',
+
+                slugPublic: null,
+
                 form: {
                     id: this.user.id,
                     name: null,
@@ -92,6 +117,17 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
+            let url = window.location.toString()
+            let arrUrl = url.split('/')
+            let arrPublickUrl = []
+            arrUrl.forEach(elem =>{
+                if (elem != 'master' && elem != 'resumeses') {
+                    arrPublickUrl.push(elem)
+                }
+            })
+            let urlShow = arrPublickUrl.join('/')
+            this.slugPublic = urlShow
+            this.loading = false
         },
 
         created() {

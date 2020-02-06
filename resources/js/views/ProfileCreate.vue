@@ -1,5 +1,11 @@
 <template>
-    <div class="container-fluid profile-create">
+    <div class="container-fluid" v-if="loading">
+        <div class="row justify-content-center align-items-center">
+            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+        </div>
+    </div>
+
+    <div class="container-fluid profile-create" v-else-if="!loading">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -503,13 +509,15 @@
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
     import VueTelInput from 'vue-tel-input';
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
     export default {
         components: {
             VueEditor,
             AvatarCropper,
             vSelect,
-            DatePicker
+            DatePicker,
+            PulseLoader
           },
 
         props: {
@@ -518,6 +526,10 @@
 
         data() {
             return {
+                loading: true,
+                color: '#14CFE8',
+                size: '100px',
+
                 bindProps: {
                   mode: "international",
                   defaultCountry: "FR",
@@ -967,6 +979,8 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
+
+            this.loading = false
         },
 
         created() {
