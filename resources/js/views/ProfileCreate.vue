@@ -333,11 +333,25 @@
                                             <div class="error" v-if="item.$error && !item.start.required">Field is required.</div>
                                         </div>
 
-                                        <div class="col-4 text-center">
+                                        <div class="col-4 text-center" v-if="item.finishLook.$model">
                                             <label for="finish">Finish:</label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }" v-if="item.finishLook.$model">
                                             <date-picker v-model.trim="item.finish.$model" valueType="format" format="YYYY-MM-DD"></date-picker>
+                                        </div>
+
+                                        <!-- <div class="col-4 text-center">
+                                            <label for="finish">Choose if you continue:</label>
+                                        </div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
+                                            <input type="checkbox" v-model.trim="item.finishChecked.$model">
+                                        </div> -->
+                                        <div class="col-12 text-center" v-if="item.finishLook.$model">
+                                            <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Choose if you not finished</button>
+                                        </div>
+
+                                        <div class="col-12 text-center" v-if="!item.finishLook.$model">
+                                            <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItemAdd('educationform', index)">Want to specify an end date?</button>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
@@ -399,12 +413,21 @@
                                                 <div class="error" v-if="!item.start.minLength">Field must have at least {{ item.start.$params.minLength.min }} characters.</div>
                                             </div>
 
-                                            <div class="col-4 text-center">
+                                            <div class="col-4 text-center" v-if="item.finishLook.$model">
                                                 <label for="finish_work">Finish:</label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }" v-if="item.finishLook.$model">
                                                 <date-picker v-model.trim="item.finish.$model" valueType="format"></date-picker>
                                             </div>
+
+                                            <div class="col-12 text-center" v-if="item.finishLook.$model">
+                                                <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('experienceform', index)">Choose if you not finished</button>
+                                            </div>
+
+                                            <div class="col-12 text-center" v-if="!item.finishLook.$model">
+                                                <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItemAdd('experienceform', index)">Want to specify an end date?</button>
+                                            </div>
+
                                             <div class="error col-12 text-center" v-if="validDateExperience">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
                                         </div>
                                     </div>
@@ -526,9 +549,11 @@
 
         data() {
             return {
+                // finishLook: true,
+
                 loading: true,
                 color: '#14CFE8',
-                size: '100px',
+                size: '30px',
 
                 bindProps: {
                   mode: "international",
@@ -587,7 +612,8 @@
                     start: null,
                     finish: null,
                     level: null,
-                    error: null
+                    error: null,
+                    finishLook: 1
                 }],
 
                 experienceform: [{
@@ -596,7 +622,8 @@
                     start: null,
                     finish: null,
                     functions: null,
-                    error: null
+                    error: null,
+                    finishLook: 1
                 }],
 
                 hobbiform: [{
@@ -734,7 +761,8 @@
                     level: {
                         required,
                         minLength: minLength(4)
-                    }
+                    },
+                    finishLook: {}
                 }
             },
 
@@ -759,7 +787,8 @@
                     functions: {
                         required,
                         minLength: minLength(3)
-                    }
+                    },
+                    finishLook: {}
                 }
             },
         },
@@ -857,6 +886,18 @@
         },
 
         methods: {
+            finishItemAdd (name, indexArr) {
+                let array = this[name][[indexArr]]
+                return array.finishLook = 1
+            },
+
+            finishItem (name, indexArr) {
+                let array = this[name][[indexArr]]
+                // console.log(array.finishLook)
+                array.finish = null
+                return array.finishLook = null
+            },
+
             handleUploaded(resp) {
                 this.profileform.photo = resp;
               },
@@ -910,7 +951,8 @@
                     start: null,
                     finish: null,
                     level: null,
-                    error: null
+                    error: null,
+                    finishLook: 1
                 })
             },
 
@@ -921,7 +963,8 @@
                     start: null,
                     finish: null,
                     functions: null,
-                    error: null
+                    error: null,
+                    finishLook: 1
                 })
             },
 

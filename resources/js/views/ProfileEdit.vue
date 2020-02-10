@@ -291,34 +291,34 @@
                                     <h4>Education</h4>
                                 </div>
                             </div>
-                            <div class="education-add form-group row justify-content-center" v-for="(item, index) in $v.educationform.$each.$iter">
+                            <div class="education-add form-group row justify-content-center" v-for="(item, index) in educationform">
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 text-center">
                                             <label for="university">University: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control" type="text" name="university" v-model.trim="item.university.$model">
-                                            <div class="error" v-if="item.$error && !item.university.required">Field is required.</div>
-                                            <div class="error" v-if="!item.university.minLength">Field must have at least {{ item.university.$params.minLength.min }} characters.</div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].university.$error }">
+                                            <input class="form-control" type="text" name="university" v-model.trim="item.university">
+                                            <div class="error" v-if="$v.educationform.$each[index].university.$error && !$v.educationform.$each[index].university.required">Field is required.</div>
+                                            <div class="error" v-if="!$v.educationform.$each[index].university.minLength">Field must have at least {{ $v.educationform.$each[index].university.$params.minLength.min }} characters.</div>
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="professi">Professi: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control" type="text" name="professi" v-model.trim="item.professi.$model">
-                                            <div class="error" v-if="item.$error && !item.professi.required">Field is required.</div>
-                                            <div class="error" v-if="!item.professi.minLength">Field must have at least {{ item.professi.$params.minLength.min }} characters.</div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].professi.$error }">
+                                            <input class="form-control" type="text" name="professi" v-model.trim="item.professi">
+                                            <div class="error" v-if="$v.educationform.$each[index].professi.$error && !$v.educationform.$each[index].professi.required">Field is required.</div>
+                                            <div class="error" v-if="!$v.educationform.$each[index].professi.minLength">Field must have at least {{ $v.educationform.$each[index].professi.$params.minLength.min }} characters.</div>
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="diplom_level">Diplom level: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.level.$model">
-                                            <div class="error" v-if="item.$error && !item.level.required">Field is required.</div>
-                                            <div class="error" v-if="!item.level.minLength">Field must have at least {{ item.level.$params.minLength.min }} characters.</div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].level.$error }">
+                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.level">
+                                            <div class="error" v-if="$v.educationform.$each[index].level.$error && !$v.educationform.$each[index].level.required">Field is required.</div>
+                                            <div class="error" v-if="!$v.educationform.$each[index].level.minLength">Field must have at least {{ $v.educationform.$each[index].level.$params.minLength.min }} characters.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -327,27 +327,30 @@
                                         <div class="col-4 text-center">
                                             <label for="start">Start: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <date-picker v-model.trim="item.start.$model" valueType="format" format="YYYY-MM-DD"></date-picker>
-                                            <div class="error" v-if="item.$error && !item.start.required">Field is required.</div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].start.$error }">
+                                            <date-picker v-model.trim="item.start" valueType="format" format="YYYY-MM-DD"></date-picker>
+                                            <div class="error" v-if="$v.educationform.$each[index].start.$error && !$v.educationform.$each[index].start.required">Field is required.</div>
                                         </div>
 
-                                        <div class="col-4 text-center" v-if="!item.checkboxFinishEducation">
+                                        <div class="col-4 text-center">
                                             <label for="finish">Finish:</label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }" v-if="!item.checkboxFinishEducation">
-                                            <date-picker v-model.trim="item.finish.$model" valueType="format" format="YYYY-MM-DD"></date-picker>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].finish.$error }" v-if="!item.finishLook">
+                                            <date-picker v-model.trim="item.finish" valueType="format" format="YYYY-MM-DD"></date-picker>
+                                        </div>
+                                        <div class="col-8 text-center" v-if="item.finishLook == 1">
+                                            <h5>To the present day...</h5>
                                         </div>
 
-                                        <!-- <div class="col-4 text-center">
-                                            <label for="checkboxFinishEducation">{{ item.checkboxFinishEducation }}</label>
+                                        <div class="col-12 text-center" v-if="item.finishLook == 1">
+                                             <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('educationform', index)">Choose if you not finished</button>
                                         </div>
-                                        <div class="col-8 text-center">
-                                            <input type="checkbox" name="checkboxFinishEducation" v-model="item.checkboxFinishEducation">
-                                        </div> -->
+                                        <div class="col-12 text-center" v-if="!item.finishLook">
+                                             <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Choose if you not finished</button>
+                                        </div>
                                     </div>
                                     <div class="row justify-content-center">
-                                        <div class="error col-12 text-center" v-if="validDateEducation">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
+                                        <div class="error col-12 text-center" v-if="validDateEducation">Start date {{item.start}} cannot be less than end date {{item.finish}}</div>
                                     </div>
                                 </div>
                                 <div class="form-group row justify-content-center">
@@ -411,6 +414,7 @@
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                                 <date-picker v-model.trim="item.finish.$model" valueType="format"></date-picker>
                                             </div>
+
                                             <div class="error col-12 text-center" v-if="validDateExperience">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
                                         </div>
                                     </div>
@@ -534,7 +538,7 @@
             return {
                 loading: true,
                 color: '#14CFE8',
-                size: '100px',
+                size: '30px',
 
                 bindProps: {
                   mode: "international",
@@ -591,7 +595,7 @@
                     start: null,
                     finish: null,
                     level: null,
-                    // checkboxFinishEducation: false
+                    finishLook: null
                 }],
 
                 experienceform: [{
@@ -599,7 +603,8 @@
                     position: null,
                     start: null,
                     finish: null,
-                    functions: null
+                    functions: null,
+                    finishLook: null
                 }],
 
                 hobbiform: [{
@@ -735,7 +740,8 @@
                     level: {
                         required,
                         minLength: minLength(4)
-                    }
+                    },
+                    finishLook: {}
                 }
             },
 
@@ -760,12 +766,25 @@
                     functions: {
                         required,
                         minLength: minLength(3)
-                    }
+                    },
+                    finishLook: {}
                 }
             },
         },
 
         methods: {
+            finishItem(name, index) {
+                // console.log(this[name][index].finishLook)
+                if (this[name][index].finishLook == 1) {
+                    this[name][index].finish = null
+                    this[name][index].finishLook = null
+                } else {
+                    this[name][index].finish = null
+                    this[name][index].finishLook = 1
+                }
+                return this[name][index].finishLook
+            },
+
             // checkAddresse (url) {
             //     let arrUrlChecked = url.split('/')
             //     let arrUrlChec = []
@@ -840,7 +859,8 @@
                     start: null,
                     finish: null,
                     level: null,
-                    error: null
+                    error: null,
+                    finishLook: null
                 })
             },
 
@@ -851,7 +871,8 @@
                     start: null,
                     finish: null,
                     functions: null,
-                    error: null
+                    error: null,
+                    finishLook: null
                 })
             },
 
@@ -921,7 +942,16 @@
                     this.addressform = response.data.address && response.data.address.country ? response.data.address : { country: null }
                     this.hobbiform = response.data.hobbi
                     this.experienceform = response.data.works
+                    for (var i = 0; i < this.experienceform.length; i++) {
+                        this.$set(this.experienceform[i], 'finishLook', null)
+                    }
+                    // this.experienceform.forEach(element => {
+                    //     element.finishLook = null
+                    // })
                     this.educationform = response.data.educations
+                    for (var i = 0; i < this.educationform.length; i++) {
+                        this.$set(this.educationform[i], 'finishLook', null)
+                    }
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects && response.data.projects.description ? response.data.projects : { description: null }
@@ -950,7 +980,7 @@
             validDateEducation() {
                 if (this.educationform.length && this.educationform[0].start != null) {
                      for (let i=0; i<this.educationform.length; i++) {
-                        if (this.educationform[i].finish == null) {
+                        if (this.educationform[i].finish == null && !this.educationform[i].finish) {
                             this.dateEducationError = null
                             return false
                         }
@@ -995,8 +1025,8 @@
             validDateExperience() {
                 if (this.experienceform.length && this.experienceform[0].start != null) {
                      for (let i=0; i<this.experienceform.length; i++) {
-                        if (this.experienceform[i].finish == null) {
-                            this.dateExperienceError = null
+                        if (this.experienceform[i].finish == null && !this.educationform[i].finish) {
+                           this.dateExperienceError = null
                             return false
                         }
                         else {

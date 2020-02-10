@@ -152,7 +152,7 @@
             return {
                 loading: true,
                 color: '#14CFE8',
-                size: '100px',
+                size: '30px',
 
                 customToolbar: [
                   ["bold", "italic", "underline"],
