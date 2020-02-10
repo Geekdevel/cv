@@ -20,11 +20,11 @@
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
                         <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
-                        <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
-                        <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
-                        <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="profileform.git" target="_blank"> {{ profileform.git }}</a></li>
-                        <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
-                        <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
+                        <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="`https://www.` + profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
+                        <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="`https://www.` + profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
+                        <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="`https://www.` + profileform.git" target="_blank"> {{ profileform.git }}</a></li>
+                        <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="`https://www.` + profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
+                        <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="`https://www.` + profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
                     </ul>
                 </div><!--//contact-container-->
                 <div class="education-container container-block">
