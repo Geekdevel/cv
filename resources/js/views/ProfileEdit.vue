@@ -343,10 +343,10 @@
                                         </div>
 
                                         <div class="col-12 text-center" v-if="item.finishLook == 1">
-                                             <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('educationform', index)">Choose if you not finished</button>
+                                             <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you want to specify the end date</button>
                                         </div>
                                         <div class="col-12 text-center" v-if="!item.finishLook">
-                                             <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Choose if you not finished</button>
+                                             <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you continue</button>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
@@ -377,45 +377,57 @@
                                     <h4>Experience</h4>
                                 </div>
                             </div>
-                            <div class="experience-add" v-for="(item, index) in $v.experienceform.$each.$iter">
+                            <div class="experience-add" v-for="(item, index) in experienceform">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-12 col-md-6 text-center">
                                         <div class="form-group row justify-content-center">
                                             <div class="col-4 text-center">
                                                 <label for="work">Company name: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <input class="form-control" type="text" name="experience" v-model.trim="item.experience.$model">
-                                                <div class="error" v-if="item.$error && !item.experience.required">Field is required.</div>
-                                                <div class="error" v-if="!item.experience.minLength">Field must have at least {{ item.experience.$params.minLength.min }} characters.</div>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].experience.$error }">
+                                                <input class="form-control" type="text" name="experience" v-model.trim="item.experience">
+                                                <div class="error" v-if="$v.experienceform.$each[index].experience.$error && !$v.experienceform.$each[index].experience.required">Field is required.</div>
+                                                <div class="error" v-if="!$v.experienceform.$each[index].experience.minLength">Field must have at least {{ $v.experienceform.$each[index].experience.$params.minLength.min }} characters.</div>
                                             </div>
 
                                             <div class="col-4 text-center">
                                                 <label for="position">Position: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <input class="form-control" type="text" name="position" v-model.trim="item.position.$model">
-                                                <div class="error" v-if="item.$error && !item.position.required">Field is required.</div>
-                                                <div class="error" v-if="!item.position.minLength">Field must have at least {{ item.position.$params.minLength.min }} characters.</div>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].position.$error }">
+                                                <input class="form-control" type="text" name="position" v-model.trim="item.position">
+                                                <div class="error" v-if="$v.experienceform.$each[index].position.$error && !$v.experienceform.$each[index].position.required">Field is required.</div>
+                                                <div class="error" v-if="!$v.experienceform.$each[index].position.minLength">Field must have at least {{ $v.experienceform.$each[index].position.$params.minLength.min }} characters.</div>
                                             </div>
 
                                             <div class="col-4 text-center">
                                                 <label for="start_work">Start: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <date-picker v-model.trim="item.start.$model" valueType="format"></date-picker>
-                                                <div class="error" v-if="item.$error && !item.start.required">Field is required.</div>
-                                                <div class="error" v-if="!item.start.minLength">Field must have at least {{ item.start.$params.minLength.min }} characters.</div>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].start.$error }">
+                                                <date-picker v-model.trim="item.start" valueType="format"></date-picker>
+                                                <div class="error" v-if="$v.experienceform.$each[index].start.$error && !$v.experienceform.$each[index].start.required">Field is required.</div>
+                                                <div class="error" v-if="!$v.experienceform.$each[index].start.minLength">Field must have at least {{ $v.experienceform.$each[index].start.$params.minLength.min }} characters.</div>
                                             </div>
 
                                             <div class="col-4 text-center">
                                                 <label for="finish_work">Finish:</label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <date-picker v-model.trim="item.finish.$model" valueType="format"></date-picker>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].finish.$error }" v-if="!item.finishLook">
+                                                <date-picker v-model.trim="item.finish" valueType="format"></date-picker>
                                             </div>
 
-                                            <div class="error col-12 text-center" v-if="validDateExperience">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
+                                            <div class="col-8 text-center" v-if="item.finishLook == 1">
+                                                <h5>To the present day...</h5>
+                                            </div>
+                                            <div class="col-12 text-center" v-if="item.finishLook == 1">
+                                                 <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you want to specify the end date</button>
+                                            </div>
+                                            <div class="col-12 text-center" v-if="!item.finishLook">
+                                                 <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you continue</button>
+                                            </div>
+
+
+
+                                            <div class="error col-12 text-center" v-if="validDateExperience">Start date {{item.start}} cannot be less than end date {{item.finish}}</div>
                                         </div>
                                     </div>
 
@@ -424,10 +436,10 @@
                                             <div class="col-4 text-center">
                                                 <label for="functions">Functions: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <vue-editor :editor-toolbar="customToolbar" v-model.trim="item.functions.$model" placeholder="Functions"></vue-editor>
-                                                <div class="error" v-if="item.$error && !item.functions.required">Field is required.</div>
-                                                <div class="error" v-if="!item.functions.minLength">Field must have at least {{ item.functions.$params.minLength.min }} characters.</div>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].functions.$error }">
+                                                <vue-editor :editor-toolbar="customToolbar" v-model.trim="item.functions" placeholder="Functions"></vue-editor>
+                                                <div class="error" v-if="$v.experienceform.$each[index].functions.$error && !$v.experienceform.$each[index].functions.required">Field is required.</div>
+                                                <div class="error" v-if="!$v.experienceform.$each[index].functions.minLength">Field must have at least {{ $v.experienceform.$each[index].functions.$params.minLength.min }} characters.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1025,7 +1037,7 @@
             validDateExperience() {
                 if (this.experienceform.length && this.experienceform[0].start != null) {
                      for (let i=0; i<this.experienceform.length; i++) {
-                        if (this.experienceform[i].finish == null && !this.educationform[i].finish) {
+                        if (this.experienceform[i].finish == null && !this.experienceform[i].finish) {
                            this.dateExperienceError = null
                             return false
                         }

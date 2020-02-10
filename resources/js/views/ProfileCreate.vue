@@ -346,12 +346,19 @@
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
                                             <input type="checkbox" v-model.trim="item.finishChecked.$model">
                                         </div> -->
-                                        <div class="col-12 text-center" v-if="item.finishLook.$model">
+                                        <!-- <div class="col-12 text-center" v-if="item.finishLook.$model">
                                             <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Choose if you not finished</button>
                                         </div>
 
                                         <div class="col-12 text-center" v-if="!item.finishLook.$model">
                                             <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItemAdd('educationform', index)">Want to specify an end date?</button>
+                                        </div> -->
+                                        <div class="col-12 text-center" v-if="item.finishLook.$model">
+                                            <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you continue</button>
+                                        </div>
+
+                                        <div class="col-12 text-center" v-if="!item.finishLook.$model">
+                                            <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you want to specify the end date</button>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
@@ -420,12 +427,20 @@
                                                 <date-picker v-model.trim="item.finish.$model" valueType="format"></date-picker>
                                             </div>
 
-                                            <div class="col-12 text-center" v-if="item.finishLook.$model">
+                                            <!-- <div class="col-12 text-center" v-if="item.finishLook.$model">
                                                 <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('experienceform', index)">Choose if you not finished</button>
                                             </div>
 
                                             <div class="col-12 text-center" v-if="!item.finishLook.$model">
                                                 <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItemAdd('experienceform', index)">Want to specify an end date?</button>
+                                            </div> -->
+
+                                            <div class="col-12 text-center" v-if="item.finishLook.$model">
+                                                <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you continue</button>
+                                            </div>
+
+                                            <div class="col-12 text-center" v-if="!item.finishLook.$model">
+                                                <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you want to specify the end date</button>
                                             </div>
 
                                             <div class="error col-12 text-center" v-if="validDateExperience">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
@@ -886,16 +901,26 @@
         },
 
         methods: {
-            finishItemAdd (name, indexArr) {
-                let array = this[name][[indexArr]]
-                return array.finishLook = 1
-            },
+            // finishItemAdd (name, indexArr) {
+            //     let array = this[name][indexArr]
+            //     return array.finishLook = 1
+            // },
 
-            finishItem (name, indexArr) {
-                let array = this[name][[indexArr]]
-                // console.log(array.finishLook)
-                array.finish = null
-                return array.finishLook = null
+            // finishItem (name, indexArr) {
+            //     let array = this[name][indexArr]
+            //     // console.log(array.finishLook)
+            //     array.finish = null
+            //     return array.finishLook = null
+            // },
+
+            finishItem (name, index) {
+                if (this[name][index].finishLook) {
+                    this[name][index].finish = null
+                    return this[name][index].finishLook = null
+                }
+                else {
+                    return this[name][index].finishLook = 1
+                }
             },
 
             handleUploaded(resp) {
