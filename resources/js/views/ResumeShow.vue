@@ -222,8 +222,11 @@
             }
         },
 
-        // created() {
-        //     this.$set(this, 'form', this.user)
-        // }
+        created() {
+            // this.$set(this, 'form', this.user)
+            if (this.user.profile == null) {
+                this.$router.push('/master/profilecreate')
+            }
+        }
     }
 </script>

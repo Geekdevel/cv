@@ -260,11 +260,12 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
-            // console.log(window.location.toString())
+
             let url = window.location.toString()
             let arrUrl = url.split('/')
             let arrShow = []
             let arrPublic = []
+
             arrUrl.forEach(elem =>{
                 if (elem == 'editresume') {
                     elem = 'showresume'
@@ -280,6 +281,7 @@
                     arrPublic.push(elem)
                 }
             })
+
             let urlShow = arrShow.join('/')
             let urlPublic = arrPublic.join('/')
             this.slugPrivate = urlShow
@@ -325,8 +327,11 @@
             }
         },
 
-        // created() {
-        //     this.$set(this, 'form', this.user)
-        // }
+        created() {
+            // this.$set(this, 'form', this.user)
+            if (this.user.profile == null) {
+                this.$router.push('/master/profilecreate')
+            }
+        }
     }
 </script>
