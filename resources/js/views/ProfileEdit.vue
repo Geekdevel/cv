@@ -650,6 +650,7 @@
 
                 dateEducationError: null,
                 dateExperienceError: null,
+                dateValidDateError: null,
 
                 regions: [],
                 levels: [],
@@ -779,6 +780,51 @@
         },
 
         methods: {
+            validDateForm(name, dateEdError) {
+                if (this[name].length && this[name][0].start != null) {
+                     for (let i=0; i<this[name].length; i++) {
+                        if (this[name][i].finish == null && !this[name][i].finish) {
+                            this[dateEdError] = null
+                            return false
+                        }
+                        else {
+                            let str_start = this[name][i].start
+                            let str_finish = this[name][i].finish
+                            let arr_start = str_start.split('-')
+                            let arr_finish = str_finish.split('-')
+                            if (Number(arr_start[0]) > Number(arr_finish[0])) {
+                                this[dateEdError] = 1
+                                return true
+                            }
+                            else if (Number(arr_start[0]) == Number(arr_finish[0])) {
+                                if (Number(arr_start[1]) > Number(arr_finish[1])) {
+                                    this[dateEdError] = 1
+                                    return true
+                                }
+                                else if (Number(arr_start[1]) == Number(arr_finish[1])) {
+                                    if (Number(arr_start[2]) > Number(arr_finish[2])) {
+                                       this[dateEdError] = 1
+                                        return true
+                                    }
+                                    else {
+                                        this[dateEdError] = null
+                                        return false
+                                    }
+                                }
+                            }
+                            else {
+                                this[dateEdError] = null
+                                return false
+                            }
+                        }
+                    }
+                }
+                else {
+                    this[dateEdError] = null
+                    return false
+                }
+            },
+
             renderUrl (thisUrl) { //clean url start
                 if (thisUrl) {
                     let urlDribbbleIn = thisUrl
@@ -1010,95 +1056,12 @@
 
         computed: {
             validDateEducation() {
-                if (this.educationform.length && this.educationform[0].start != null) {
-                     for (let i=0; i<this.educationform.length; i++) {
-                        if (this.educationform[i].finish == null && !this.educationform[i].finish) {
-                            this.dateEducationError = null
-                            return false
-                        }
-                        else {
-                            let str_start = this.educationform[i].start
-                            let str_finish = this.educationform[i].finish
-                            let arr_start = str_start.split('-')
-                            let arr_finish = str_finish.split('-')
-                            if (Number(arr_start[0]) > Number(arr_finish[0])) {
-                                this.dateEducationError = 1
-                                return true
-                            }
-                            else if (Number(arr_start[0]) == Number(arr_finish[0])) {
-                                if (Number(arr_start[1]) > Number(arr_finish[1])) {
-                                    this.dateEducationError = 1
-                                    return true
-                                }
-                                else if (Number(arr_start[1]) == Number(arr_finish[1])) {
-                                    if (Number(arr_start[2]) > Number(arr_finish[2])) {
-                                       this.dateEducationError = 1
-                                        return true
-                                    }
-                                    else {
-                                        this.dateEducationError = null
-                                        return false
-                                    }
-                                }
-                            }
-                            else {
-                                this.dateEducationError = null
-                                return false
-                            }
-                        }
-                    }
-                }
-                else {
-                    this.dateEducationError = null
-                    return false
-                }
+                return this.validDateForm('educationform', 'dateEducationError')
             },
 
             validDateExperience() {
-                if (this.experienceform.length && this.experienceform[0].start != null) {
-                     for (let i=0; i<this.experienceform.length; i++) {
-                        if (this.experienceform[i].finish == null && !this.experienceform[i].finish) {
-                           this.dateExperienceError = null
-                            return false
-                        }
-                        else {
-                            let str_start = this.experienceform[i].start
-                            let str_finish = this.experienceform[i].finish
-                            let arr_start = str_start.split('-')
-                            let arr_finish = str_finish.split('-')
-                            if (Number(arr_start[0]) > Number(arr_finish[0])) {
-                                this.dateExperienceError = 1
-                                return true
-                            }
-                            else if (Number(arr_start[0]) == Number(arr_finish[0])) {
-                                if (Number(arr_start[1]) > Number(arr_finish[1])) {
-                                    this.dateExperienceError = 1
-                                    return true
-                                }
-                                else if (Number(arr_start[1]) == Number(arr_finish[1])) {
-                                    if (Number(arr_start[2]) > Number(arr_finish[2])) {
-                                       this.dateExperienceError = 1
-                                        return true
-                                    }
-                                    else {
-                                        this.dateExperienceError = null
-                                        return false
-                                    }
-                                }
-                            }
-                            else {
-                                this.dateExperienceError = null
-                                return false
-                            }
-                        }
-                    }
-                }
-                else {
-                    this.dateExperienceError = null
-                    return false
-                }
+                return this.validDateForm('experienceform', 'dateExperienceError')
             }
-
         },
 
         created() {
