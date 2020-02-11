@@ -1048,9 +1048,6 @@
                 })
             axios.post('/profiles/user')
                 .then(response =>{
-                    // if (!response.data.profile.photo) {
-                    //     this.$router.push('/master/profilecreate')
-                    // }
                     this.profileform = response.data.profile && response.data.profile.web_site ? response.data.profile : { web_site: null }
 
                     //we clean url from the base (to bring the record recorded in compliance)
@@ -1242,8 +1239,8 @@
                     for (var i = 0; i < this.educationform.length; i++) {
                         this.$set(this.educationform[i], 'finishLook', null)
                     }
-                    this.lenguageform = response.data.lenguages && response.data.lenguages.lenguage ? response.data.lenguages : { lenguage: null }
-                    this.skillform = response.data.skills && response.data.skills.skill ? response.data.skills : { skill: null }
+                    this.lenguageform = response.data.lenguages
+                    this.skillform = response.data.skills
                     this.projectsform = response.data.projects && response.data.projects.description ? response.data.projects : { description: null }
                     this.form = response.data.user
 
