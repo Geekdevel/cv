@@ -27,22 +27,22 @@
 
         <div class="contact-container container-block">
             <ul class="list-unstyled contact-list">
-                <li class="email"><i class="fa fa-envelope"></i>{{ $user->email }}</li>
-                <li class="phone"><i class="fa fa-phone"></i> {{ $user->phone }}</li>
+                <li class="email"><i class="fa fa-envelope"></i><a href="mailto:{{$user->email}}" target="_blank">{{ $user->email }}</a></li>
+                <li class="phone"><i class="fa fa-phone"></i><a href="tel:{{$user->phone}}" target="_blank"> {{ $user->phone }}</a></li>
                 @if (isset($user->profile->web_site))
-                    <li class="website"><i class="fa fa-globe"></i> {{ $user->profile->web_site }}</li>
+                    <li class="website"><i class="fa fa-globe"></i><a href="https://www.{{$user->profile->web_site}}" target="_blank"> {{ $user->profile->web_site }}</a></li>
                 @endif
                 @if (isset($user->profile->linkedin))
-                    <li class="linkedin"><i class="fab fa-linkedin"></i> {{ $user->profile->linkedin }}</li>
+                    <li class="linkedin"><i class="fab fa-linkedin"></i><a href="https://www.{{$user->profile->linkedin}}" target="_blank"> {{ $user->profile->linkedin }} </a></li>
                 @endif
                 @if (isset($user->profile->git))
-                    <li class="github"><i class="fab fa-github"></i> {{ $user->profile->git }}</li>
+                    <li class="github"><i class="fab fa-github"></i> <a href="https://www.{{$user->profile->git}}" target="_blank">{{ $user->profile->git }}</a></li>
                 @endif
                 @if (isset($user->profile->dribbble))
-                    <li class="dribbble"><i class="fab fa-dribbble"></i> {{ $user->profile->dribbble }}</li>
+                    <li class="dribbble"><i class="fab fa-dribbble"></i><a href="https://www.{{$user->profile->dribbble}}" target="_blank"> {{ $user->profile->dribbble }}</a></li>
                 @endif
                 @if (isset($user->profile->behance))
-                    <li class="behance"><i class="fab fa-behance"></i> {{ $user->profile->behance }}</li>
+                    <li class="behance"><i class="fab fa-behance"></i><a href="https://www.{{$user->profile->behance}}" target="_blank"> {{ $user->profile->behance }}</a></li>
                 @endif
             </ul>
         </div><!--//contact-container-->

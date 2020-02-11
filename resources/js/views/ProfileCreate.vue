@@ -872,6 +872,51 @@
         },
 
         methods: {
+            renderUrl (thisUrl) { //clean url start
+                if (thisUrl) {
+                    let urlDribbbleIn = thisUrl
+                    let arrDribbbleIn = urlDribbbleIn.split('/')
+                    let arrDribbbleInObr = []
+
+                    arrDribbbleIn.forEach(elem => {
+                        if (elem != 'http:' && elem != 'https:') {
+                            arrDribbbleInObr.push(elem)
+                        }
+                    })
+                    let urlDribbbleNextChecked = arrDribbbleInObr.join('/')
+                    let arrDribbbleNextWww = urlDribbbleNextChecked.split('.')
+                    let arrDribbbleOut = []
+
+                    arrDribbbleNextWww.forEach(elem => {
+                        if (elem != '/www' && elem != 'www') {
+                            arrDribbbleOut.push(elem)
+                        }
+                    })
+                    let urlDrebbbleOut = arrDribbbleOut.join('.')
+                    if (urlDrebbbleOut[urlDrebbbleOut.length - 1] != '/' && urlDrebbbleOut[0] != '/') {
+                        thisUrl = urlDrebbbleOut
+                    }
+                    else if (urlDrebbbleOut[urlDrebbbleOut.length - 1] == '/'){
+                        let urlTestDribbbleOut = urlDrebbbleOut.slice(0, -1)
+                        if (urlTestDribbbleOut[0] != '/') {
+                            thisUrl = urlTestDribbbleOut
+                        }
+                        else {
+                            thisUrl = urlTestDribbbleOut.slice(1)
+                        }
+                    }
+                    else {
+                        thisUrl = urlDrebbbleOut.slice(1)
+                    }
+
+                    return thisUrl
+                }
+                else {
+                    return null
+                }
+
+            },//clean url finish
+
             finishItem (name, index) {
                 if (this[name][index].finishLook) {
                     this[name][index].finish = null
@@ -958,151 +1003,11 @@
                     this.errormessages = 'UUUPS!!!'
                 }
                 else {
-                    if (this.profileform.linkedin) {
-                        let urlLinkedinIn = this.profileform.linkedin
-                        let arrLinkedinIn = urlLinkedinIn.split('/')
-                        let arrLinkedinInObr = []
-
-                        arrLinkedinIn.forEach(elem => {
-                            if (elem != 'http:' && elem != 'https:') {
-                                arrLinkedinInObr.push(elem)
-                            }
-                        })
-                        let urlLinkedinNextChecked = arrLinkedinInObr.join('/')
-                        let arrLinkedinNextWww = urlLinkedinNextChecked.split('.')
-
-                        let arrLinkedinOut = []
-                        arrLinkedinNextWww.forEach(elem => {
-                            if (elem != '/www') {
-                                arrLinkedinOut.push(elem)
-                            }
-                        })
-                        let urlLinkedinOut = arrLinkedinOut.join('.')
-
-                        if(urlLinkedinOut[urlLinkedinOut.length - 1] != '/') {
-                            this.profileform.linkedin = urlLinkedinOut
-                        }
-                        else {
-                            this.profileform.linkedin = urlLinkedinOut.slice(0, -1)
-                        }
-                    }
-
-                    if (this.profileform.behance) {
-                        let urlBehanceIn = this.profileform.behance
-                        let arrBehanceIn = urlBehanceIn.split('/')
-                        let arrBehanceInObr = []
-
-                        arrBehanceIn.forEach(elem => {
-                            if (elem != 'http:' && elem != 'https:') {
-                                arrBehanceInObr.push(elem)
-                            }
-                        })
-
-                        let urlBehanceNextChecked = arrBehanceInObr.join('/')
-                        let arrBehanceNextWww = urlBehanceNextChecked.split('.')
-
-                        let arrBehanceOut = []
-                        arrBehanceNextWww.forEach(elem => {
-                            if (elem != '/www' && elem != 'www') {
-                                arrBehanceOut.push(elem)
-                            }
-                        })
-                        let urlBehanceOut = arrBehanceOut.join('.')
-
-                        if(urlBehanceOut[urlBehanceOut.length - 1] != '/') {
-                            this.profileform.behance = urlBehanceOut
-                        }
-                        else {
-                            this.profileform.behance = urlBehanceOut.slice(0, -1)
-                        }
-                    }
-
-                    if (this.profileform.git) {
-                        let urlGitIn = this.profileform.git
-                        let arrGitIn = urlGitIn.split('/')
-                        let arrGitInObr = []
-
-                        arrGitIn.forEach(elem => {
-                            if (elem != 'http:' && elem != 'https:') {
-                                arrGitInObr.push(elem)
-                            }
-                        })
-                        let urlGitNextChecked = arrGitInObr.join('/')
-                        let arrGitNextWww = urlGitNextChecked.split('.')
-
-                        let arrGitOut = []
-                        arrGitNextWww.forEach(elem => {
-                            if (elem != '/www' && elem != 'www') {
-                                arrGitOut.push(elem)
-                            }
-                        })
-                        let urlGitOut = arrGitOut.join('.')
-
-                        if(urlGitOut[urlGitOut.length - 1] != '/') {
-                            this.profileform.git = urlGitOut
-                        }
-                        else {
-                            this.profileform.git = urlGitOut.slice(0, -1)
-                        }
-                    }
-
-                    if (this.profileform.dribbble) {
-                        let urlDribbbleIn = this.profileform.dribbble
-                        let arrDribbbleIn = urlDribbbleIn.split('/')
-                        let arrDribbleInObr = []
-
-                        arrDribbbleIn.forEach(elem => {
-                            if (elem != 'http:' && elem != 'https:') {
-                                arrDribbleInObr.push(elem)
-                            }
-                        })
-                        let urlDribbleNextChecked = arrDribbleInObr.join('/')
-                        let arrDribbleNextWww = urlDribbleNextChecked.split('.')
-
-                        let arrDribbleOut = []
-                        arrDribbleNextWww.forEach(elem => {
-                            if (elem != '/www' && elem != 'www') {
-                                arrDribbleOut.push(elem)
-                            }
-                        })
-                        let urlDribbbleOut = arrDribbleOut.join('.')
-
-                        if(urlDribbbleOut[urlDribbbleOut.length - 1] != '/') {
-                            this.profileform.dribbble = urlDribbbleOut
-                        }
-                        else {
-                            this.profileform.dribbble = urlDribbbleOut.slice(0, -1)
-                        }
-                    }
-
-                    if (this.profileform.web_site) {
-                        let urlWebIn = this.profileform.web_site
-                        let arrWebIn = urlWebIn.split('/')
-                        let arrWebInObr = []
-
-                        arrWebIn.forEach(elem => {
-                            if (elem != 'http:' && elem != 'https:') {
-                                arrWebInObr.push(elem)
-                            }
-                        })
-                        let urlWebNextChecked = arrWebInObr.join('/')
-                        let arrWebNextWww = urlWebNextChecked.split('.')
-
-                        let arrWebOut = []
-                        arrWebNextWww.forEach(elem => {
-                            if (elem != '/www' && elem != 'www') {
-                                arrWebOut.push(elem)
-                            }
-                        })
-                        let urlWebOut = arrWebOut.join('.')
-
-                        if(urlWebOut[urlWebOut.length - 1] != '/') {
-                            this.profileform.web_site = urlWebOut
-                        }
-                        else {
-                            this.profileform.web_site = urlWebOut.slice(0, -1)
-                        }
-                    }
+                    this.profileform.linkedin = this.renderUrl (this.profileform.linkedin)
+                    this.profileform.behance = this.renderUrl (this.profileform.behance)
+                    this.profileform.git = this.renderUrl (this.profileform.git)
+                    this.profileform.dribbble = this.renderUrl (this.profileform.dribbble)
+                    this.profileform.web_site = this.renderUrl (this.profileform.web_site)
 
                     let data = {
                         user: this.form,
@@ -1115,6 +1020,7 @@
                         addressform: this.addressform,
                         projectsform: this.projectsform
                     }
+
                     axios.post('/profiles', data)
                         .then(() => {
                             this.$router.push('/master/resumeses')
