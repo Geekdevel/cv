@@ -47,9 +47,6 @@
 .experience-add {
   padding-bottom: 0px;
 }
-/*.language-add {
-  margin-bottom: 10px;
-}*/
 .errors {
   color: red;
 }
@@ -126,9 +123,6 @@ td {
   margin-top: 0;
   margin-bottom: 10px;
 }
-/*.sidebar-wrapper .name h3:hover {
-  background: red;
-}*/
 #jobTitleName:hover {
   background: rgba(0, 0, 0, 0.7);
 }
@@ -222,10 +216,9 @@ td {
   background: #fff;
   padding: 60px;
   width: 60%;
-  /*padding-right: 360px;*/
   display: block;
   float: left;
-  /*min-height: 1350px;*/
+  height: 100%;
 }
 .main-wrapper .section-title {
   text-transform: uppercase;
