@@ -25,7 +25,7 @@ Admin panel {{ Auth::user()->name }}
 
     <div id="content-wrapper">
 
-      <div class="container-fluid">
+      <div class="container-fluid h-100">
         @include('flash-message')
         <router-view :user="{{ Auth::user() }}"></router-view>
 

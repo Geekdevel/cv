@@ -24,14 +24,11 @@ class ResumesController extends Controller
         $user = auth()->user();
         $slag = $request->slag;
         $resume = Resume::slag($slag);
-        // return PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
         $data = [
             'user' => $user,
             'resume' => $resume,
         ];
         return PDF::loadView('layouts/dliaPDF', $data)->stream('download.pdf');
-        //return PDF::loadView('layouts/newPDF', $data)->stream('download.pdf');
-        //return view('layouts/newPDF', compact('user', 'resume', 'url'));
     }
     /**
      * Display a listing of the resource.
@@ -43,16 +40,6 @@ class ResumesController extends Controller
         $user = auth()->user();
         $resumes = $user->resumes;
         return $resumes;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -89,33 +76,11 @@ class ResumesController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     public function getResume(Request $request)
     {
         $slag = $request->slag;
         $resume = Resume::slag($slag);
         return response()->json(['slag' => $resume->slag, 'job_title' => $resume->job_title, 'description' => $resume->description], 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     public function publicShowResume(Request $request, $slag)

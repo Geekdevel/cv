@@ -1,7 +1,7 @@
 <template>
-    <div class="container-fluid" v-if="loading">
-        <div class="row justify-content-center align-items-center">
-            <pulse-loader v-if="loading" :color="color" :size="size"></pulse-loader>
+     <div class="container-fluid h-100" v-if="loading">
+        <div class="row justify-content-center align-items-center h-100">
+            <pulse-loader v-if="loading" :color="color" :size="size" class="align-middle"></pulse-loader>
         </div>
     </div>
 
