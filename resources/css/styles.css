@@ -8,17 +8,61 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/Nunito_Sans/NunitoSans-Bold.ttf');
+    font-weight: bold;
+}
+.main-wrapper strong {
+  font-family: 'Nunito';
+  font-weight: bold;
+}
+/*strong {
+  font-family: Helvetica,Arial,sans-serif;
+}*/
 /*vue2-editor styles*/
-.ql-align-center {
+
+/*.ql-align-center {
   text-align: center;
 }
 .ql-align-right {
   text-align: right;
+
 }
 .ql-align-justify {
   text-align: justify;
+}*/
+/*.ql-align-center {
+  background: red;
+  text-align: left !important;
+}*/
+/*.ql-aligan-center::before {
+  content: "..." !important;
+  color: blue;
 }
+.ql-aligan-center::after {
+  content: "..." !important;
+  color: blue;
+}*/
+/*.main-wrapper ol {
+  counter-reset: first-counter;
+  counter-reset: second-counter;
+  list-style-type: none;
+}
+.main-wrapper ol li {
+  counter-increment: first-counter;
+}
+.main-wrapper li::before {
+  content: '<span style="text-align: center">'counter(first-counter)".";
+  color: green;
+}
+.main-wrapper li::after {
+  content: "</span>";
+  color: green;
+}*/
+
 /*end vue2-editor styles*/
+
 .be-sure-to-fill-out {
   color: red;
   font-size: 25px;
@@ -172,7 +216,7 @@ td {
   margin-bottom: 0;
 }
 .sidebar-wrapper .education-container .meta {
-  color: rgba(255, 255, 255, 0.6);
+  /*color: rgba(255, 255, 255, 0.6);*/
   font-weight: 500;
   margin-bottom: 0px;
   margin-top: 0;
@@ -180,6 +224,7 @@ td {
   text-align: left;
 }
 .sidebar-wrapper .education-container .meta-level-education {
+  color: rgba(255, 255, 255, 0.6);
   text-align: right;
   margin-left: 70%;
   margin-top: -21px;

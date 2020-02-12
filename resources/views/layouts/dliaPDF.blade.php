@@ -34,12 +34,20 @@
     src: url(fonts/Nunito_Sans/NunitoSans-Regular.ttf);
     font-weight: 900;
 }
+@font-face {
+    font-family: 'Nunito';
+    src: url(fonts/Nunito_Sans/NunitoSans-Bold.ttf);
+    font-weight: bold;
+}
 body {
   font-family: 'Nunito';
   color: #545E6C;
-  /*background: #f5f5f5;*/
   font-size: 14px;
   padding: 0px;
+}
+.main-wrapper strong {
+  font-family: 'Nunito';
+  font-weight: bold;
 }
 h1,
 h2,
@@ -145,7 +153,6 @@ p {
   margin-bottom: 5px;
 }
 .sidebar-wrapper .education-container .item {
-  /*background: red;*/
   margin-top: -15px;
   margin-bottom: 0;
 }
@@ -153,36 +160,26 @@ p {
   margin-bottom: 0;
 }
 .sidebar-wrapper .education-container .meta {
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff;
   font-weight: 500;
   margin-bottom: 0px;
   width: 70%;
   text-align: left;
-  /*background: green;*/
-  /*margin-top: 3;
-  width: 30%;*/
 }
 .meta-level-education {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-bottom: 0px;
   text-align: right;
   margin-left: -90%;
   padding-right: 10px;
   margin-top: -40px;
-  /*background: blue;*/
-  /*margin-top: 3;
-  width: 30%;*/
 }
 .sidebar-wrapper .education-container .time-education {
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-bottom: 0px;
   margin-top: -5px;
-  /*text-align: right;
-  padding-right: 10px;*/
-  /*margin-left: 30%;
-  margin-top: -40px;*/
 }
 .interests-list {
   padding-left: 0;
@@ -285,14 +282,9 @@ p {
                 @foreach($user->works as $item)
                     <div class="item-exp">
                         <div class="meta-exp">
-                            {{-- <div class="upper-row">
-                                <h3 class="job-title">{{ $item->position }}</h3>
-                                <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
-                            </div>
-                            <div class="company">{{ $item->experience }}</div> --}}
                             <div class="upper-row">
                                 <h3 class="job-title">{{ $item->experience }}</h3>
-                                <div class="time">{{ $item->position }}</div>
+                                <div class="time"> <strong>{{ $item->position }}</strong></div>
                             </div>
                             <div class="company">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
                         </div>
