@@ -249,15 +249,69 @@ p {
     margin-top: -40px;
 }
 /*vue2-editor styles*/
+
 .ql-align-center {
   text-align: center;
 }
 .ql-align-right {
   text-align: right;
+
 }
 .ql-align-justify {
   text-align: justify;
 }
+
+.main-wrapper .summary-section ol {
+  counter-reset: first-counter;
+  list-style-type: none;
+}
+.main-wrapper .summary-section ol li {
+  counter-increment: first-counter;
+}
+.main-wrapper .summary-section ol li::before {
+  content: counter(first-counter)'. ';
+}
+.main-wrapper .summary-section ul {
+  list-style-type: none;
+}
+.main-wrapper .summary-section ul li::before {
+  content: "\2022"" ";
+}
+
+.main-wrapper .experiences-section .details ol {
+  counter-reset: second-counter;
+  list-style-type: none;
+}
+.main-wrapper .experiences-section .details ol li {
+  counter-increment: second-counter;
+}
+.main-wrapper .experiences-section .details ol li::before {
+  content: counter(second-counter)'. ';
+}
+.main-wrapper .experiences-section .details ul {
+  list-style-type: none;
+}
+.main-wrapper .experiences-section .details ul li::before {
+  content: "\2022"" ";
+}
+
+.main-wrapper .projects-section .intro ol {
+  counter-reset: three-counter;
+  list-style-type: none;
+}
+.main-wrapper .projects-section .intro ol li {
+  counter-increment: three-counter;
+}
+.main-wrapper .projects-section .intro ol li::before {
+  content: counter(three-counter)'. ';
+}
+.main-wrapper .projects-section .intro ul {
+  list-style-type: none;
+}
+.main-wrapper .projects-section .intro ul li::before {
+  content: "\2022"" ";
+}
+
 /*end vue2-editor styles*/
 </style>
 </head>
