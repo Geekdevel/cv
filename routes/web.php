@@ -28,8 +28,8 @@ Route::post('/profiles/user', 'ProfilesController@editProfile');
 
 Route::resource('/resumes', 'ResumesController');
 
-Route::post('/resume/{slag}', 'ResumesController@getResume');
+Route::post('/resume/{slug}', 'ResumesController@getResume');
 
-Route::get('/cvs/{slag}/pdf', 'ResumesController@getPdf');
+Route::get('/cvs/{slug}/pdf', 'ResumesController@getPdf');
 
-Route::get('/cvs/{slag}/public', 'ResumesController@publicShowResume');
+Route::get('/cvs/{slug}/public', 'ResumesController@publicShowResume');

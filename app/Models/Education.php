@@ -9,10 +9,10 @@ class Education extends Model
     protected $fillable = [
         'user_id',
         'university',
-        'professi',
+        'specialty',
         'start',
         'finish',
-        'level'
+        'degree'
     ];
 
     public function user()

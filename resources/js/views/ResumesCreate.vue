@@ -13,12 +13,12 @@
                         {{errormessages.error}}
                     </div>
 
-                <section class="section slag-section">
-                    <div class="summary" :class="{ 'form-group--error': $v.resumeform.slag.$error }">
-                        <label for="slag"><h5>Slug for your resume:</h5></label>
-                        <input type="text" id="slag" name="slag" v-model.trim="$v.resumeform.slag.$model" @click="chekErrorMessages">
-                        <div class="error" v-if="$v.resumeform.slag.$error && !$v.resumeform.slag.required">Must be completed and unique!</div>
-                        <div class="error" v-if="!$v.resumeform.slag.minLength">Field must have at least {{ $v.resumeform.slag.$params.minLength.min }} characters.</div>
+                <section class="section slug-section">
+                    <div class="summary" :class="{ 'form-group--error': $v.resumeform.slug.$error }">
+                        <label for="slug"><h5>Slug for your resume:</h5></label>
+                        <input type="text" id="slug" name="slug" v-model.trim="$v.resumeform.slug.$model" @click="chekErrorMessages">
+                        <div class="error" v-if="$v.resumeform.slug.$error && !$v.resumeform.slug.required">Must be completed and unique!</div>
+                        <div class="error" v-if="!$v.resumeform.slug.minLength">Field must have at least {{ $v.resumeform.slug.$params.minLength.min }} characters.</div>
                     </div><!--//summary-->
                 </section><!--//section-->
 
@@ -38,7 +38,7 @@
                     <div class="item" v-for="(itemExperience, indexExperience) in experienceform" :key="indexExperience">
                         <div class="meta">
                             <div class="upper-row">
-                                <h3 class="company">{{ itemExperience.experience }}</h3>
+                                <h3 class="company">{{ itemExperience.company }}</h3>
                                 <div class="job-title">{{ itemExperience.position }}</div>
                             </div>
                             <div class="time">{{ itemExperience.start }} - <span v-if="itemExperience.finish">{{ itemExperience.finish }}</span><span v-if="!itemExperience.finish">By current time</span></div>
@@ -104,8 +104,8 @@
                     <h2 class="container-block-title">Education</h2>
                     <div class="item" v-for="education in educationform">
                         <h5 class="meta">{{ education.university }}</h5>
-                        <h5 class="meta-level-education">{{ education.level }}</h5>
-                        <h4 class="degree">{{ education.professi }}</h4>
+                        <h5 class="meta-level-education">{{ education.degree }}</h5>
+                        <h4 class="degree">{{ education.specialty }}</h4>
                         <div class="time">{{ education.start }} - <span v-if="education.finish">{{ education.finish }}</span><span v-if="!education.finish">By current time</span></div>
                     </div><!--//item-->
                 </div><!--//education-container-->
@@ -119,11 +119,11 @@
                     </ul>
                 </div><!--//interests-->
 
-                <div class="interests-container container-block" v-if="hobbiform[0].hobbi">
+                <div class="interests-container container-block" v-if="hobbyform[0].hobby">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
-                        <li v-for="item in hobbiform">
-                            {{ item.hobbi }}
+                        <li v-for="item in hobbyform">
+                            {{ item.hobby }}
                         </li>
                     </ul>
                 </div><!--//interests-->
@@ -177,10 +177,10 @@
 
                 educationform: [{
                     university: null,
-                    professi: null,
+                    specialty: null,
                     start: null,
                     finish: null,
-                    level: null
+                    degree: null
                 }],
 
                 lenguageform: [{
@@ -189,12 +189,12 @@
                     level: {}
                 }],
 
-                hobbiform: [{
-                    hobbi: null
+                hobbyform: [{
+                    hobby: null
                 }],
 
                 experienceform: [{
-                    experience: null,
+                    company: null,
                     position: null,
                     profession: null,
                     start: null,
@@ -243,9 +243,9 @@
             axios.post('/profiles/user')
                 .then(response =>{
                     this.profileform = response.data.profile
-                    this.hobbiform = response.data.hobbi
-                    this.experienceform = response.data.works
-                    this.educationform = response.data.educations
+                    this.hobbyform = response.data.hobby
+                    this.experienceform = response.data.experience
+                    this.educationform = response.data.education
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects

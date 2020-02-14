@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Field extends Model
+class Experience extends Model
 {
     protected $fillable = [
         'user_id',
-        'field'
+        'company',
+        'position',
+        'start',
+        'finish',
+        'functions',
     ];
 
     public function user()

@@ -333,11 +333,11 @@ p {
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fa-briefcase-krug.png') }}" alt="fa-briefcase-krug">
                     <span>Experiences</span>
                 </h2>
-                @foreach($user->works as $item)
+                @foreach($user->experiences as $item)
                     <div class="item-exp">
                         <div class="meta-exp">
                             <div class="upper-row">
-                                <h3 class="job-title">{{ $item->experience }}</h3>
+                                <h3 class="job-title">{{ $item->company }}</h3>
                                 <div class="time"> <strong>{{ $item->position }}</strong></div>
                             </div>
                             <div class="company">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
@@ -433,11 +433,11 @@ p {
             </div>
             <div class="education-container container-block">
                 <h2 class="container-block-title">Education</h2>
-                @foreach($user->educations as $education)
+                @foreach($user->education as $education)
                     <div class="item">
                         <h4 class="meta">{{ $education->university }}</h4>
-                        <h4 class="meta-level-education">{{ $education->level }}</h4>
-                        <h4 class="degree">{{ $education->professi }}</h4>
+                        <h4 class="meta-level-education">{{ $education->degree }}</h4>
+                        <h4 class="degree">{{ $education->specialty }}</h4>
                         <div class="time-education">{{ $education->start }} - {{ $education->finish ? $education->finish : 'By current time' }}</div>
                     </div>
                 @endforeach
@@ -454,13 +454,13 @@ p {
                 </ul>
             </div>
 
-            @if (!empty(implode($user->hobbis->pluck('hobbi')->all())))
+            @if (!empty(implode($user->hobbies->pluck('hobby')->all())))
                 <div class="interests-container container-block">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
-                        @foreach($user->hobbis as $hobbi)
+                        @foreach($user->hobbies as $hobby)
                             <li>
-                                {{ $hobbi->hobbi }}
+                                {{ $hobby->hobby }}
                             </li>
                         @endforeach
                     </ul>

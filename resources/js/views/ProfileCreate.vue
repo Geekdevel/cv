@@ -305,21 +305,21 @@
                                         </div>
 
                                         <div class="col-4 text-center">
-                                            <label for="professi">Professi: <span class="be-sure-to-fill-out">*</span></label>
+                                            <label for="specialty">Specialty: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control" type="text" name="professi" v-model.trim="item.professi.$model">
-                                            <div class="error" v-if="item.$error && !item.professi.required">Field is required.</div>
-                                            <div class="error" v-if="!item.professi.minLength">Field must have at least {{ item.professi.$params.minLength.min }} characters.</div>
+                                            <input class="form-control" type="text" name="specialty" v-model.trim="item.specialty.$model">
+                                            <div class="error" v-if="item.$error && !item.specialty.required">Field is required.</div>
+                                            <div class="error" v-if="!item.specialty.minLength">Field must have at least {{ item.specialty.$params.minLength.min }} characters.</div>
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="diplom_level">Diplom level: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.level.$model">
-                                            <div class="error" v-if="item.$error && !item.level.required">Field is required.</div>
-                                            <div class="error" v-if="!item.level.minLength">Field must have at least {{ item.level.$params.minLength.min }} characters.</div>
+                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.degree.$model">
+                                            <div class="error" v-if="item.$error && !item.degree.required">Field is required.</div>
+                                            <div class="error" v-if="!item.degree.minLength">Field must have at least {{ item.degree.$params.minLength.min }} characters.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -384,9 +384,9 @@
                                                 <label for="work">Company name: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }">
-                                                <input class="form-control" type="text" name="experience" v-model.trim="item.experience.$model">
-                                                <div class="error" v-if="item.$error && !item.experience.required">Field is required.</div>
-                                                <div class="error" v-if="!item.experience.minLength">Field must have at least {{ item.experience.$params.minLength.min }} characters.</div>
+                                                <input class="form-control" type="text" name="company" v-model.trim="item.company.$model">
+                                                <div class="error" v-if="item.$error && !item.company.required">Field is required.</div>
+                                                <div class="error" v-if="!item.company.minLength">Field must have at least {{ item.company.$params.minLength.min }} characters.</div>
                                             </div>
 
                                             <div class="col-4 text-center">
@@ -468,30 +468,30 @@
                     </div>
 
                     <div class="form-group row justify-content-center hobbi-form">
-                        <!-- Hobbis -->
+                        <!-- Hobbies -->
                         <div class="col-md-12">
                             <div class="form-group row justify-content-center">
                                 <div class="col-12 text-center">
                                     <h4>Your interests</h4>
                                 </div>
                             </div>
-                            <div class="hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
-                                <div class="form-group row justify-content-center hobbi-add">
+                            <div class="hobby-body" v-for="(item, indexHobby) in hobbyform" :key="indexHobby">
+                                <div class="form-group row justify-content-center hobby-add">
                                     <div class="col-12 col-md-2 text-center">
-                                        <label for="hobbi">Interest</label>
+                                        <label for="hobby">Interest</label>
                                     </div>
                                     <div class="col-12 col-md-6 text-center">
-                                        <input class="form-control" type="text" name="hobbi" v-model="item.hobbi">
+                                        <input class="form-control" type="text" name="hobby" v-model="item.hobby">
                                     </div>
 
                                     <div class="col-12 col-md-2 text-center">
-                                        <button type="button" class="btn btn-danger" @click="removeItem('hobbiform', indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
+                                        <button type="button" class="btn btn-danger" @click="removeItem('hobbyform', indexHobby)" v-if="hobbyform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
+                                    <button type="button" class="btn btn-primary" id="hobby_add" @click="addHobby">
                                         +ADD Interest
                                     </button>
                                 </div>
@@ -600,17 +600,17 @@
 
                 educationform: [{
                     university: null,
-                    professi: null,
+                    specialty: null,
                     start: null,
                     finish: null,
-                    level: null,
+                    degree: null,
                     error: null,
                     finishLook: 1,
                     valid: null
                 }],
 
                 experienceform: [{
-                    experience: null,
+                    company: null,
                     position: null,
                     start: null,
                     finish: null,
@@ -620,8 +620,8 @@
                     valid: null
                 }],
 
-                hobbiform: [{
-                    hobbi: null,
+                hobbyform: [{
+                    hobby: null,
                     error: null
                 }],
 
@@ -740,7 +740,7 @@
                         required,
                         minLength: minLength(2)
                     },
-                    professi: {
+                    specialty: {
                         required,
                         minLength: minLength(3)
                     },
@@ -749,7 +749,7 @@
                         minLength: minLength(4)
                     },
                     finish: {},
-                    level: {
+                    degree: {
                         required,
                         minLength: minLength(4)
                     },
@@ -760,11 +760,11 @@
 
             experienceform: {
                 $each: {
-                    experience: {
+                    company: {
                         required,
                         minLength: minLength(3)
                     },
-                    position: {
+                    company: {
                         required,
                         minLength: minLength(3)
                     },
@@ -897,9 +897,9 @@
                 this[name].splice(index, 1)
             },
 
-            addHobbi() {
-                this.hobbiform.push({
-                    hobbi: null,
+            addHobby() {
+                this.hobbyform.push({
+                    hobby: null,
                     error: null
                 })
             },
@@ -923,10 +923,10 @@
             addEducation() {
                 this.educationform.push({
                     university: null,
-                    professi: null,
+                    specialty: null,
                     start: null,
                     finish: null,
-                    level: null,
+                    degree: null,
                     error: null,
                     finishLook: 1,
                     valid: null
@@ -935,7 +935,7 @@
 
             addExperience() {
                 this.experienceform.push({
-                    experience: null,
+                    company: null,
                     position: null,
                     start: null,
                     finish: null,
@@ -965,7 +965,7 @@
                         skillform: this.skillform,
                         educationform: this.educationform,
                         experienceform: this.experienceform,
-                        hobbiform: this.hobbiform,
+                        hobbyform: this.hobbyform,
                         addressform: this.addressform,
                         projectsform: this.projectsform
                     }

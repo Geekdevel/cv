@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Hobbi extends Model
+class Hobby extends Model
 {
     protected $fillable = [
         'user_id',
-        'hobbi'
+        'hobby'
     ];
 
     public function user()

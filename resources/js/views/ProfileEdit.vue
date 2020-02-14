@@ -1,11 +1,12 @@
 <template>
-    <div class="container-fluid h-100" v-if="loading">
+    <!-- <div class="container-fluid h-100" v-if="loading">
         <div class="row justify-content-center align-items-center h-100">
             <pulse-loader v-if="loading" :color="color" :size="size" class="align-middle"></pulse-loader>
         </div>
-    </div>
+    </div> -->
 
-    <div class="container-fluid profile-create" v-else-if="!loading">
+    <!-- <div class="container-fluid profile-create" v-else-if="!loading"> -->
+    <div class="container-fluid profile-create">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -304,21 +305,21 @@
                                         </div>
 
                                         <div class="col-4 text-center">
-                                            <label for="professi">Professi: <span class="be-sure-to-fill-out">*</span></label>
+                                            <label for="specialty">Specialty: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].professi.$error }">
-                                            <input class="form-control" type="text" name="professi" v-model.trim="item.professi">
-                                            <div class="error" v-if="$v.educationform.$each[index].professi.$error && !$v.educationform.$each[index].professi.required">Field is required.</div>
-                                            <div class="error" v-if="!$v.educationform.$each[index].professi.minLength">Field must have at least {{ $v.educationform.$each[index].professi.$params.minLength.min }} characters.</div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].specialty.$error }">
+                                            <input class="form-control" type="text" name="specialty" v-model.trim="item.specialty">
+                                            <div class="error" v-if="$v.educationform.$each[index].specialty.$error && !$v.educationform.$each[index].specialty.required">Field is required.</div>
+                                            <div class="error" v-if="!$v.educationform.$each[index].specialty.minLength">Field must have at least {{ $v.educationform.$each[index].specialty.$params.minLength.min }} characters.</div>
                                         </div>
 
                                         <div class="col-4 text-center">
                                             <label for="diplom_level">Diplom level: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].level.$error }">
-                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.level">
-                                            <div class="error" v-if="$v.educationform.$each[index].level.$error && !$v.educationform.$each[index].level.required">Field is required.</div>
-                                            <div class="error" v-if="!$v.educationform.$each[index].level.minLength">Field must have at least {{ $v.educationform.$each[index].level.$params.minLength.min }} characters.</div>
+                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].degree.$error }">
+                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.degree">
+                                            <div class="error" v-if="$v.educationform.$each[index].degree.$error && !$v.educationform.$each[index].degree.required">Field is required.</div>
+                                            <div class="error" v-if="!$v.educationform.$each[index].degree.minLength">Field must have at least {{ $v.educationform.$each[index].degree.$params.minLength.min }} characters.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -382,12 +383,12 @@
                                     <div class="col-12 col-md-6 text-center">
                                         <div class="form-group row justify-content-center">
                                             <div class="col-4 text-center">
-                                                <label for="work">Company name: <span class="be-sure-to-fill-out">*</span></label>
+                                                <label for="company">Company name: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].experience.$error }">
-                                                <input class="form-control" type="text" name="experience" v-model.trim="item.experience">
-                                                <div class="error" v-if="$v.experienceform.$each[index].experience.$error && !$v.experienceform.$each[index].experience.required">Field is required.</div>
-                                                <div class="error" v-if="!$v.experienceform.$each[index].experience.minLength">Field must have at least {{ $v.experienceform.$each[index].experience.$params.minLength.min }} characters.</div>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].company.$error }">
+                                                <input class="form-control" type="text" name="company" v-model.trim="item.company">
+                                                <div class="error" v-if="$v.experienceform.$each[index].company.$error && !$v.experienceform.$each[index].company.required">Field is required.</div>
+                                                <div class="error" v-if="!$v.experienceform.$each[index].company.minLength">Field must have at least {{ $v.experienceform.$each[index].company.$params.minLength.min }} characters.</div>
                                             </div>
 
                                             <div class="col-4 text-center">
@@ -471,30 +472,30 @@
                     </div>
 
                     <div class="form-group row justify-content-center hobbi-form">
-                        <!-- Hobbis -->
+                        <!-- Hobbies -->
                         <div class="col-md-12">
                             <div class="form-group row justify-content-center">
                                 <div class="col-12 text-center">
                                     <h4>Your interests</h4>
                                 </div>
                             </div>
-                            <div class="hobbi-body" v-for="(item, indexHobbi) in hobbiform" :key="indexHobbi">
+                            <div class="hobbi-body" v-for="(item, indexHobby) in hobbyform" :key="indexHobby">
                                 <div class="form-group row justify-content-center hobbi-add">
                                     <div class="col-12 col-md-2 text-center">
-                                        <label for="hobbi">Interest</label>
+                                        <label for="hobby">Interest</label>
                                     </div>
                                     <div class="col-12 col-md-6 text-center">
-                                        <input class="form-control" type="text" name="hobbi" v-model="item.hobbi">
+                                        <input class="form-control" type="text" name="hobby" v-model="item.hobby">
                                     </div>
 
                                     <div class="col-12 col-md-2 text-center">
-                                        <button type="button" class="btn btn-danger" @click="removeItem('hobbiform', indexHobbi)" v-if="hobbiform.length > 1">Remove</button>
+                                        <button type="button" class="btn btn-danger" @click="removeItem('hobbyform', indexHobby)" v-if="hobbyform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobbi">
+                                    <button type="button" class="btn btn-primary" id="hobbi_add" @click="addHobby">
                                         +ADD Interest
                                     </button>
                                 </div>
@@ -601,15 +602,15 @@
 
                 educationform: [{
                     university: null,
-                    professi: null,
+                    specialty: null,
                     start: null,
                     finish: null,
-                    level: null,
+                    degree: null,
                     finishLook: null
                 }],
 
                 experienceform: [{
-                    experience: null,
+                    company: null,
                     position: null,
                     start: null,
                     finish: null,
@@ -617,8 +618,8 @@
                     finishLook: null
                 }],
 
-                hobbiform: [{
-                    hobbi: null
+                hobbyform: [{
+                    hobby: null
                 }],
 
                 addressform: {
@@ -735,7 +736,7 @@
                         required,
                         minLength: minLength(2)
                     },
-                    professi: {
+                    specialty: {
                         required,
                         minLength: minLength(3)
                     },
@@ -744,7 +745,7 @@
                         minLength: minLength(4)
                     },
                     finish: {},
-                    level: {
+                    degree: {
                         required,
                         minLength: minLength(4)
                     },
@@ -754,7 +755,7 @@
 
             experienceform: {
                 $each: {
-                    experience: {
+                    company: {
                         required,
                         minLength: minLength(3)
                     },
@@ -892,9 +893,9 @@
                     })
             },
 
-            addHobbi() {
-                this.hobbiform.push({
-                    hobbi: null,
+            addHobby() {
+                this.hobbyform.push({
+                    hobby: null,
                     error: null
                 })
             },
@@ -918,10 +919,10 @@
             addEducation() {
                 this.educationform.push({
                     university: null,
-                    professi: null,
+                    specialty: null,
                     start: null,
                     finish: null,
-                    level: null,
+                    degree: null,
                     error: null,
                     finishLook: null,
                     valid: null
@@ -930,7 +931,7 @@
 
             addExperience() {
                 this.experienceform.push({
-                    experience: null,
+                    company: null,
                     position: null,
                     start: null,
                     finish: null,
@@ -960,7 +961,7 @@
                         skillform: this.skillform,
                         educationform: this.educationform,
                         experienceform: this.experienceform,
-                        hobbiform: this.hobbiform,
+                        hobbyform: this.hobbyform,
                         addressform: this.addressform,
                         projectsform: this.projectsform && this.projectsform.description ? this.projectsform : { description: null }
                     }
@@ -1003,6 +1004,7 @@
                 })
             axios.post('/profiles/user')
                 .then(response =>{
+                    this.form = response.data.user
                     this.profileform = response.data.profile && response.data.profile.web_site ? response.data.profile : { web_site: null }
 
                     //we clean url from the base (to bring the record recorded in compliance)
@@ -1014,13 +1016,13 @@
                     //end clean url
 
                     this.addressform = response.data.address && response.data.address.country ? response.data.address : { country: null }
-                    this.hobbiform = response.data.hobbi
-                    this.experienceform = response.data.works
+                    this.hobbyform = response.data.hobby
+                    this.experienceform = response.data.experience
                     for (var i = 0; i < this.experienceform.length; i++) {
                         this.$set(this.experienceform[i], 'finishLook', null)
                         this.$set(this.experienceform[i], 'valid', false)
                     }
-                    this.educationform = response.data.educations
+                    this.educationform = response.data.education
                     for (var i = 0; i < this.educationform.length; i++) {
                         this.$set(this.educationform[i], 'finishLook', null)
                         this.$set(this.educationform[i], 'valid', false)
@@ -1028,7 +1030,6 @@
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects && response.data.projects.description ? response.data.projects : { description: null }
-                    this.form = response.data.user
 
                     if (this.addressform.country != null) {
                         this.changeCountry(this.addressform.country)

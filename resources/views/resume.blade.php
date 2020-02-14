@@ -13,7 +13,7 @@
 @endsection
 
 @section('title')
-{{ $resume->slag }}
+{{ $resume->slug }}
 @endsection
 
 @section('content')
@@ -48,11 +48,11 @@
         </div><!--//contact-container-->
         <div class="education-container container-block">
             <h2 class="container-block-title">Education</h2>
-            @foreach($user->educations as $education)
+            @foreach($user->education as $education)
                 <div class="item">
                     <h5 class="meta">{{ $education->university }}</h5>
-                    <h5 class="meta-level-education">{{ $education->level }}</h5>
-                    <h4 class="degree">{{ $education->professi }}</h4>
+                    <h5 class="meta-level-education">{{ $education->degree }}</h5>
+                    <h4 class="degree">{{ $education->specialty }}</h4>
                     <div class="time">{{ $education->start }} - {{ $education->finish ? $education->finish : 'By current time' }}</div>
                 </div><!--//item-->
             @endforeach
@@ -69,13 +69,13 @@
             </ul>
         </div><!--//interests-->
 
-        @if (!empty(implode($user->hobbis->pluck('hobbi')->all())))
+        @if (!empty(implode($user->hobbies->pluck('hobby')->all())))
             <div class="interests-container container-block">
                 <h2 class="container-block-title">Interests</h2>
                 <ul class="list-unstyled interests-list">
-                    @foreach($user->hobbis as $hobbi)
+                    @foreach($user->hobbies as $hobby)
                         <li>
-                            {{ $hobbi->hobbi }}
+                            {{ $hobby->hobby }}
                         </li>
                     @endforeach
                 </ul>
@@ -94,11 +94,11 @@
         <section class="section experiences-section">
             <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
 
-            @foreach($user->works as $item)
+            @foreach($user->experiences as $item)
                 <div class="item">
                     <div class="meta">
                         <div class="upper-row">
-                            <h3 class="company">{{ $item->experience }}</h3>
+                            <h3 class="company">{{ $item->company }}</h3>
                             <div class="job-title">{{ $item->position }}</div>
                         </div><!--//upper-row-->
                         <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>

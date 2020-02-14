@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Support\Facades\DB;
 
 class Resume extends Model
 {
     protected $fillable = [
         'user_id',
-        'slag',
+        'slug',
         'job_title',
         'description'
     ];
@@ -19,9 +18,9 @@ class Resume extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    static function slag( $slag )
+    static function slug( $slug )
     {
-        $resume = Resume::where('slag', $slag)->first();
+        $resume = Resume::where('slug', $slug)->first();
         return $resume;
     }
 }

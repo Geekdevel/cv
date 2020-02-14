@@ -31,8 +31,8 @@
                     <h2 class="container-block-title">Education</h2>
                     <div class="item" v-for="education in educationform">
                         <h5 class="meta">{{ education.university }}</h5>
-                        <h5 class="meta-level-education">{{ education.level }}</h5>
-                        <h4 class="degree">{{ education.professi }}</h4>
+                        <h5 class="meta-level-education">{{ education.degree }}</h5>
+                        <h4 class="degree">{{ education.specialty }}</h4>
                         <div class="time">{{ education.start }} - <span v-if="education.finish">{{ education.finish }}</span><span v-if="!education.finish">By current time</span></div>
                     </div><!--//item-->
                 </div><!--//education-container-->
@@ -46,11 +46,11 @@
                     </ul>
                 </div><!--//interests-->
 
-                <div class="interests-container container-block" v-if="hobbiform[0].hobbi">
+                <div class="interests-container container-block" v-if="hobbyform[0].hobbi">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
-                        <li v-for="item in hobbiform">
-                            {{ item.hobbi }}
+                        <li v-for="item in hobbyform">
+                            {{ item.hobby }}
                         </li>
                     </ul>
                 </div><!--//interests-->
@@ -86,7 +86,7 @@
                     <div class="item" v-for="(itemExperience, indexExperience) in experienceform" :key="indexExperience">
                         <div class="meta">
                             <div class="upper-row">
-                                <h3 class="company">{{ itemExperience.experience }}</h3>
+                                <h3 class="company">{{ itemExperience.company }}</h3>
                                 <div class="job-title">{{ itemExperience.position }}</div>
                             </div>
                             <div class="time">{{ itemExperience.start }} - <span v-if="itemExperience.finish">{{ itemExperience.finish }}</span><span v-if="!itemExperience.finish">By current time</span></div>
@@ -178,10 +178,10 @@
 
                 educationform: [{
                     university: null,
-                    professi: null,
+                    specialty: null,
                     start: null,
                     finish: null,
-                    level: null
+                    degree: null
                 }],
 
                 lenguageform: [{
@@ -190,12 +190,12 @@
                     level: {}
                 }],
 
-                hobbiform: [{
-                    hobbi: null
+                hobbyform: [{
+                    hobby: null
                 }],
 
                 experienceform: [{
-                    experience: null,
+                    company: null,
                     position: null,
                     profession: null,
                     start: null,
@@ -211,7 +211,7 @@
 
                 resumeform: {
                     id: null,
-                    slag: null,
+                    slug: null,
                     description: null,
                     job_title: null
                 },
@@ -240,9 +240,9 @@
             axios.post('/profiles/user')
                 .then(response =>{
                     this.profileform = response.data.profile
-                    this.hobbiform = response.data.hobbi
-                    this.experienceform = response.data.works
-                    this.educationform = response.data.educations
+                    this.hobbyform = response.data.hobby
+                    this.experienceform = response.data.experience
+                    this.educationform = response.data.education
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects
@@ -252,7 +252,7 @@
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
-            axios.post('/resume/' + this.$route.params.slag)
+            axios.post('/resume/' + this.$route.params.slug)
                 .then(response => {
                     this.resumeform = response.data
                 })
@@ -315,7 +315,7 @@
                         user: this.form,
                         resumeform: this.resumeform
                     }
-                    axios.put('/resumes/' + this.$route.params.slag, data)
+                    axios.put('/resumes/' + this.$route.params.slug, data)
                         .then(() => {
                             this.$router.push('/master/resumeses')
                         })

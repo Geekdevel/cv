@@ -51,53 +51,61 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile'
     ];
 
-    public function address()
-    {
-        return $this->hasOne('App\Models\Addresse');
-    }
+    // Has One Relations
+    use UserRelations\HasOne\Address;
+    use UserRelations\HasOne\Profile;
+    use UserRelations\HasOne\Projects;
 
-    public function educations()
-    {
-        return $this->hasMany('App\Models\Education');
-    }
+    // Has Many Relations
+    use UserRelations\HasMany\Education;
+    use UserRelations\HasMany\Hobbies;
+    use UserRelations\HasMany\Languages;
+    use UserRelations\HasMany\Skills;
+    use UserRelations\HasMany\Resumes;
+    use UserRelations\HasMany\Experiences;
 
-    public function fields()
-    {
-        return $this->hasMany('App\Moels\Field');
-    }
+    // public function address()
+    // {
+    //     return $this->hasOne('App\Models\Address');
+    // }
 
-    public function hobbis()
-    {
-        return $this->hasMany('App\Models\Hobbi');
-    }
+    // public function education()
+    // {
+    //     return $this->hasMany('App\Models\Education');
+    // }
 
-    public function languages()
-    {
-        return $this->hasMany('App\Models\Language');
-    }
+    // public function hobbies()
+    // {
+    //     return $this->hasMany('App\Models\Hobby');
+    // }
 
-    public function profile()
-    {
-        return $this->hasOne('App\Models\Profile');
-    }
+    // public function languages()
+    // {
+    //     return $this->hasMany('App\Models\Language');
+    // }
 
-    public function skills()
-    {
-        return $this->hasMany('App\Models\Skill');
-    }
+    // public function profile()
+    // {
+    //     return $this->hasOne('App\Models\Profile');
+    // }
 
-    public function resumes()
-    {
-        return $this->hasMany('App\Models\Resume');
-    }
+    // public function skills()
+    // {
+    //     return $this->hasMany('App\Models\Skill');
+    // }
 
-    public function works()
-    {
-        return $this->hasMany('App\Models\Work');
-    }
+    // public function resumes()
+    // {
+    //     return $this->hasMany('App\Models\Resume');
+    // }
 
-    public function projects()
-    {
-        return $this->hasOne('App\Models\Project');
-    }
+    // public function experiences()
+    // {
+    //     return $this->hasMany('App\Models\Experiences');
+    // }
+
+    // public function projects()
+    // {
+    //     return $this->hasOne('App\Models\Project');
+    // }
 }

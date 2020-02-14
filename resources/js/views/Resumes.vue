@@ -27,19 +27,19 @@
                             <tbody>
                                 <tr v-for="(item, index) in resumes" :key="index">
                                     <td>
-                                        <a :href="slugPublic + `/cvs/` + item.slag + `/public`" target="_blank">
-                                            {{ item.slag }}
+                                        <a :href="slugPublic + `/cvs/` + item.slug + `/public`" target="_blank">
+                                            {{ item.slug }}
                                         </a>
                                     </td>
                                     <td>
-                                        <router-link :to="{ name: 'showresume-slag', params: { slag: item.slag } }" class="nav-link">
+                                        <router-link :to="{ name: 'showresume-slug', params: { slug: item.slug } }" class="nav-link">
                                             <div class="btn btn-success">
                                                 <i class="far fa-eye"></i>
                                             </div>
                                         </router-link>
                                     </td>
                                     <td>
-                                        <router-link :to="{ name: 'editresume-slag', params: { slag: item.slag } }" class="nav-link">
+                                        <router-link :to="{ name: 'editresume-slug', params: { slug: item.slug } }" class="nav-link">
                                             <div class="btn btn-primary">
                                                 <i class="fas fa-pen-nib"></i>
                                             </div>
