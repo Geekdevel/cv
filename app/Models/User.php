@@ -64,48 +64,4 @@ class User extends Authenticatable implements MustVerifyEmail
     use UserRelations\HasMany\Resumes;
     use UserRelations\HasMany\Experiences;
 
-    // public function address()
-    // {
-    //     return $this->hasOne('App\Models\Address');
-    // }
-
-    // public function education()
-    // {
-    //     return $this->hasMany('App\Models\Education');
-    // }
-
-    // public function hobbies()
-    // {
-    //     return $this->hasMany('App\Models\Hobby');
-    // }
-
-    // public function languages()
-    // {
-    //     return $this->hasMany('App\Models\Language');
-    // }
-
-    // public function profile()
-    // {
-    //     return $this->hasOne('App\Models\Profile');
-    // }
-
-    // public function skills()
-    // {
-    //     return $this->hasMany('App\Models\Skill');
-    // }
-
-    // public function resumes()
-    // {
-    //     return $this->hasMany('App\Models\Resume');
-    // }
-
-    // public function experiences()
-    // {
-    //     return $this->hasMany('App\Models\Experiences');
-    // }
-
-    // public function projects()
-    // {
-    //     return $this->hasOne('App\Models\Project');
-    // }
 }

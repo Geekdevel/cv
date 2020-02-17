@@ -6,6 +6,7 @@
     </div>
 
     <div class="container-fluid profile-create" v-else-if="!loading">
+    <!-- <div class="container-fluid profile-create"> -->
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -764,7 +765,7 @@
                         required,
                         minLength: minLength(3)
                     },
-                    company: {
+                    position: {
                         required,
                         minLength: minLength(3)
                     },

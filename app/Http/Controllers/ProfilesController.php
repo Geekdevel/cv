@@ -14,9 +14,47 @@ use App\Models\Experience;
 use App\Models\Hobby;
 use App\Models\Project;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreUserProfile;
 
 class ProfilesController extends Controller
 {
+    protected function createOrUpdateOrDelete($oldEntity, $newEntity, $model, $user_id)
+    {
+        $x = count($oldEntity);
+        $y = count($newEntity);
+
+        if ( $y >= $x ) {
+            for ( $i=0; $i < $y; $i++) {
+                if (isset($newEntity[$i]['id']) && isset($oldEntity[$i]->id) && $newEntity[$i]['id'] == $oldEntity[$i]->id) {
+                    $updateEntity = $model::find($oldEntity[$i]->id);
+                    $updateEntity->update($newEntity[$i]);
+                }
+                else {
+                    if (isset($oldEntity[$i]->id)) {
+                        $model::find($oldEntity[$i]->id)->delete();
+                    }
+                    $newEntity[$i] += ['user_id' => $user_id];
+                    $model::create($newEntity[$i]);
+                }
+            }
+        }
+        else {
+            for ( $i = 0; $i < $x; $i++) {
+                if (isset($newEntity[$i]['id']) && isset($oldEntity[$i]->id) && $newEntity[$i]['id'] == $oldEntity[$i]->id) {
+                    $updateEntity = $model::find($oldEntity[$i]->id);
+                    $updateEntity->update($newEntity[$i]);
+                }
+                else {
+                    if (isset($newEntity[$i])) {
+                        $newEntity[$i] += ['user_id' => $user_id];
+                        $model::create($newEntity[$i]);
+                    }
+                    $model::find($oldEntity[$i]->id)->delete();
+                }
+            }
+        }
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -41,151 +79,49 @@ class ProfilesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreUserProfile  $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreUserProfile $request)
     {
-        $user = $request->user;
-        $user_id = $user['id'];
-        $user_data = Validator::make($user, [
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email,'.$user_id],
-            'phone' => ['required', 'string', 'min:10', 'max:25', 'unique:users,phone,'.$user_id]
-        ]);
-        if ($user_data->fails()){
-            return response()->json(['error' => 'No valid form user!'], 415);
-        }
-            // $newUser = User::find($user_id);
-            // $newUser->update($user);
+        $validated = $request->validated();
+        $user_id = auth()->user()->id;
 
-        $profile = $request->profileform;
-        $profile_data = Validator::make($profile, [
-            'web_site' => ['nullable', 'string', 'max:100'],
-            'photo' => ['string'],
-            'dribbble' => ['nullable', 'string', 'max:100'],
-            'behance' => ['nullable', 'string', 'max:100'],
-            'git' => ['nullable', 'string', 'max:100'],
-            'linkedin' => ['nullable', 'string', 'max:100']
-        ]);
-        if ($profile_data->fails()){
-            return response()->json(['error' => 'No valid form profile!'], 415);
-        }
-            // $profile += ['user_id' => $user_id];
-            // Profile::create($profile);
+        User::find($user_id)->update($validated['user']);
 
-        $address = $request->addressform;
-        $address_data = Validator::make($address, [
-            'country' => ['required'],
-            'region' => ['required'],
-            'city' => ['required', 'string', 'min:3', 'max:100'],
-            'index' => ['required', 'string', 'min:1', 'max:100'],
-            'street' => ['required', 'string', 'min:1', 'max:100']
-        ]);
-        if ($address_data->fails()){
-            return response()->json(['error' => 'No valid form address!'], 415);
-        }
-            // $address += ['user_id' => $user_id];
-            // Addresse::create($address);
+        $validated['profileform'] += ['user_id' => $user_id];
+        Profile::create($validated['profileform']);
 
-        $lenguages = $request->lenguageform;
-        foreach ($lenguages as $lenguage) {
-            $lenguage += ['user_id' => $user_id];
-            $lenguage_data = Validator::make($lenguage, [
-                'user_id' => ['required'],
-                'lenguage' => ['required', 'string', 'min:3', 'max:100'],
-                'level_id' => ['required']
-            ]);
-            if ($lenguage_data->fails()){
-                return response()->json(['error' => 'No valid form lenguages!'], 415);
-            }
-                // Language::create($lenguage);
-        }
+        $validated['addressform'] += ['user_id' => $user_id];
+        Address::create($validated['addressform']);
 
-        $skills = $request->skillform;
-        foreach ($skills as $skill) {
-            $skill += ['user_id' => $user_id];
-            $skill_data = Validator::make($skill, [
-                'user_id' => ['required'],
-                'skill' => ['required', 'string', 'min:2', 'max:100'],
-                'level_id' =>['required']
-            ]);
-            if ($skill_data->fails()){
-                return response()->json(['error' => 'No valid form skills!'], 415);
-            }
-                Skill::create($skill);
-        }
+        $validated['projectsform'] += ['user_id' => $user_id];
+        Project::create($validated['projectsform']);
 
-        $educations = $request->educationform;
-        foreach ($educations as $education) {
-            $education += ['user_id' => $user_id];
-            $education_data = Validator::make($education, [
-                'user_id' => ['required'],
-                'university' => ['required', 'string', 'min:3', 'max:100'],
-                'professi' => ['required', 'string', 'min:3', 'max:100'],
-                'start' => ['required', 'string', 'min:3', 'max:100'],
-                'finish' => ['nullable', 'string', 'max:100'],
-                'level' => ['required', 'string', 'min:3', 'max:100']
-            ]);
-            if ($education_data->fails()){
-                return response()->json(['error' => 'No valid form educations!'], 415);
-            }
-                Education::create($education);
-        }
-
-        $experiences = $request->experienceform;
-        foreach ($experiences as $experience) {
-            $experience += ['user_id' => $user_id];
-            $experience_data = Validator::make($experience, [
-                'user_id' => ['required'],
-                'company' => ['required', 'string', 'min:3', 'max:100'],
-                'position' => ['required', 'string', 'min:3', 'max:100'],
-                'start' => ['required', 'string', 'min:3', 'max:100'],
-                'finish' => ['nullable', 'string', 'max:100'],
-                'functions' => ['required', 'min:3', 'max:10000'],
-            ]);
-            if ($experience_data->fails()){
-                return response()->json(['error' => 'No valid form works!'], 415);
-            }
-                Experience::create($experience);
-        }
-
-        $projects = $request->projectsform;
-        $projects +=['user_id' => $user_id];
-        $projects_data = Validator::make($projects, [
-                'user_id' => ['required'],
-                'description' => ['nullable', 'string', 'max:10000']
-            ]);
-        if ($projects_data->fails()) {
-            return response()->json(['error' => 'No valid form projects!'], 415);
-        }
-            // Project::create($projects);
-
-        $hobbies = $request->hobbyform;
-        foreach ($hobbies as $hobby) {
+        foreach ($validated['hobbyform'] as $hobby) {
             $hobby += ['user_id' => $user_id];
-            $hobby_data = Validator::make($hobby, [
-                'user_id' => ['required'],
-                'hobby' => ['nullable', 'string', 'max:255']
-            ]);
-            if ($hobbi_data->fails()){
-                return response()->json(['error' => 'No valid form hobbi!'], 415);
-            }
-                Hobby::create($hobby);
+            Hobby::create($hobby);
         }
 
-        $newUser = User::find($user_id);
-        $newUser->update($user);
+        foreach ($validated['lenguageform'] as $lenguage) {
+            $lenguage += ['user_id' => $user_id];
+            Language::create($lenguage);
+        }
 
-        $profile += ['user_id' => $user_id];
-        Profile::create($profile);
+        foreach ($validated['skillform'] as $skill) {
+            $skill += ['user_id' => $user_id];
+            Skill::create($skill);
+        }
 
-        $address += ['user_id' => $user_id];
-        Addresse::create($address);
+        foreach ($validated['educationform'] as $education) {
+            $education += ['user_id' => $user_id];
+            Education::create($education);
+        }
 
-        Language::create($lenguage);
-
-        Project::create($projects);
+        foreach ($validated['experienceform'] as $experience) {
+            $experience += ['user_id' => $user_id];
+            Experience::create($experience);
+        }
 
         return response()->json(['success' => 'success'], 201);
     }
@@ -197,271 +133,34 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUserProfile $request, $id)
     {
-        $user = $request->user;
-        $user_id = $user['id'];
-        $user_data = Validator::make($user, [
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email,'.$user_id],
-            'phone' => ['required', 'string', 'min:10', 'max:25', 'unique:users,phone,'.$user_id]
-        ]);
-        if ($user_data->fails()){
-            return response()->json(['error' => 'No valid form user!'], 415);
-        }
-            $newUser = User::find($user_id);
-            $newUser->update($user);
+        $validated = $request->validated();
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
 
-        $profile = $request->profileform;
-        $profile_data = Validator::make($profile, [
-            'web_site' => ['nullable', 'string', 'max:100'],
-            'photo' => ['string'],
-            'dribbble' => ['nullable', 'string', 'max:100'],
-            'behance' => ['nullable', 'string', 'max:100'],
-            'git' => ['nullable', 'string', 'max:100'],
-            'linkedin' => ['nullable', 'string', 'max:100']
-        ]);
-        if ($profile_data->fails()){
-            return response()->json(['error' => 'No valid form profile!'], 415);
-        }
-            $updateProfile = Profile::find($profile['id']);
-            $updateProfile->update($profile);
+        $user->update($validated['user']);
 
-        $projects = $request->projectsform;
-        $projects +=['user_id' => $user_id];
-        $projects_data = Validator::make($projects, [
-                'description' => ['nullable', 'string', 'max:10000']
-            ]);
-        if ($projects_data->fails()) {
-            return response()->json(['error' => 'No valid form projects!'], 415);
-        }
-        if(isset($projects['id'])) {
-            $updateProjects = Project::find($projects['id']);
-            $updateProjects->update($projects);
-        }
-        else {
-            Project::create($projects);
-        }
+        Profile::find($id)->update($validated['profileform']);
 
-        $address = $request->addressform;
-        $address_data = Validator::make($address, [
-            'country' => ['required'],
-            'region' => ['required'],
-            'city' => ['required', 'string', 'min:3', 'max:100'],
-            'index' => ['required', 'string', 'min:1', 'max:100'],
-            'street' => ['required', 'string', 'min:1', 'max:100']
-        ]);
-        if ($address_data->fails()){
-            return response()->json(['error' => 'No valid form address!'], 415);
-        }
-            $updateAddress = Address::find($address['id']);
-            $updateAddress->update($address);
+        $user->address->update($validated['addressform']);
 
-        $lenguages = $request->lenguageform;
-        $oldLanguages = $newUser->languages;
-        if ( count($lenguages) == count($oldLanguages) || count($lenguages) >= count($oldLanguages) ) {
-            foreach ($lenguages as $lenguage) {
-                $lenguage += ['user_id' => $user_id];
-                $lenguage_data = Validator::make($lenguage, [
-                    'user_id' => ['required'],
-                    'lenguage' => ['required', 'string', 'min:3', 'max:100'],
-                    'level_id' => ['required']
-                ]);
-                if ($lenguage_data->fails()){
-                    return response()->json(['error' => 'No valid form lenguages!'], 415);
-                }
-                if (isset($lenguage['id'])) {
-                    $updateLanguage = Language::find($lenguage['id']);
-                    $updateLanguage->update($lenguage);
-                }
-                else {
-                    Language::create($lenguage);
-                }
-            }
-        }
-        else {
-            for ($i=0; $i<count($oldLanguages); $i++) {
-                if (isset($lenguages[$i])) {
-                    $lenguage_data = Validator::make($lenguages[$i], [
-                        'user_id' => ['required'],
-                        'lenguage' => ['required', 'string', 'min:3', 'max:100'],
-                        'level_id' => ['required']
-                    ]);
-                    if ($lenguage_data->fails()) {
-                        return response()->json(['error' => 'No valid form lenguages!'], 415);
-                    }
-                    $oldLanguages[$i]->update($lenguages[$i]);
-                }
-                $oldLanguages[$i]->delete();
-            }
-        }
+        $user->projects->update($validated['projectsform']);
 
+        $model = new Language;
+        $this->createOrUpdateOrDelete($user->languages, $validated['lenguageform'], $model, $user_id);
 
+        $modelSkill = new Skill;
+        $this->createOrUpdateOrDelete($user->skills, $validated['skillform'], $modelSkill, $user_id);
 
-        $skills = $request->skillform;
-        $oldSkills = $newUser->skills;
-        if ( count($skills) >= count($oldSkills) ) {
-            foreach ($skills as $skill) {
-                $skill += ['user_id' => $user_id];
-                $skill_data = Validator::make($skill, [
-                    'user_id' => ['required'],
-                    'skill' => ['required', 'string', 'min:2', 'max:100'],
-                    'level_id' =>['required']
-                ]);
-                if ($skill_data->fails()){
-                    return response()->json(['error' => 'No valid form skills!'], 415);
-                }
-                if (isset($skill['id'])) {
-                    $updateSkill = Skill::find($skill['id']);
-                    $updateSkill->update($skill);
-                }
-                Skill::create($skill);
-            }
-        }
-        else {
-            for ($i=0; $i<count($oldSkills); $i++) {
-                if (isset($skills[$i])) {
-                    $skill_data = Validator::make($skills[$i], [
-                        'user_id' => ['required'],
-                        'skill' => ['required', 'string', 'min:2', 'max:100'],
-                        'level_id' =>['required']
-                    ]);
-                    if ($skill_data->fails()) {
-                        return response()->json(['error' => 'No valid form skills!'], 500);
-                    }
-                    $oldSkills[$i]->update($skills[$i]);
-                }
-                $oldSkills[$i]->delete();
-            }
-        }
+        $modelEducation = new Education;
+        $this->createOrUpdateOrDelete($user->education, $validated['educationform'], $modelEducation, $user_id);
 
+        $modelExperience = new Experience;
+        $this->createOrUpdateOrDelete($user->experiences, $validated['experienceform'], $modelExperience, $user_id);
 
-
-        $educations = $request->educationform;
-        $oldEducations = $newUser->educations;
-        if ( count($educations) == count($oldEducations) || count($educations) >= count($oldEducations) ) {
-            foreach ($educations as $education) {
-                $education += ['user_id' => $user_id];
-                $education_data = Validator::make($education, [
-                    'user_id' => ['required'],
-                    'university' => ['required', 'string', 'min:3', 'max:100'],
-                    'specialty' => ['required', 'string', 'min:3', 'max:100'],
-                    'start' => ['required', 'string', 'min:3', 'max:100'],
-                    'finish' => ['nullable', 'string', 'max:100'],
-                    'degree' => ['required', 'string', 'min:3', 'max:100']
-                ]);
-                if ($education_data->fails()){
-                    return response()->json(['error' => 'No valid form educations!'], 415);
-                }
-                if (isset($education['id'])) {
-                    $updateEducation = Education::find($education['id']);
-                    $updateEducation->update($education);
-                }
-                Education::create($education);
-            }
-        }
-        else {
-            for ($i=0; $i<count($oldEducations); $i++) {
-                if (isset($educations[$i])) {
-                    $education_data = Validator::make($educations[$i], [
-                        'user_id' => ['required'],
-                        'university' => ['required', 'string', 'min:3', 'max:100'],
-                        'specialty' => ['required', 'string', 'min:3', 'max:100'],
-                        'start' => ['required', 'string', 'min:3', 'max:100'],
-                        'finish' => ['nullable', 'string', 'max:100'],
-                        'degree' => ['required', 'string', 'min:3', 'max:100']
-                    ]);
-                    if ($education_data->fails()) {
-                        return response()->json(['error' => 'No valid form educations!'], 415);
-                    }
-                    $oldEducations[$i]->update($educations[$i]);
-                }
-                $oldEducations[$i]->delete();
-            }
-        }
-
-
-
-        $experiences = $request->experienceform;
-        $oldExperiences = $newUser->experiences;
-        if ( count($experiences) == count($oldExperiences) || count($experiences) >= count($oldExperiences) ) {
-            foreach ($experiences as $experience) {
-                $experience += ['user_id' => $user_id];
-                $experience_data = Validator::make($experience, [
-                    'user_id' => ['required'],
-                    'company' => ['required', 'string', 'min:3', 'max:100'],
-                    'position' => ['required', 'string', 'min:3', 'max:100'],
-                    'start' => ['required', 'string', 'min:3', 'max:100'],
-                    'finish' => ['nullable', 'string', 'max:100'],
-                    'functions' => ['required', 'min:3', 'max:10000'],
-                ]);
-                if ($experience_data->fails()){
-                    return response()->json(['error' => 'No valid form experience!'], 415);
-                }
-                if (isset($experience['id'])) {
-                    $updateExperience = Experience::find($experience['id']);
-                    $updateExperience->update($experience);
-                }
-                    Experience::create($experience);
-            }
-        }
-        else {
-            for ($i=0; $i<count($oldExperiences); $i++) {
-                if (isset($experience[$i])) {
-                    $experience_data = Validator::make($experience[$i], [
-                        'user_id' => ['required'],
-                        'company' => ['required', 'string', 'min:3', 'max:100'],
-                        'position' => ['required', 'string', 'min:3', 'max:100'],
-                        'start' => ['required', 'string', 'min:3', 'max:100'],
-                        'finish' => ['nullable', 'string', 'max:100'],
-                        'functions' => ['required', 'min:3', 'max:10000'],
-                    ]);
-                    if ($experience_data->fails()) {
-                        return response()->json(['error' => 'No valid form works!'], 415);
-                    }
-                    $oldExperiences[$i]->update($experience[$i]);
-                }
-                $oldExperiences[$i]->delete();
-            }
-        }
-
-        $hobbies = $request->hobbyform;
-        $oldHobby = $newUser->hobbies;
-        if ( count($hobbies) == count($oldHobby) || count($hobbies) >= count($oldHobby) ) {
-            foreach ($hobbies as $hobby) {
-                $hobby += ['user_id' => $user_id];
-                $hobby_data = Validator::make($hobby, [
-                    'user_id' => ['required'],
-                    'hobby' => ['nullable', 'string', 'max:255']
-                ]);
-                if ($hobby_data->fails()){
-                    return response()->json(['error' => 'No valid form hobby!'], 415);
-                }
-                else {
-                   if (isset($hobby['id'])) {
-                        $updateHobby = Hobby::find($hobby['id']);
-                        $updateHobby->update($hobby);
-                    }
-                    Hobby::create($hobby);
-                }
-            }
-        }
-        else {
-            for ($i=0; $i<count($oldHobby); $i++) {
-                if (isset($hobbies[$i])) {
-                    $hobbies[$i] += ['user_id' => $user_id];
-                    $hobby_data = Validator::make($hobbies[$i], [
-                    'user_id' => ['required'],
-                    'hobby' => ['nullable', 'string', 'max:255']
-                ]);
-                if ($hobby_data->fails()) {
-                    return response()->json(['error' => 'No valid form hobby!'], 415);
-                }
-                $oldHobby[$i]->update($hobbies[$i]);
-            }
-            $oldHobby[$i]->delete();
-            }
-        }
+        $modelHobby = new Hobby;
+        $this->createOrUpdateOrDelete($user->hobbies, $validated['hobbyform'], $modelHobby, $user_id);
 
         return response()->json(['success' => 'success'], 201);
     }
