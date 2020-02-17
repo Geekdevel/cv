@@ -1,12 +1,12 @@
 <template>
-    <!-- <div class="container-fluid h-100" v-if="loading">
+    <div class="container-fluid h-100" v-if="loading">
         <div class="row justify-content-center align-items-center h-100">
             <pulse-loader v-if="loading" :color="color" :size="size" class="align-middle"></pulse-loader>
         </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="container-fluid profile-create" v-else-if="!loading"> -->
-    <div class="container-fluid profile-create">
+    <div class="container-fluid profile-create" v-else-if="!loading">
+    <!-- <div class="container-fluid profile-create"> -->
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>

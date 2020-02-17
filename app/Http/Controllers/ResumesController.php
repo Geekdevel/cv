@@ -16,6 +16,7 @@ use App\Models\Hobby;
 use App\Models\Field;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use App\Http\Requests\StoreResume;
 
 class ResumesController extends Controller
 {
@@ -48,25 +49,15 @@ class ResumesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreResume $request)
     {
         $user = auth()->user();
-        $resume = $request->resumeform;
-        $slug = $resume['slug'];
+        $user_id = $user->id;
+        $validated = $request->validated();
+        $slug = $validated['slug'];
         if(count($user->resumes) < 3 || !isset($user->resumes)) {
-            $user_id = $user->id;
-
-            $resume += ['user_id' => $user_id];
-            $resume_data = Validator::make($resume, [
-                'user_id' => ['required'],
-                'slug' => ['string', 'min:3', 'max:255'],
-                'job_title' => ['string', 'min:3', 'max:100'],
-                'description' => ['string', 'min:3', 'max:10000']
-            ]);
-            if ($resume_data->fails()){
-                return response()->json(['error' => 'No valid form resume!'], 415);
-            }
-            Resume::create($resume);
+            $validated += ['user_id' => $user_id];
+            Resume::create($validated);
             return response()->json(['success' => 'Resume '.$slug.' user`s '.$user->name.' created!'], 201);
         }
         else{
@@ -95,24 +86,17 @@ class ResumesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(StoreResume $request, $slug)
     {
         $resume = Resume::slug($slug);
-        $update_resume['job_title'] = $request->resumeform['job_title'];
-        $update_resume['description'] = $request->resumeform['description'];
-        $update_resume['user_id'] = $resume->user_id;
-        $update_resume['slug'] = $resume->slug;
-        $resume_data = Validator::make($update_resume, [
-            'user_id' => ['required'],
-            'slug' => ['string', 'min:3', 'max:255'],
-            'job_title' => ['string', 'min:3', 'max:100'],
-            'description' => ['string', 'min:3', 'max:10000']
-        ]);
-        if ($resume_data->fails()){
-                return response()->json(['error' => 'No valid form resume!'], 415);
-            }
-        $resume->update($update_resume);
-        return response()->json(['success' => 'Resume '.$resume->slug.' update!'], 201);
+        if ($resume->user->id == auth()->user()->id) {
+            $validated = $request->validated();
+            $resume->update($validated);
+            return response()->json(['success' => 'Resume '.$resume->slug.' update!'], 201);
+        }
+        else {
+            return response()->json(['error' => 'Unauthorized!'], 401);
+        }
     }
 
     /**

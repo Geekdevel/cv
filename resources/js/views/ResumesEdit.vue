@@ -311,10 +311,7 @@
                     this.errormessages.error = 'UUUPS!!!'
                 }
                 else {
-                    let data = {
-                        user: this.form,
-                        resumeform: this.resumeform
-                    }
+                    let data = this.resumeform
                     axios.put('/resumes/' + this.$route.params.slug, data)
                         .then(() => {
                             this.$router.push('/master/resumeses')

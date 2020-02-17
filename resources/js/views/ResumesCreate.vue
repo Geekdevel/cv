@@ -6,6 +6,7 @@
     </div>
 
         <div class="wrapper" v-else-if="!loading">
+        <!-- <div class="wrapper"> -->
 
 
             <div class="main-wrapper">
@@ -232,7 +233,7 @@
                     minLength: minLength(2)
                 },
 
-                slag: {
+                slug: {
                     required,
                     minLength: minLength(6)
                 }
@@ -277,10 +278,7 @@
                     this.errormessages.error = 'UUUPS!!!'
                 }
                 else {
-                    let data = {
-                        user: this.form,
-                        resumeform: this.resumeform
-                    }
+                    let data = this.resumeform
                     axios.post('/resumes', data)
                         .then(() => {
                             this.$router.push('/master/resumeses')
