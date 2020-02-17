@@ -18,6 +18,11 @@ use App\Http\Requests\StoreUserProfile;
 
 class ProfilesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     protected function createOrUpdateOrDelete($oldEntity, $newEntity, $model, $user_id)
     {
         $x = count($oldEntity);
@@ -53,11 +58,6 @@ class ProfilesController extends Controller
                 }
             }
         }
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 
     public function editProfile()
@@ -163,16 +163,5 @@ class ProfilesController extends Controller
         $this->createOrUpdateOrDelete($user->hobbies, $validated['hobbyform'], $modelHobby, $user_id);
 
         return response()->json(['success' => 'success'], 201);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

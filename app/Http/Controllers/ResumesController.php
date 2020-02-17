@@ -4,32 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Resume;
-use App\Models\Level;
-use App\Models\User;
-use App\Models\Profile;
-use App\Models\Address;
-use App\Models\Language;
-use App\Models\Skill;
-use App\Models\Education;
-use App\Models\Experience;
-use App\Models\Hobby;
-use App\Models\Field;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use App\Http\Requests\StoreResume;
 
 class ResumesController extends Controller
 {
-    public function getPdf(Request $request, $slug)
+    public function getPdf($slug)
     {
-        $user = auth()->user();
-        $slug = $request->slug;
-        $resume = Resume::slug($slug);
-        $data = [
-            'user' => $user,
-            'resume' => $resume,
-        ];
-        return PDF::loadView('layouts/dliaPDF', $data)->stream('download.pdf');
+        return PDF::loadView('layouts/dliaPDF', ['resume' => Resume::slug($slug)])->stream('download.pdf');
     }
     /**
      * Display a listing of the resource.
@@ -38,9 +21,7 @@ class ResumesController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $resumes = $user->resumes;
-        return $resumes;
+        return response()->json(['resumes' => auth()->user()->resumesSlagId]);
     }
 
     /**
@@ -65,18 +46,10 @@ class ResumesController extends Controller
         }
     }
 
-    public function getResume(Request $request)
+    public function getResume($slug)
     {
-        $slug = $request->slug;
         $resume = Resume::slug($slug);
         return response()->json(['slug' => $resume->slug, 'job_title' => $resume->job_title, 'description' => $resume->description], 200);
-    }
-
-    public function publicShowResume(Request $request, $slug)
-    {
-        $resume = Resume::slug($slug);
-        $user = $resume->user;
-        return view('resume', ['resume' => $resume, 'user' => $user]);
     }
 
     /**
@@ -116,5 +89,10 @@ class ResumesController extends Controller
             return response()->json(['error' => 'Unauthorized!'], 401);
         }
 
+    }
+
+        public function publicShowResume($slug)
+    {
+        return view('resume', ['resume' => Resume::slug($slug)]);
     }
 }

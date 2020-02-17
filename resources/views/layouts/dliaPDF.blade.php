@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Resume {{$user->name}}</title>
+    <title>Resume {{$resume->user->name}}</title>
  <style>
 @font-face {
     font-family: 'Nunito';
@@ -333,7 +333,7 @@ p {
                     <img class="fa-title" src="{{ url('IconsFontAvesome/fa-briefcase-krug.png') }}" alt="fa-briefcase-krug">
                     <span>Experiences</span>
                 </h2>
-                @foreach($user->experiences as $item)
+                @foreach($resume->user->experiences as $item)
                     <div class="item-exp">
                         <div class="meta-exp">
                             <div class="upper-row">
@@ -349,14 +349,14 @@ p {
                 @endforeach
             </section>
 
-            @if(!empty($user->projects->description))
+            @if(!empty($resume->user->projects->description))
                 <section class="section projects-section">
                     <h2 class="section-title">
                         <img class="fa-title" src="{{ url('IconsFontAvesome/fa-archive-v-krug.png') }}" alt="fa-archive-v-krug">
                         <span>Projects</span>
                     </h2>
                     <div class="intro">
-                        {!! $user->projects->description !!}
+                        {!! $resume->user->projects->description !!}
                     </div>
                 </section>
             @endif
@@ -367,7 +367,7 @@ p {
                     <span>Skills &amp; Proficiency</span>
                 </h2>
                 <div class="skillset">
-                    @foreach($user->skills as $skill)
+                    @foreach($resume->user->skills as $skill)
                         <div class="item-skill">
                             <h3 class="level-title">{{ $skill->skill }}</h3>
                             <div class="level-bar">
@@ -384,8 +384,8 @@ p {
 
         <div class="sidebar-wrapper">
             <div class="profile-container">
-                <img class="profile" src="{{ url($user->profile->photo) }}" alt="{{$user->name}}"/>
-                <h1 class="name">{{ $user->name }}</h1>
+                <img class="profile" src="{{ url($resume->user->profile->photo) }}" alt="{{$resume->user->name}}"/>
+                <h1 class="name">{{ $resume->user->name }}</h1>
                 <h3 class="tagline">{{ $resume->job_title }}</h3>
             </div>
 
@@ -393,47 +393,47 @@ p {
                 <ul class="list-unstyled contact-list">
                     <li class="email">
                         <img class="fa-li" src="{{ url('IconsFontAvesome/fa-envelope-bel.png') }}" alt="fa-envelope">
-                        {{ $user->email }}
+                        {{ $resume->user->email }}
                     </li>
                     <li class="phone">
                         <img class="fa-li" src="{{ url('IconsFontAvesome/fa-phone-bel.png') }}" alt="fa-envelope">
-                         {{ $user->phone }}
+                         {{ $resume->user->phone }}
                     </li>
                     @if (isset($user->profile->web_site))
                         <li class="website">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-globe-bel.png') }}" alt="fa-globe">
-                             {{ $user->profile->web_site }}
+                             {{ $resume->user->profile->web_site }}
                         </li>
                     @endif
-                    @if (isset($user->profile->linkedin))
+                    @if (isset($resume->user->profile->linkedin))
                         <li class="linkedin">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-linkedin-bel.png') }}" alt="fa-linkedin">
-                             {{ $user->profile->linkedin }}
+                             {{ $resume->user->profile->linkedin }}
                         </li>
                     @endif
-                    @if (isset($user->profile->git))
+                    @if (isset($resume->user->profile->git))
                         <li class="github">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-github-bel.png') }}" alt="fa-github">
-                             {{ $user->profile->git }}
+                             {{ $resume->user->profile->git }}
                         </li>
                     @endif
-                    @if (isset($user->profile->dribbble))
+                    @if (isset($resume->user->profile->dribbble))
                         <li class="dribbble">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-dribbble-bel.png') }}" alt="fa-dribbble">
-                             {{ $user->profile->dribbble }}
+                             {{ $resume->user->profile->dribbble }}
                         </li>
                     @endif
-                    @if (isset($user->profile->behance))
+                    @if (isset($resume->user->profile->behance))
                         <li class="behance">
                             <img class="fa-li" src="{{ url('IconsFontAvesome/fa-behance-bel.png') }}" alt="fa-behance">
-                             {{ $user->profile->behance }}
+                             {{ $resume->user->profile->behance }}
                         </li>
                     @endif
                 </ul>
             </div>
             <div class="education-container container-block">
                 <h2 class="container-block-title">Education</h2>
-                @foreach($user->education as $education)
+                @foreach($resume->user->education as $education)
                     <div class="item">
                         <h4 class="meta">{{ $education->university }}</h4>
                         <h4 class="meta-level-education">{{ $education->degree }}</h4>
@@ -446,7 +446,7 @@ p {
             <div class="languages-container container-block">
                 <h2 class="container-block-title">Languages</h2>
                 <ul class="list-unstyled interests-list">
-                    @foreach($user->languages as $lenguage)
+                    @foreach($resume->user->languages as $lenguage)
                         <li>
                             {{ $lenguage->lenguage }} <span class="lang-desc">( {{ $lenguage->level->level }} )</span>
                         </li>
@@ -454,11 +454,11 @@ p {
                 </ul>
             </div>
 
-            @if (!empty(implode($user->hobbies->pluck('hobby')->all())))
+            @if (!empty(implode($resume->user->hobbies->pluck('hobby')->all())))
                 <div class="interests-container container-block">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
-                        @foreach($user->hobbies as $hobby)
+                        @foreach($resume->user->hobbies as $hobby)
                             <li>
                                 {{ $hobby->hobby }}
                             </li>

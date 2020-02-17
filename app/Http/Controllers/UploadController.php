@@ -12,22 +12,20 @@ class UploadController extends Controller
     {
         if ($request->hasFile('file')){
             $resp = $request->file->storeAs('/files/upload/image', date('dWmYB').'.'.$request->file->extension(), 'public');
-            return '/storage/'.$resp;
+            return response()->json(['/storage/'.$resp]);
         }
         else {
-            return response()->json(['error' => 'Uuups!'], 500);
+            return response()->json(['error' => 'Uuups! Service Unavailable.'], 503);
         }
     }
 
     public function allLevels()
     {
-        $levels = Level::all();
-        return $levels;
+        return response()->json(['levels' => Level::all()]);
     }
 
     public function allSkillLevels()
     {
-        $skillLevels = Skill_level::all();
-        return $skillLevels;
+        return response()->json(['skillLevels' => Skill_level::all()]);
     }
 }

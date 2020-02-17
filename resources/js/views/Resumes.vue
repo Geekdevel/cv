@@ -111,7 +111,7 @@
         mounted() {
             axios.get('/resumes')
                 .then(response =>{
-                    this.resumes = response.data
+                    this.resumes = response.data.resumes
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)

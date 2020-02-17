@@ -6,9 +6,6 @@
     </div>
 
         <div class="wrapper" v-else-if="!loading">
-        <!-- <div class="wrapper"> -->
-
-
             <div class="main-wrapper">
                     <div class="error">
                         {{errormessages.error}}
@@ -74,7 +71,7 @@
                     {{errormessages.error}}
                 </div>
 
-                <button class="button-save" type="button" :disabled="disabledForm" @click="checkForm">
+                <button class="button-save" type="button" @click="checkForm">
                     Save
                 </button>
 
@@ -260,13 +257,6 @@
                 })
         },
 
-        computed: {
-            disabledForm() {
-                return false
-            }
-
-        },
-
         methods: {
             chekErrorMessages() {
                 return this.errormessages.error = null
@@ -292,10 +282,6 @@
         },
 
         created() {
-            // this.$set(this, 'form', this.user)
-            // if (this.user.profile == null) {
-            //     this.$router.push('/master/profilecreate')
-            // }
             axios.post('/profiles/user')
                 .then(response =>{
                     if (response.data.user.profile == null) {

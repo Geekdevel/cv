@@ -8,4 +8,9 @@ trait Resumes
     {
         return $this->hasMany('App\Models\Resume');
     }
+
+    public function resumesSlagId()
+    {
+        return $this->hasMany('App\Models\Resume')->select('slug', 'id');
+    }
 }

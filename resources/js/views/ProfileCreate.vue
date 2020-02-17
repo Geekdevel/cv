@@ -6,7 +6,6 @@
     </div>
 
     <div class="container-fluid profile-create" v-else-if="!loading">
-    <!-- <div class="container-fluid profile-create"> -->
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -994,7 +993,7 @@
                 })
             axios.post('/api/levels/all')
                 .then(response => {
-                    this.levels = response.data
+                    this.levels = response.data.levels
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
@@ -1002,7 +1001,7 @@
                 })
             axios.post('/api/skillLevels/all')
                 .then(response => {
-                    this.skillLevels = response.data
+                    this.skillLevels = response.data.skillLevels
                 })
                 .catch(error => {
                     console.log(error.response.data.message ? error.response.data.message : error.response.data)
@@ -1014,9 +1013,6 @@
 
         created() {
             this.$set(this, 'form', this.user)
-            // if (this.user.profile != null) {
-            //     this.$router.push('/master/profileedit')
-            // }
             axios.post('/profiles/user')
                 .then(response =>{
                     if (response.data.user.profile != null) {

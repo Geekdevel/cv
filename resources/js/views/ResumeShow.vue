@@ -218,10 +218,16 @@
         },
 
         created() {
-            // this.$set(this, 'form', this.user)
-            if (this.user.profile == null) {
-                this.$router.push('/master/profilecreate')
-            }
+            axios.post('/profiles/user')
+                .then(response =>{
+                    if (response.data.user.profile == null) {
+                        this.$router.push('/master/profilecreate')
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+                    this.errormessages = error.response.data
+                })
         }
     }
 </script>
