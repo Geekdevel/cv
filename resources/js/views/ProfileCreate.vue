@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="container-fluid profile-create" v-else-if="!loading">
+    <div class="container-fluid profile-create" v-else>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -163,37 +163,23 @@
                             <div class="form-group row justify-content-center">
                                 <div class="col-12">
                                     <div class="form-group row justify-content-center">
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="dribbble">Dribbble</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="dribbble" name="dribbble" v-model="profileform.dribbble">
-                                        </div>
-
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="behance">Behance</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="behance" name="behance" v-model="profileform.behance">
-                                        </div>
-
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="git">Git</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="git" name="git" v-model="profileform.git">
-                                        </div>
-
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="linkedin">Linkedin</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="linkedin" name="linkedin" v-model="profileform.linkedin">
+                                        <div class="col-12">
+                                            <div class="form-group row justify-content-center">
+                                                <template v-for="item in accounts">
+                                                    <div class="col-4 col-md-2 text-center">
+                                                        <label :for="item" class="text-capitalize">{{ item }}</label>
+                                                    </div>
+                                                    <div class="col-8 col-md-4 text-center">
+                                                        <input class="form-control" type="text" :id="item" :name="item" v-model="profileform[item]">
+                                                    </div>
+                                                </template>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- end Accaunts-->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -226,17 +212,18 @@
                                     <div class="error" v-if="item.$error && !item.level_id.required">Level language is required.</div>
                                 </div>
                                 <div class="col-12 col-md-2 text-center">
-                                    <button type="button" class="btn btn-danger" @click="removeItem('lenguageform', index)" v-if="lenguageform.length > 1">Remove</button>
+                                    <button class="btn btn-danger" @click="removeItem('lenguageform', index)" v-if="lenguageform.length > 1">Remove</button>
                                 </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-primary add-btn-p" id="language_add" @click="addLenguage">
+                                <button class="btn btn-primary add-btn-p" id="language_add" @click="addLenguage">
                                     +ADD Language
                                 </button>
                             </div>
                         </div>
+                        <!-- end Languages-->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -277,11 +264,12 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-primary add-btn-p" id="skill_add" @click="addSkill">
+                                <button class="btn btn-primary add-btn-p" id="skill_add" @click="addSkill">
                                     +ADD Skill
                                 </button>
                             </div>
                         </div>
+                        <!-- end Skills -->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -339,13 +327,12 @@
                                         <div class="col-8 text-center" :class="{ 'form-group--error': item.$error }" v-if="item.finishLook.$model">
                                             <date-picker v-model.trim="item.finish.$model" valueType="format" format="YYYY-MM-DD" @input="dataSelectValid('educationform', index, 'dateEducationError')"></date-picker>
                                         </div>
-
-                                        <div class="col-12 text-center" v-if="item.finishLook.$model">
-                                            <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you continue</button>
-                                        </div>
-
-                                        <div class="col-12 text-center" v-if="!item.finishLook.$model">
-                                            <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you want to specify the end date</button>
+                                        <div class="col-12 text-center">
+                                             <button class="btn"
+                                             :class="[item.finishLook.$model ? 'btn-secondary' : 'btn-primary']"
+                                             @click="finishItem('educationform', index)">
+                                                 {{ item.finishLook.$model ? 'Click if you continue' : 'Click if you want to specify the end date'}}
+                                             </button>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
@@ -354,18 +341,19 @@
                                 </div>
                                 <div class="form-group row justify-content-center">
                                     <div class="col-2 text-center">
-                                        <button type="button" class="btn btn-danger" @click="removeItem('educationform', index)" v-if="educationform.length > 1">Remove</button>
+                                        <button class="btn btn-danger" @click="removeItem('educationform', index)" v-if="educationform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-primary add-btn-pe" @click="addEducation">
+                                <button class="btn btn-primary add-btn-pe" @click="addEducation">
                                     +ADD Education
                                 </button>
                             </div>
                         </div>
+                        <!-- end Education -->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -414,12 +402,12 @@
                                                 <date-picker v-model.trim="item.finish.$model" valueType="format" @input="dataSelectValid('experienceform', index, 'dateExperienceError')"></date-picker>
                                             </div>
 
-                                            <div class="col-12 text-center" v-if="item.finishLook.$model">
-                                                <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you continue</button>
-                                            </div>
-
-                                            <div class="col-12 text-center" v-if="!item.finishLook.$model">
-                                                <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you want to specify the end date</button>
+                                            <div class="col-12 text-center">
+                                                 <button class="btn"
+                                                 :class="[item.finishLook.$model ? 'btn-secondary' : 'btn-primary']"
+                                                 @click="finishItem('experienceform', index)">
+                                                     {{ item.finishLook.$model ? 'Click if you continue' : 'Click if you want to specify the end date'}}
+                                                 </button>
                                             </div>
 
                                             <div class="error col-12 text-center"  v-if="item.valid.$model">Start date {{item.start.$model}} cannot be less than end date {{item.finish.$model}}</div>
@@ -442,7 +430,7 @@
 
                                 <div class="form-group row justify-content-center">
                                     <div class="col-2 text-center">
-                                        <button type="button" class="btn btn-danger" @click="removeItem('experienceform', index)" v-if="experienceform.length > 1">Remove</button>
+                                        <button class="btn btn-danger" @click="removeItem('experienceform', index)" v-if="experienceform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -450,11 +438,12 @@
 
                         <div class="row justify-content-center">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-primary add-btn-pex" id="work_add" @click="addExperience">
+                                <button class="btn btn-primary add-btn-pex" id="work_add" @click="addExperience">
                                     +ADD Experience
                                 </button>
                             </div>
                         </div>
+                        <!-- end Experience -->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -465,6 +454,7 @@
                         <div class="col-md-12">
                             <vue-editor :editor-toolbar="customToolbar" v-model="projectsform.description" placeholder="Projects in which you participated"></vue-editor>
                         </div>
+                        <!-- end Projects -->
                     </div>
 
                     <div class="form-group row justify-content-center hobbi-form">
@@ -485,18 +475,19 @@
                                     </div>
 
                                     <div class="col-12 col-md-2 text-center">
-                                        <button type="button" class="btn btn-danger" @click="removeItem('hobbyform', indexHobby)" v-if="hobbyform.length > 1">Remove</button>
+                                        <button class="btn btn-danger" @click="removeItem('hobbyform', indexHobby)" v-if="hobbyform.length > 1">Remove</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
-                                    <button type="button" class="btn btn-primary" id="hobby_add" @click="addHobby">
+                                    <button class="btn btn-primary" id="hobby_add" @click="addHobby">
                                         +ADD Interest
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        <!-- end Hobbies -->
                     </div>
 
                     <div class="row justify-content-center">
@@ -507,7 +498,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col-12 text-center">
-                            <button type="button" class="btn btn-success" @click="checkForm">
+                            <button class="btn btn-success" @click="checkForm">
                                 Register
                             </button>
                         </div>
@@ -543,33 +534,17 @@
 
         data() {
             return {
+                accounts: ['dribbble', 'behance', 'git', 'linkedin'],
                 loading: true,
                 color: '#14CFE8',
                 size: '30px',
 
                 bindProps: {
-                  mode: "international",
-                  defaultCountry: "FR",
-                  disabledFetchingCountry: false,
-                  disabled: false,
-                  disabledFormatting: false,
-                  placeholder: "Enter a phone number",
-                  required: false,
-                  enabledCountryCode: true,
-                  enabledFlags: true,
-                  preferredCountries: ["AU", "BR"],
-                  onlyCountries: [],
-                  ignoredCountries: [],
-                  autocomplete: "off",
-                  name: "telephone",
-                  maxLen: 25,
-                  wrapperClasses: "",
-                  inputClasses: "",
-                  dropdownOptions: {
-                    disabledDialCode: false
-                  },
-                  inputOptions: {
-                    showDialCode: false
+                    validCharactersOnly: true,
+                    enabledCountryCode: true,
+                    autocomplete: "on",
+                    inputOptions: {
+                    showDialCode: true
                   }
                 },
 
@@ -821,39 +796,39 @@
 
             renderUrl (thisUrl) { //clean url start
                 if (thisUrl) {
-                    let urlDribbbleIn = thisUrl
-                    let arrDribbbleIn = urlDribbbleIn.split('/')
-                    let arrDribbbleInObr = []
+                    let urlIn = thisUrl
+                    let arrIn = urlIn.split('/')
+                    let arrInObr = []
 
-                    arrDribbbleIn.forEach(elem => {
+                    arrIn.forEach(elem => {
                         if (elem != 'http:' && elem != 'https:') {
-                            arrDribbbleInObr.push(elem)
+                            arrInObr.push(elem)
                         }
                     })
-                    let urlDribbbleNextChecked = arrDribbbleInObr.join('/')
-                    let arrDribbbleNextWww = urlDribbbleNextChecked.split('.')
-                    let arrDribbbleOut = []
+                    let urlNextChecked = arrInObr.join('/')
+                    let arrNextWww = urlNextChecked.split('.')
+                    let arrOut = []
 
-                    arrDribbbleNextWww.forEach(elem => {
+                    arrNextWww.forEach(elem => {
                         if (elem != '/www' && elem != 'www') {
-                            arrDribbbleOut.push(elem)
+                            arrOut.push(elem)
                         }
                     })
-                    let urlDrebbbleOut = arrDribbbleOut.join('.')
-                    if (urlDrebbbleOut[urlDrebbbleOut.length - 1] != '/' && urlDrebbbleOut[0] != '/') {
-                        thisUrl = urlDrebbbleOut
+                    let urlOut = arrOut.join('.')
+                    if (urlOut[urlOut.length - 1] != '/' && urlOut[0] != '/') {
+                        thisUrl = urlOut
                     }
-                    else if (urlDrebbbleOut[urlDrebbbleOut.length - 1] == '/'){
-                        let urlTestDribbbleOut = urlDrebbbleOut.slice(0, -1)
-                        if (urlTestDribbbleOut[0] != '/') {
-                            thisUrl = urlTestDribbbleOut
+                    else if (urlOut[urlOut.length - 1] == '/'){
+                        let urlTestOut = urlOut.slice(0, -1)
+                        if (urlTestOut[0] != '/') {
+                            thisUrl = urlTestOut
                         }
                         else {
-                            thisUrl = urlTestDribbbleOut.slice(1)
+                            thisUrl = urlTestOut.slice(1)
                         }
                     }
                     else {
-                        thisUrl = urlDrebbbleOut.slice(1)
+                        thisUrl = urlOut.slice(1)
                     }
 
                     return thisUrl
@@ -952,10 +927,9 @@
                     this.errormessages = 'UUUPS!!!'
                 }
                 else {
-                    this.profileform.linkedin = this.renderUrl (this.profileform.linkedin)
-                    this.profileform.behance = this.renderUrl (this.profileform.behance)
-                    this.profileform.git = this.renderUrl (this.profileform.git)
-                    this.profileform.dribbble = this.renderUrl (this.profileform.dribbble)
+                    for (var y = 0; y < this.accounts.length; y++) {
+                        this.profileform[this.accounts[y]] = this.renderUrl (this.profileform[this.accounts[y]])
+                    }
                     this.profileform.web_site = this.renderUrl (this.profileform.web_site)
 
                     let data = {
@@ -972,10 +946,9 @@
 
                     axios.post('/profiles', data)
                         .then(() => {
-                            this.$router.push('/master/resumeses')
+                            this.$router.push({name: 'resumes'})
                         })
                         .catch(error => {
-                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
                             this.errormessages = error.response.data
                         })
                 }
@@ -988,7 +961,6 @@
                     this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
             axios.post('/api/levels/all')
@@ -996,7 +968,6 @@
                     this.levels = response.data.levels
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
             axios.post('/api/skillLevels/all')
@@ -1004,7 +975,6 @@
                     this.skillLevels = response.data.skillLevels
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
 
@@ -1016,11 +986,10 @@
             axios.post('/profiles/user')
                 .then(response =>{
                     if (response.data.user.profile != null) {
-                        this.$router.push('/master/profileedit')
+                        this.$router.push({name: 'profileedit'})
                     }
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
         },

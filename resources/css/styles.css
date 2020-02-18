@@ -17,7 +17,16 @@
   font-family: 'Nunito';
   font-weight: bold;
 }
-
+/* public resume blade styles */
+.public-resume-blade-level-title {
+  float: left;
+  width: 30%;
+}
+.public-resume-blade-level-bar {
+  margin-left: 30%;
+  margin-top: -20px;
+}
+/* end public resume blade styles */
 /*vue2-editor styles*/
 
 .ql-align-center {
@@ -206,15 +215,26 @@ td {
   font-size: 18px;
   vertical-align: middle;
 }
+.sidebar-wrapper .contact-list .fab {
+  margin-right: 5px;
+  font-size: 18px;
+  vertical-align: middle;
+}
 .sidebar-wrapper .contact-list li {
+  margin-bottom: 15px;
+}
+.sidebar-wrapper .contact-list div {
   margin-bottom: 15px;
 }
 .sidebar-wrapper .contact-list li:last-child {
   margin-bottom: 0;
 }
-.sidebar-wrapper .contact-list .email .fa {
-  font-size: 14px;
+.sidebar-wrapper .contact-list div:last-child {
+  margin-bottom: 0;
 }
+/*.sidebar-wrapper .contact-list .email .fa {
+  font-size: 14px;
+}*/
 .sidebar-wrapper .container-block {
   padding: 15px 30px;
 }

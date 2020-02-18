@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="container-fluid profile-create" v-else-if="!loading">
+    <div class="container-fluid profile-create" v-else>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div>
@@ -86,7 +86,7 @@
                                 <div class="col-12">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="country">Country <span class="be-sure-to-fill-out">*</span></label>
+                                            <label>Country <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.country.$error }">
                                             <v-select
@@ -101,7 +101,7 @@
                                         </div>
 
                                         <div class="col-4 col-md-2 text-center">
-                                            <label for="region">Region <span class="be-sure-to-fill-out">*</span></label>
+                                            <label>Region <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
                                         <div class="col-8 col-md-4 text-center" :class="{ 'form-group--error': $v.addressform.region.$error }">
                                             <v-select
@@ -162,33 +162,14 @@
                             <div class="form-group row justify-content-center">
                                 <div class="col-12">
                                     <div class="form-group row justify-content-center">
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="dribbble">Dribbble</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="dribbble" name="dribbble" v-model="profileform.dribbble">
-                                        </div>
-
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="behance">Behance</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="behance" name="behance" v-model="profileform.behance">
-                                        </div>
-
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="git">Git</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="git" name="git" v-model="profileform.git">
-                                        </div>
-
-                                        <div class="col-4 col-md-2 text-center">
-                                            <label for="linkedin">Linkedin</label>
-                                        </div>
-                                        <div class="col-8 col-md-4 text-center">
-                                            <input class="form-control" type="text" id="linkedin" name="linkedin" v-model="profileform.linkedin">
-                                        </div>
+                                        <template v-for="item in accounts">
+                                            <div class="col-4 col-md-2 text-center">
+                                                <label :for="item" class="text-capitalize">{{ item }}</label>
+                                            </div>
+                                            <div class="col-8 col-md-4 text-center">
+                                                <input class="form-control" type="text" :id="item" :name="item" v-model="profileform[item]">
+                                            </div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +272,7 @@
                                     <h4>Education</h4>
                                 </div>
                             </div>
-                            <div class="education-add form-group row justify-content-center" v-for="(item, index) in educationform">
+                            <div class="education-add form-group row justify-content-center" v-for="(item, index) in educationform" :key="index">
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-4 text-center">
@@ -335,19 +316,23 @@
                                         <div class="col-4 text-center">
                                             <label for="finish">Finish:</label>
                                         </div>
+
                                         <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].finish.$error }" v-if="!item.finishLook">
                                             <date-picker v-model.trim="item.finish" valueType="format" format="YYYY-MM-DD" @input="dataSelectValid('educationform', index, 'dateEducationError')"></date-picker>
                                         </div>
-                                        <div class="col-8 text-center" v-if="item.finishLook == 1">
+
+                                        <div class="col-8 text-center" v-else>
                                             <h5>To the present day...</h5>
                                         </div>
 
-                                        <div class="col-12 text-center" v-if="item.finishLook == 1">
-                                             <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you want to specify the end date</button>
+                                        <div class="col-12 text-center">
+                                             <button class="btn btn-primary"
+                                             :class="[item.finishLook ? 'btn-primary' : 'btn-secondary']"
+                                             @click="finishItem('educationform', index)">
+                                                 {{ item.finishLook ? 'Click if you want to specify the end date' : 'Click if you continue'}}
+                                             </button>
                                         </div>
-                                        <div class="col-12 text-center" v-if="!item.finishLook">
-                                             <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('educationform', index)">Click if you continue</button>
-                                        </div>
+
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="error col-12 text-center" v-if="item.valid">Start date {{item.start}} cannot be less than end date {{item.finish}}</div>
@@ -377,7 +362,7 @@
                                     <h4>Experience</h4>
                                 </div>
                             </div>
-                            <div class="experience-add" v-for="(item, index) in experienceform">
+                            <div class="experience-add" v-for="(item, index) in experienceform" :key="index">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-12 col-md-6 text-center">
                                         <div class="form-group row justify-content-center">
@@ -411,18 +396,21 @@
                                             <div class="col-4 text-center">
                                                 <label for="finish_work">Finish:</label>
                                             </div>
+
                                             <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].finish.$error }" v-if="!item.finishLook">
                                                 <date-picker v-model.trim="item.finish" valueType="format" @input="dataSelectValid('experienceform', index, 'dateExperienceError')"></date-picker>
                                             </div>
 
-                                            <div class="col-8 text-center" v-if="item.finishLook == 1">
+                                            <div class="col-8 text-center" v-else>
                                                 <h5>To the present day...</h5>
                                             </div>
-                                            <div class="col-12 text-center" v-if="item.finishLook == 1">
-                                                 <button type="button" class="btn btn-primary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you want to specify the end date</button>
-                                            </div>
-                                            <div class="col-12 text-center" v-if="!item.finishLook">
-                                                 <button type="button" class="btn btn-secondary" style="color: #fff;" @click="finishItem('experienceform', index)">Click if you continue</button>
+
+                                            <div class="col-12 text-center">
+                                                 <button class="btn btn-primary"
+                                                 :class="[item.finishLook ? 'btn-primary' : 'btn-secondary']"
+                                                 @click="finishItem('experienceform', index)">
+                                                     {{ item.finishLook ? 'Click if you want to specify the end date' : 'Click if you continue'}}
+                                                 </button>
                                             </div>
 
                                             <div class="error col-12 text-center"  v-if="item.valid">Start date {{item.start}} cannot be less than end date {{item.finish}}</div>
@@ -546,33 +534,17 @@
 
         data() {
             return {
+                accounts: ['dribbble', 'behance', 'git', 'linkedin'],
                 loading: true,
                 color: '#14CFE8',
                 size: '30px',
 
                 bindProps: {
-                  mode: "international",
-                  defaultCountry: "FR",
-                  disabledFetchingCountry: false,
-                  disabled: false,
-                  disabledFormatting: false,
-                  placeholder: "Enter a phone number",
-                  required: false,
-                  enabledCountryCode: true,
-                  enabledFlags: true,
-                  preferredCountries: ["AU", "BR"],
-                  onlyCountries: [],
-                  ignoredCountries: [],
-                  autocomplete: "off",
-                  name: "telephone",
-                  maxLen: 25,
-                  wrapperClasses: "",
-                  inputClasses: "",
-                  dropdownOptions: {
-                    disabledDialCode: false
-                  },
-                  inputOptions: {
-                    showDialCode: false
+                    validCharactersOnly: true,
+                    enabledCountryCode: true,
+                    autocomplete: "on",
+                    inputOptions: {
+                    showDialCode: true
                   }
                 },
 
@@ -777,6 +749,12 @@
         },
 
         methods: {
+            // formRenderUrl( form, items ) {
+            //     for (var i = 0; i < this[items].length; i++) {
+            //         this[form][this[items][i]] = this.renderUrl (this[form][this[items][i]])
+            //     }
+            // },
+
             dataSelectValid(name, index, dateEdError) {
                 if (this[name][index].start && this[name][index].finish) {
                     let arr_start = this[name][index].start.split('-')
@@ -814,39 +792,39 @@
 
             renderUrl (thisUrl) { //clean url start
                 if (thisUrl) {
-                    let urlDribbbleIn = thisUrl
-                    let arrDribbbleIn = urlDribbbleIn.split('/')
-                    let arrDribbbleInObr = []
+                    let urlIn = thisUrl
+                    let arrIn = urlIn.split('/')
+                    let arrInObr = []
 
-                    arrDribbbleIn.forEach(elem => {
+                    arrIn.forEach(elem => {
                         if (elem != 'http:' && elem != 'https:') {
-                            arrDribbbleInObr.push(elem)
+                            arrInObr.push(elem)
                         }
                     })
-                    let urlDribbbleNextChecked = arrDribbbleInObr.join('/')
-                    let arrDribbbleNextWww = urlDribbbleNextChecked.split('.')
-                    let arrDribbbleOut = []
+                    let urlNextChecked = arrInObr.join('/')
+                    let arrNextWww = urlNextChecked.split('.')
+                    let arrOut = []
 
-                    arrDribbbleNextWww.forEach(elem => {
+                    arrNextWww.forEach(elem => {
                         if (elem != '/www' && elem != 'www') {
-                            arrDribbbleOut.push(elem)
+                            arrOut.push(elem)
                         }
                     })
-                    let urlDrebbbleOut = arrDribbbleOut.join('.')
-                    if (urlDrebbbleOut[urlDrebbbleOut.length - 1] != '/' && urlDrebbbleOut[0] != '/') {
-                        thisUrl = urlDrebbbleOut
+                    let urlOut = arrOut.join('.')
+                    if (urlOut[urlOut.length - 1] != '/' && urlOut[0] != '/') {
+                        thisUrl = urlOut
                     }
-                    else if (urlDrebbbleOut[urlDrebbbleOut.length - 1] == '/'){
-                        let urlTestDribbbleOut = urlDrebbbleOut.slice(0, -1)
-                        if (urlTestDribbbleOut[0] != '/') {
-                            thisUrl = urlTestDribbbleOut
+                    else if (urlOut[urlOut.length - 1] == '/'){
+                        let urlTestOut = urlOut.slice(0, -1)
+                        if (urlTestOut[0] != '/') {
+                            thisUrl = urlTestOut
                         }
                         else {
-                            thisUrl = urlTestDribbbleOut.slice(1)
+                            thisUrl = urlTestOut.slice(1)
                         }
                     }
                     else {
-                        thisUrl = urlDrebbbleOut.slice(1)
+                        thisUrl = urlOut.slice(1)
                     }
 
                     return thisUrl
@@ -887,7 +865,7 @@
                         this.regions = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                     })
                     .catch(error =>{
-                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
+
                         this.errormessages = error.response.data
                     })
             },
@@ -947,10 +925,12 @@
                     this.errormessages = 'UUUPS!!!'
                 }
                 else {
-                    this.profileform.linkedin = this.renderUrl (this.profileform.linkedin)
-                    this.profileform.behance = this.renderUrl (this.profileform.behance)
-                    this.profileform.git = this.renderUrl (this.profileform.git)
-                    this.profileform.dribbble = this.renderUrl (this.profileform.dribbble)
+                    for (var y = 0; y < this.accounts.length; y++) {
+                        this.profileform[this.accounts[y]] = this.renderUrl (this.profileform[this.accounts[y]])
+                    }
+
+                    // this.formRenderUrl( profileform, accounts )
+
                     this.profileform.web_site = this.renderUrl (this.profileform.web_site)
 
                     let data = {
@@ -966,12 +946,20 @@
                     }
                     axios.put('/profiles/' + this.profileform.id, data)
                         .then(() => {
-                            this.$router.push('/master/resumeses')
+                            this.$router.push({name: 'resumes'})
                         })
                         .catch(error => {
-                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
+
                             this.errormessages = error.response.data
                         })
+                }
+            },
+
+            updateFlags(key, value) {
+                this[key] = value
+                    for (var i = 0; i < this[key].length; i++) {
+                    this.$set(this[key][i], 'finishLook', null)
+                    this.$set(this[key][i], 'valid', false)
                 }
             }
         },
@@ -982,7 +970,7 @@
                     this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+
                     this.errormessages = error.response.data
                 })
             axios.post('/api/levels/all')
@@ -990,7 +978,7 @@
                     this.levels = response.data.levels
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+
                     this.errormessages = error.response.data
                 })
             axios.post('/api/skillLevels/all')
@@ -998,34 +986,38 @@
                     this.skillLevels = response.data.skillLevels
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
+
                     this.errormessages = error.response.data
                 })
+        },
+
+        created() {
             axios.post('/profiles/user')
                 .then(response =>{
+                    if (response.data.user.profile == null) {
+                        this.$router.push({ name: 'profilecreate' })
+                        return
+                    }
+
                     this.form = response.data.user
                     this.profileform = response.data.profile && response.data.profile.web_site ? response.data.profile : { web_site: null }
 
                     //we clean url from the base (to bring the record recorded in compliance)
-                    this.profileform.dribbble = this.renderUrl (this.profileform.dribbble)
+                    for (var i = 0; i < this.accounts.length; i++) {
+                        this.profileform[this.accounts[i]] = this.renderUrl (this.profileform[this.accounts[i]])
+                    }
+
+                    // this.formRenderUrl( profileform, accounts )
+
                     this.profileform.web_site = this.renderUrl (this.profileform.web_site)
-                    this.profileform.linkedin = this.renderUrl (this.profileform.linkedin)
-                    this.profileform.behance = this.renderUrl (this.profileform.behance)
-                    this.profileform.git = this.renderUrl (this.profileform.git)
                     //end clean url
 
                     this.addressform = response.data.address && response.data.address.country ? response.data.address : { country: null }
                     this.hobbyform = response.data.hobby
-                    this.experienceform = response.data.experience
-                    for (var i = 0; i < this.experienceform.length; i++) {
-                        this.$set(this.experienceform[i], 'finishLook', null)
-                        this.$set(this.experienceform[i], 'valid', false)
-                    }
-                    this.educationform = response.data.education
-                    for (var i = 0; i < this.educationform.length; i++) {
-                        this.$set(this.educationform[i], 'finishLook', null)
-                        this.$set(this.educationform[i], 'valid', false)
-                    }
+
+                    this.updateFlags('experienceform', response.data.experience)
+                    this.updateFlags('educationform', response.data.education)
+
                     this.lenguageform = response.data.lenguages
                     this.skillform = response.data.skills
                     this.projectsform = response.data.projects && response.data.projects.description ? response.data.projects : { description: null }
@@ -1037,23 +1029,9 @@
                     }
 
                     this.loading = false
-
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                    this.errormessages = error.response.data
-                })
-        },
 
-        created() {
-            axios.post('/profiles/user')
-                .then(response =>{
-                    if (response.data.user.profile == null) {
-                        this.$router.push('/master/profilecreate')
-                    }
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
         },

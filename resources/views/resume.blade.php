@@ -23,7 +23,7 @@
             <img class="profile" src="{!! $resume->user->profile->photo !!}" alt="{{$resume->user->name}}"/>
             <h1 class="name">{{ $resume->user->name }}</h1>
             <h3 class="tagline">{{ $resume->job_title }}</h3>
-        </div><!--//profile-container-->
+        </div>
 
         <div class="contact-container container-block">
             <ul class="list-unstyled contact-list">
@@ -45,7 +45,7 @@
                     <li class="behance"><i class="fab fa-behance"></i><a href="http://{{$resume->user->profile->behance}}" target="_blank"> {{ $resume->user->profile->behance }}</a></li>
                 @endif
             </ul>
-        </div><!--//contact-container-->
+        </div>
         <div class="education-container container-block">
             <h2 class="container-block-title">Education</h2>
             @foreach($resume->user->education as $education)
@@ -54,9 +54,9 @@
                     <h5 class="meta-level-education">{{ $education->degree }}</h5>
                     <h4 class="degree">{{ $education->specialty }}</h4>
                     <div class="time">{{ $education->start }} - {{ $education->finish ? $education->finish : 'By current time' }}</div>
-                </div><!--//item-->
+                </div>
             @endforeach
-        </div><!--//education-container-->
+        </div>
 
         <div class="languages-container container-block">
             <h2 class="container-block-title">Languages</h2>
@@ -67,7 +67,7 @@
                     </li>
                 @endforeach
             </ul>
-        </div><!--//interests-->
+        </div>
 
         @if (!empty(implode($resume->user->hobbies->pluck('hobby')->all())))
             <div class="interests-container container-block">
@@ -79,17 +79,17 @@
                         </li>
                     @endforeach
                 </ul>
-            </div><!--//interests-->
+            </div>
         @endif
-    </div><!--//sidebar-wrapper-->
+    </div>
 
     <div class="main-wrapper">
         <section class="section summary-section">
             <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
                 <div class="summary">
                     {!! $resume->description !!}
-                </div><!--//summary-->
-        </section><!--//section-->
+                </div>
+        </section>
 
         <section class="section experiences-section">
             <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
@@ -100,23 +100,23 @@
                         <div class="upper-row">
                             <h3 class="company">{{ $item->company }}</h3>
                             <div class="job-title">{{ $item->position }}</div>
-                        </div><!--//upper-row-->
+                        </div>
                         <div class="time">{{ $item->start }} - {{ $item->finish ? $item->finish : 'By current time' }}</div>
-                    </div><!--//meta-->
+                    </div>
                     <div class="details">
                         {!! $item->functions !!}
-                    </div><!--//details-->
-                        </div><!--//item-->
+                    </div>
+                        </div>
             @endforeach
-        </section><!--//section-->
+        </section>
 
         @if(!empty($resume->user->projects->description))
             <section class="section projects-section">
                 <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
                 <div class="intro">
                     {!! $resume->user->projects->description !!}
-                </div><!--//intro-->
-            </section><!--//section-->
+                </div>
+            </section>
         @endif
 
         <section class="skills-section section">
@@ -124,8 +124,8 @@
             <div class="skillset">
                 @foreach($resume->user->skills as $skill)
                     <div class="item">
-                        <h3 class="level-title" style="float: left; width: 30%;">{{ $skill->skill }}</h3>
-                        <div class="level-bar" style="margin-left: 30%; margin-top: -20px;">
+                        <h3 class="level-title public-resume-blade-level-title">{{ $skill->skill }}</h3>
+                        <div class="level-bar public-resume-blade-level-bar">
                             <div class="level-bar-inner" style="width: {{ ($skill->level_id)*20 }}%;">
                                     {{ ($skill->level_id)*20 }}%
                             </div>
@@ -133,9 +133,9 @@
                     </div>
                 @endforeach
             </div>
-        </section><!--//skills-section-->
+        </section>
 
-    </div><!--//main-body-->
+    </div>
 </div>
 @endsection
 

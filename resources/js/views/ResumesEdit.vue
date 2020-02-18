@@ -5,37 +5,42 @@
         </div>
     </div>
 
-        <div class="wrapper" v-else-if="!loading">
+        <div class="wrapper" v-else>
             <div class="sidebar-wrapper">
                 <div class="profile-container">
-                    <img id="profile-photo-image-wrapper" class="profile" v-if="profileform.photo" :src="profileform.photo" @click="gouToProfileEdit" alt="form.name"/>
+                    <img id="profile-photo-image-wrapper" class="profile" v-if="profileform.photo" :src="profileform.photo" @click="gouToProfileEdit" :alt="form.name"/>
                     <h1 class="name">{{ form.name }}</h1>
                     <h3 class="tagline" id="jobTitleName" @click="editJobTitle" v-if="nameJobTitle">{{ resumeform.job_title }}</h3>
                     <input v-if="inputJobTitle" type="text" id="jobTitle" name="jobTitle" width="100%" v-model.trim="$v.resumeform.job_title.$model" placeholder="Job Title" @click="chekErrorMessages">
                     <div class="error" v-if="$v.resumeform.job_title.$error && !$v.resumeform.job_title.required">Must be completed!</div>
                     <div class="error" v-if="!$v.resumeform.job_title.minLength">Field must have at least {{ $v.resumeform.job_title.$params.minLength.min }} characters.</div>
-                </div><!--//profile-container-->
+                </div>
 
                 <div class="contact-container container-block" id="contact-container-edited" @click="gouToProfileEdit">
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
                         <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
-                        <li class="website" v-if="profileform.web_site"><i class="fa fa-globe"></i><a :href="`http://` + profileform.web_site" target="_blank"> {{ profileform.web_site }}</a></li>
-                        <li class="linkedin" v-if="profileform.linkedin"><i class="fab fa-linkedin"></i><a :href="`http://` + profileform.linkedin" target="_blank"> {{ profileform.linkedin }}</a></li>
-                        <li class="github" v-if="profileform.git"><i class="fab fa-github"></i><a :href="`http://` + profileform.git" target="_blank"> {{ profileform.git }}</a></li>
-                        <li class="dribbble" v-if="profileform.dribbble"><i class="fab fa-dribbble"></i><a :href="`http://` + profileform.dribbble" target="_blank"> {{ profileform.dribbble }}</a></li>
-                        <li class="behance" v-if="profileform.behance"><i class="fab fa-behance"></i><a :href="`http://` + profileform.behance" target="_blank"> {{ profileform.behance }}</a></li>
+
+                        <div v-for="(profile, index) in profileform" :key="index">
+                            <li v-if="profile && index != 'id' && index != 'user_id' && index != 'photo' && index != 'created_at' && index != 'updated_at'">
+                                <i :class="[index == 'web_site' ? 'fa fa-globe' : index == 'git' ? 'fab fa-github' : 'fab fa-'+index]"></i>
+                                <a :href="`http://` + profile" target="_blank">
+                                    {{ profile }}
+                                </a>
+                            </li>
+                        </div>
+
                     </ul>
-                </div><!--//contact-container-->
+                </div>
                 <div class="education-container container-block">
                     <h2 class="container-block-title">Education</h2>
-                    <div class="item" v-for="education in educationform">
+                    <div class="item" v-for="(education, index) in educationform" :key="index">
                         <h5 class="meta">{{ education.university }}</h5>
                         <h5 class="meta-level-education">{{ education.degree }}</h5>
                         <h4 class="degree">{{ education.specialty }}</h4>
                         <div class="time">{{ education.start }} - <span v-if="education.finish">{{ education.finish }}</span><span v-if="!education.finish">By current time</span></div>
-                    </div><!--//item-->
-                </div><!--//education-container-->
+                    </div>
+                </div>
 
                 <div class="languages-container container-block">
                     <h2 class="container-block-title">Languages</h2>
@@ -44,18 +49,18 @@
                             {{ lenguage.lenguage }} <span class="lang-desc">( {{ lenguage.level.level }} )</span>
                         </li>
                     </ul>
-                </div><!--//interests-->
+                </div>
 
                 <div class="interests-container container-block" v-if="hobbyform[0].hobbi">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
-                        <li v-for="item in hobbyform">
+                        <li v-for="(item, index) in hobbyform" :key="index">
                             {{ item.hobby }}
                         </li>
                     </ul>
-                </div><!--//interests-->
+                </div>
 
-            </div><!--//sidebar-wrapper-->
+            </div>
 
             <div class="main-wrapper">
                     <div class="error">
@@ -64,24 +69,32 @@
 
                 <section class="section slag-section">
                     <div class="summary">
-                        <label for="slag"><h6>Slug for your resume:</h6></label>
+                        <label>
+                            <h6>Slug for your resume:</h6>
+                        </label>
                         <h6> <a :href="slugPrivate" target="_blank">Private: {{slugPrivate}}</a></h6>
                         <h6> <a :href="slugPublic" target="_blank"> Public: {{slugPublic}}</a></h6>
-                    </div><!--//summary-->
-                </section><!--//section-->
+                    </div>
+                </section>
 
                 <section class="section summary-section">
-                    <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                    <h2 class="section-title">
+                        <i class="fa fa-user"></i>
+                        Career Profile
+                    </h2>
                     <div class="summary" :class="{ 'form-group--error': $v.resumeform.description.$error }">
                         <h5>Summarise your career here:</h5>
                         <vue-editor :editor-toolbar="customToolbar" v-model.trim="$v.resumeform.description.$model" @click="chekErrorMessages"></vue-editor>
                         <div class="error" v-if="$v.resumeform.description.$error && !$v.resumeform.description.required">Must be completed!</div>
                         <div class="error" v-if="!$v.resumeform.description.minLength">Field must have at least {{ $v.resumeform.description.$params.minLength.min }} characters.</div>
-                    </div><!--//summary-->
-                </section><!--//section-->
+                    </div>
+                </section>
 
                 <section class="section experiences-section">
-                    <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
+                    <h2 class="section-title">
+                        <i class="fa fa-briefcase"></i>
+                        Experiences
+                    </h2>
 
                     <div class="item" v-for="(itemExperience, indexExperience) in experienceform" :key="indexExperience">
                         <div class="meta">
@@ -90,21 +103,24 @@
                                 <div class="job-title">{{ itemExperience.position }}</div>
                             </div>
                             <div class="time">{{ itemExperience.start }} - <span v-if="itemExperience.finish">{{ itemExperience.finish }}</span><span v-if="!itemExperience.finish">By current time</span></div>
-                        </div><!--//meta-->
-                        <div class="details" v-html="itemExperience.functions">
-
-                        </div><!--//details-->
-                    </div><!--//item-->
-                </section><!--//section-->
+                        </div>
+                        <div class="details" v-html="itemExperience.functions"></div>
+                    </div>
+                </section>
 
                 <section class="section projects-section" v-if="projectsform.description">
-                    <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
-                    <div class="intro" v-html="projectsform.description">
-                    </div><!--//intro-->
-                </section><!--//section-->
+                    <h2 class="section-title">
+                        <i class="fa fa-archive"></i>
+                        Projects
+                    </h2>
+                    <div class="intro" v-html="projectsform.description"></div>
+                </section>
 
                 <section class="skills-section section" v-if="skillform.length > 0">
-                    <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
+                    <h2 class="section-title">
+                        <i class="fa fa-rocket"></i>
+                        Skills &amp; Proficiency
+                    </h2>
                     <div class="skillset">
                         <div class="item" v-for="(itemSkill, indexSkill) in skillform" :key="indexSkill">
                             <h3 class="level-title">{{ itemSkill.skill }}</h3>
@@ -112,20 +128,20 @@
                                 <div class="level-bar-inner" :style="`width: `+itemSkill.level_id * 20+`%;`">
                                     <span>{{itemSkill.level_id * 20}}%</span>
                                 </div>
-                            </div><!--//level-bar-->
-                        </div><!--//item-->
+                            </div>
+                        </div>
                     </div>
-                </section><!--//skills-section-->
+                </section>
 
                 <div class="error">
                     {{errormessages.error}}
                 </div>
 
-                <button class="button-save" type="button" @click="checkForm">
+                <button class="button-save" @click="checkForm">
                     Save
                 </button>
 
-            </div><!--//main-body-->
+            </div>
         </div>
 </template>
 
@@ -237,27 +253,11 @@
         },
 
         mounted() {
-            axios.post('/profiles/user')
-                .then(response =>{
-                    this.profileform = response.data.profile
-                    this.hobbyform = response.data.hobby
-                    this.experienceform = response.data.experience
-                    this.educationform = response.data.education
-                    this.lenguageform = response.data.lenguages
-                    this.skillform = response.data.skills
-                    this.projectsform = response.data.projects
-                    this.form = response.data.user
-                })
-                .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                    this.errormessages = error.response.data
-                })
             axios.post('/resume/' + this.$route.params.slug)
                 .then(response => {
                     this.resumeform = response.data
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
 
@@ -291,7 +291,7 @@
 
         methods: {
             gouToProfileEdit() {
-                this.$router.push('/master/profileedit')
+                this.$router.push({name: 'profileedit'})
             },
 
             editJobTitle() {
@@ -312,10 +312,9 @@
                     let data = this.resumeform
                     axios.put('/resumes/' + this.$route.params.slug, data)
                         .then(() => {
-                            this.$router.push('/master/resumeses')
+                            this.$router.push({name: 'resumes'})
                         })
                         .catch(error => {
-                            console.log(error.response.data.message ? error.response.data.message : error.response.data)
                             this.errormessages = error.response.data
                         })
                 }
@@ -326,11 +325,19 @@
             axios.post('/profiles/user')
                 .then(response =>{
                     if (response.data.user.profile == null) {
-                        this.$router.push('/master/profilecreate')
+                        this.$router.push({name: 'profilecreate'})
+                        return
                     }
+                    this.profileform = response.data.profile
+                    this.hobbyform = response.data.hobby
+                    this.experienceform = response.data.experience
+                    this.educationform = response.data.education
+                    this.lenguageform = response.data.lenguages
+                    this.skillform = response.data.skills
+                    this.projectsform = response.data.projects
+                    this.form = response.data.user
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
         }

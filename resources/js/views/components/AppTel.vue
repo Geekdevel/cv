@@ -13,32 +13,14 @@
       return {
         phone: null,
 
-         bindProps: {
-          mode: "international",
-          defaultCountry: "FR",
-          disabledFetchingCountry: false,
-          disabled: false,
-          disabledFormatting: false,
-          placeholder: "Enter a phone number",
-          required: false,
+        bindProps: {
+          validCharactersOnly: true,
           enabledCountryCode: true,
-          enabledFlags: true,
-          preferredCountries: ["AU", "BR"],
-          onlyCountries: [],
-          ignoredCountries: [],
-          autocomplete: "off",
-          name: "telephone",
-          maxLen: 25,
-          wrapperClasses: "",
-          inputClasses: "",
-          dropdownOptions: {
-            disabledDialCode: false
-          },
+          autocomplete: "on",
           inputOptions: {
-            showDialCode: false
+            showDialCode: true
           }
         }
-
       }
     }
   }

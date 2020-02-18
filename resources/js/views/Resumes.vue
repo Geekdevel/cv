@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="container" v-else-if="!loading">
+    <div class="container" v-else>
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="row">
@@ -55,6 +55,11 @@
                         </table>
                     </div>
                 </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-12 error">
+                        {{errormessages.error}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -80,13 +85,6 @@
 
                 slugPublic: null,
 
-                form: {
-                    id: this.user.id,
-                    name: null,
-                    phone: null,
-                    email: null
-                },
-
                 errormessages: {
                     error: null
                 },
@@ -102,7 +100,6 @@
                         this.resumes = response.data
                     })
                     .catch(error => {
-                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
                         this.errormessages = error.response.data
                     })
             }
@@ -114,7 +111,6 @@
                     this.resumes = response.data.resumes
                 })
                 .catch(error => {
-                    console.log(error.response.data.message ? error.response.data.message : error.response.data)
                     this.errormessages = error.response.data
                 })
             let url = window.location.toString()
@@ -128,10 +124,6 @@
             let urlShow = arrPublickUrl.join('/')
             this.slugPublic = urlShow
             this.loading = false
-        },
-
-        created() {
-            this.$set(this, 'form', this.user)
         }
     }
 </script>
