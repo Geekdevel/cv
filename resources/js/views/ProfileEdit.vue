@@ -275,6 +275,18 @@
                             <div class="education-add form-group row justify-content-center" v-for="(item, index) in educationform" :key="index">
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="form-group row justify-content-center">
+
+                                        <template v-for="itemEducation in education">
+                                            <div class="col-4 text-center">
+                                                <label :for="itemEducation" class="text-capitalize">{{ itemEducation }}: <span class="be-sure-to-fill-out">*</span></label>
+                                            </div>
+                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index][itemEducation].$error }">
+                                                <input class="form-control" type="text" :name="itemEducation" v-model.trim="item[itemEducation]">
+                                                <div class="error" v-if="$v.educationform.$each[index][itemEducation].$error && !$v.educationform.$each[index][itemEducation].required">Field is required.</div>
+                                                <div class="error" v-if="!$v.educationform.$each[index][itemEducation].minLength">Field must have at least {{ $v.educationform.$each[index][itemEducation].$params.minLength.min }} characters.</div>
+                                            </div>
+                                        </template>
+<!--
                                         <div class="col-4 text-center">
                                             <label for="university">University: <span class="be-sure-to-fill-out">*</span></label>
                                         </div>
@@ -300,7 +312,7 @@
                                             <input class="form-control" type="text" name="diplom_level" v-model.trim="item.degree">
                                             <div class="error" v-if="$v.educationform.$each[index].degree.$error && !$v.educationform.$each[index].degree.required">Field is required.</div>
                                             <div class="error" v-if="!$v.educationform.$each[index].degree.minLength">Field must have at least {{ $v.educationform.$each[index].degree.$params.minLength.min }} characters.</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
@@ -367,7 +379,19 @@
                                 <div class="form-group row justify-content-center">
                                     <div class="col-12 col-md-6 text-center">
                                         <div class="form-group row justify-content-center">
-                                            <div class="col-4 text-center">
+
+                                            <template v-for="itemExperience in experience">
+                                                <div class="col-4 text-center">
+                                                    <label :for="itemExperience" class="text-capitalize">{{ itemExperience }}: <span class="be-sure-to-fill-out">*</span></label>
+                                                </div>
+                                                <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index][itemExperience].$error }">
+                                                    <input class="form-control" type="text" :name="itemExperience" v-model.trim="item[itemExperience]">
+                                                    <div class="error" v-if="$v.experienceform.$each[index][itemExperience].$error && !$v.experienceform.$each[index][itemExperience].required">Field is required.</div>
+                                                    <div class="error" v-if="!$v.experienceform.$each[index][itemExperience].minLength">Field must have at least {{ $v.experienceform.$each[index][itemExperience].$params.minLength.min }} characters.</div>
+                                                </div>
+                                            </template>
+
+                                            <!-- <div class="col-4 text-center">
                                                 <label for="company">Company name: <span class="be-sure-to-fill-out">*</span></label>
                                             </div>
                                             <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].company.$error }">
@@ -383,7 +407,7 @@
                                                 <input class="form-control" type="text" name="position" v-model.trim="item.position">
                                                 <div class="error" v-if="$v.experienceform.$each[index].position.$error && !$v.experienceform.$each[index].position.required">Field is required.</div>
                                                 <div class="error" v-if="!$v.experienceform.$each[index].position.minLength">Field must have at least {{ $v.experienceform.$each[index].position.$params.minLength.min }} characters.</div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-4 text-center">
                                                 <label for="start_work">Start: <span class="be-sure-to-fill-out">*</span></label>
@@ -537,6 +561,8 @@
         data() {
             return {
                 accounts: ['dribbble', 'behance', 'git', 'linkedin'],
+                education: ['university', 'specialty', 'degree'],
+                experience: ['company', 'position'],
                 loading: true,
                 color: '#14CFE8',
                 size: '30px',
@@ -840,9 +866,11 @@
             finishItem(name, index) {
                 if (this[name][index].finishLook == 1) {
                     this[name][index].finish = null
+                    this[name][index].valid = false
                     this[name][index].finishLook = null
                 } else {
                     this[name][index].finish = null
+                    this[name][index].valid = false
                     this[name][index].finishLook = 1
                 }
                 return this[name][index].finishLook
