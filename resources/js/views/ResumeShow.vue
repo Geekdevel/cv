@@ -15,17 +15,20 @@
 
                 <div class="contact-container container-block" id="contact-container-edited" @click="gouToProfileEdit">
                     <ul class="list-unstyled contact-list">
-                        <li class="email"><i class="fa fa-envelope"></i><a :href="`mailto:` + form.email">{{ form.email }}</a></li>
-                        <li class="phone"><i class="fa fa-phone"></i><a :href="`tel:` + form.phone">{{ form.phone }}</a></li>
-
-                        <div v-for="(profile, index) in profileform" :key="index">
-                            <li v-if="profile && index != 'id' && index != 'user_id' && index != 'photo' && index != 'created_at' && index != 'updated_at'">
-                                <i :class="[index == 'web_site' ? 'fa fa-globe' : index == 'git' ? 'fab fa-github' : 'fab fa-'+index]"></i>
-                                <a :href="`http://` + profile" target="_blank">
-                                    {{ profile }}
-                                </a>
-                            </li>
-                        </div>
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            <a :href="`mailto:` + form.email">{{ form.email }}</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <a :href="`tel:` + form.phone">{{ form.phone }}</a>
+                        </li>
+                        <li v-for="(item, index) in accounts" :key="index" v-if="profileform[item.key]">
+                            <i :class="item.icon"></i>
+                            <a :href="`http://` + profileform[item.key]" target="_blank">
+                                {{ profileform[item.key] }}
+                            </a>
+                        </li>
 
                     </ul>
                 </div>
@@ -52,7 +55,7 @@
                     </ul>
                 </div>
 
-                <div class="interests-container container-block" v-if="hobbyform[0].hobbi">
+                <div class="interests-container container-block" v-if="hobbyform.length > 0">
                     <h2 class="container-block-title">Interests</h2>
                     <ul class="list-unstyled interests-list">
                         <li v-for="(item, index) in hobbyform" :key="index">
@@ -129,6 +132,29 @@
                 loading: true,
                 color: '#14CFE8',
                 size: '30px',
+
+                accounts: [
+                    {
+                        key: 'behance',
+                        icon: 'fab fa-behance'
+                    },
+                    {
+                        key: 'web_site',
+                        icon: 'fa fa-globe'
+                    },
+                    {
+                        key: 'dribbble',
+                        icon: 'fab fa-dribbble'
+                    },
+                    {
+                        key: 'git',
+                        icon: 'fab fa-github'
+                    },
+                    {
+                        key: 'linkedin',
+                        icon: 'fab fa-linkedin'
+                    },
+                ],
 
                 form: {
                     id: this.user.id,

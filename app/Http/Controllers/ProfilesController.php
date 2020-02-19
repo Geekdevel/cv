@@ -23,7 +23,7 @@ class ProfilesController extends Controller
         $this->middleware('auth');
     }
 
-    protected function createOrUpdateOrDelete($oldEntity, $newEntity, $model, $user_id)
+    protected function createOrUpdateOrDelete($oldEntity, $newEntity, $model, $user_id, $hobby = false)
     {
         $x = count($oldEntity);
         $y = count($newEntity);
@@ -31,29 +31,68 @@ class ProfilesController extends Controller
         if ( $y >= $x ) {
             for ( $i=0; $i < $y; $i++) {
                 if (isset($newEntity[$i]['id']) && isset($oldEntity[$i]->id) && $newEntity[$i]['id'] == $oldEntity[$i]->id) {
-                    $updateEntity = $model::find($oldEntity[$i]->id);
-                    $updateEntity->update($newEntity[$i]);
+
+                    if ($hobby) {
+                        if ( !isset($newEntity[$i]['hobby']) ) {
+                            $model::find($newEntity[$i]['id'])->delete();
+                        }
+                        else {
+                            $updateEntity = $model::find($oldEntity[$i]->id);
+                            $updateEntity->update($newEntity[$i]);
+                        }
+                    }
+                    else {
+                        $updateEntity = $model::find($oldEntity[$i]->id);
+                        $updateEntity->update($newEntity[$i]);
+                    }
                 }
                 else {
                     if (isset($oldEntity[$i]->id)) {
                         $model::find($oldEntity[$i]->id)->delete();
                     }
-                    $newEntity[$i] += ['user_id' => $user_id];
-                    $model::create($newEntity[$i]);
+                    if ($hobby) {
+                        if (isset($newEntity[$i]['hobby'])) {
+                            $newEntity[$i] += ['user_id' => $user_id];
+                            $model::create($newEntity[$i]);
+                        }
+                    }
+                    else {
+                        $newEntity[$i] += ['user_id' => $user_id];
+                        $model::create($newEntity[$i]);
+                    }
                 }
             }
         }
         else {
             for ( $i = 0; $i < $x; $i++) {
                 if (isset($newEntity[$i]['id']) && isset($oldEntity[$i]->id) && $newEntity[$i]['id'] == $oldEntity[$i]->id) {
-                    $updateEntity = $model::find($oldEntity[$i]->id);
-                    $updateEntity->update($newEntity[$i]);
+
+                    if ($hobby) {
+                        if ( !isset($newEntity[$i]['hobby']) ) {
+                            $model::find($newEntity[$i]['id'])->delete();
+                        }
+                        else {
+                            $updateEntity = $model::find($oldEntity[$i]->id);
+                            $updateEntity->update($newEntity[$i]);
+                        }
+                    }
+                    else {
+                        $updateEntity = $model::find($oldEntity[$i]->id);
+                        $updateEntity->update($newEntity[$i]);
+                    }
                 }
                 else {
-                    if (isset($newEntity[$i])) {
+                    if ($hobby) {
+                        if (isset($newEntity[$i]['hobby'])) {
+                            $newEntity[$i] += ['user_id' => $user_id];
+                            $model::create($newEntity[$i]);
+                        }
+                    }
+                    elseif (isset($newEntity[$i])) {
                         $newEntity[$i] += ['user_id' => $user_id];
                         $model::create($newEntity[$i]);
                     }
+
                     $model::find($oldEntity[$i]->id)->delete();
                 }
             }
@@ -98,10 +137,13 @@ class ProfilesController extends Controller
         $validated['projectsform'] += ['user_id' => $user_id];
         Project::create($validated['projectsform']);
 
-        foreach ($validated['hobbyform'] as $hobby) {
-            $hobby += ['user_id' => $user_id];
-            Hobby::create($hobby);
+        if (isset($validated['hobbyform'])) {
+            foreach ($validated['hobbyform'] as $hobby) {
+                $hobby += ['user_id' => $user_id];
+                Hobby::create($hobby);
+            }
         }
+
 
         foreach ($validated['lenguageform'] as $lenguage) {
             $lenguage += ['user_id' => $user_id];
@@ -160,7 +202,7 @@ class ProfilesController extends Controller
         $this->createOrUpdateOrDelete($user->experiences, $validated['experienceform'], $modelExperience, $user_id);
 
         $modelHobby = new Hobby;
-        $this->createOrUpdateOrDelete($user->hobbies, $validated['hobbyform'], $modelHobby, $user_id);
+        $this->createOrUpdateOrDelete($user->hobbies, $validated['hobbyform'], $modelHobby, $user_id, true);
 
         return response()->json(['success' => 'success'], 201);
     }

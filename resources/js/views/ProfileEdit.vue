@@ -352,6 +352,7 @@
                                 </button>
                             </div>
                         </div>
+                        <!-- end Education -->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -446,6 +447,7 @@
                                 </button>
                             </div>
                         </div>
+                        <!-- end Experience -->
                     </div>
 
                     <div class="form-group row justify-content-center">
@@ -544,8 +546,8 @@
                     enabledCountryCode: true,
                     autocomplete: "on",
                     inputOptions: {
-                    showDialCode: true
-                  }
+                        showDialCode: true
+                    }
                 },
 
                 customToolbar: [
@@ -749,11 +751,11 @@
         },
 
         methods: {
-            // formRenderUrl( form, items ) {
-            //     for (var i = 0; i < this[items].length; i++) {
-            //         this[form][this[items][i]] = this.renderUrl (this[form][this[items][i]])
-            //     }
-            // },
+            formRenderUrl( form, items ) {
+                for (var i = 0; i < this[items].length; i++) {
+                    this[form][this[items][i]] = this.renderUrl (this[form][this[items][i]])
+                }
+            },
 
             dataSelectValid(name, index, dateEdError) {
                 if (this[name][index].start && this[name][index].finish) {
@@ -925,11 +927,7 @@
                     this.errormessages = 'UUUPS!!!'
                 }
                 else {
-                    for (var y = 0; y < this.accounts.length; y++) {
-                        this.profileform[this.accounts[y]] = this.renderUrl (this.profileform[this.accounts[y]])
-                    }
-
-                    // this.formRenderUrl( profileform, accounts )
+                    this.formRenderUrl( 'profileform', 'accounts' )
 
                     this.profileform.web_site = this.renderUrl (this.profileform.web_site)
 
@@ -1002,12 +1000,7 @@
                     this.form = response.data.user
                     this.profileform = response.data.profile && response.data.profile.web_site ? response.data.profile : { web_site: null }
 
-                    //we clean url from the base (to bring the record recorded in compliance)
-                    for (var i = 0; i < this.accounts.length; i++) {
-                        this.profileform[this.accounts[i]] = this.renderUrl (this.profileform[this.accounts[i]])
-                    }
-
-                    // this.formRenderUrl( profileform, accounts )
+                    this.formRenderUrl( 'profileform', 'accounts' )
 
                     this.profileform.web_site = this.renderUrl (this.profileform.web_site)
                     //end clean url
