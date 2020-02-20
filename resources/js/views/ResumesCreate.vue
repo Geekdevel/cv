@@ -18,6 +18,7 @@
                         <input type="text" id="slug" name="slug" v-model.trim="$v.resumeform.slug.$model" @click="chekErrorMessages">
                         <div class="error" v-if="$v.resumeform.slug.$error && !$v.resumeform.slug.required">Must be completed and unique!</div>
                         <div class="error" v-if="!$v.resumeform.slug.minLength">Field must have at least {{ $v.resumeform.slug.$params.minLength.min }} characters.</div>
+                        <div class="error" v-if="!$v.resumeform.slug.alpha">The field can contain only large and small characters of the Latin alphabet</div>
                     </div>
                 </section>
 
@@ -144,7 +145,8 @@
 
 <script>
     import { VueEditor } from "vue2-editor";
-    import { required, minLength, between } from 'vuelidate/lib/validators';
+    import { required, minLength, between, helpers } from 'vuelidate/lib/validators';
+    const alpha = helpers.regex('alpha', /^[a-zA-Z]*$/);
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
     export default {
@@ -266,7 +268,8 @@
 
                 slug: {
                     required,
-                    minLength: minLength(6)
+                    minLength: minLength(6),
+                    alpha
                 }
             }
         },

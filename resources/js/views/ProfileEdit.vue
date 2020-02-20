@@ -1034,7 +1034,13 @@
                     //end clean url
 
                     this.addressform = response.data.address && response.data.address.country ? response.data.address : { country: null }
-                    this.hobbyform = response.data.hobby && response.data.hobby.hobby ? response.data.hobby : [{ hobby: null }]
+
+                    if ( response.data.hobby.length > 0 ) {
+                        this.hobbyform = response.data.hobby
+                    }
+                    else {
+                        this.hobbyform = [{hobby: null}]
+                    }
 
                     this.updateFlags('experienceform', response.data.experience)
                     this.updateFlags('educationform', response.data.education)

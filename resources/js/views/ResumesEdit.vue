@@ -150,7 +150,7 @@
 
 <script>
     import { VueEditor } from "vue2-editor";
-    import { required, minLength, between } from 'vuelidate/lib/validators';
+    import { required, minLength, between, helpers } from 'vuelidate/lib/validators';
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
     export default {
