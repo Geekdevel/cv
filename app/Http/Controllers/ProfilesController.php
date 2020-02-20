@@ -134,8 +134,10 @@ class ProfilesController extends Controller
         $validated['addressform'] += ['user_id' => $user_id];
         Address::create($validated['addressform']);
 
-        $validated['projectsform'] += ['user_id' => $user_id];
-        Project::create($validated['projectsform']);
+        if (isset($validated['projectsform'])) {
+            $validated['projectsform'] += ['user_id' => $user_id];
+            Project::create($validated['projectsform']);
+        }
 
         if (isset($validated['hobbyform'])) {
             foreach ($validated['hobbyform'] as $hobby) {
@@ -187,7 +189,15 @@ class ProfilesController extends Controller
 
         $user->address->update($validated['addressform']);
 
-        $user->projects->update($validated['projectsform']);
+        if (isset($validated['projectsform'])) {
+            if (isset($user->projects)) {
+                $user->projects->update($validated['projectsform']);
+            }
+            else {
+                $validated['projectsform'] += ['user_id' => $user_id];
+                Project::create($validated['projectsform']);
+            }
+        }
 
         $model = new Language;
         $this->createOrUpdateOrDelete($user->languages, $validated['lenguageform'], $model, $user_id);
