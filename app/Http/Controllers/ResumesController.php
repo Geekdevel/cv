@@ -7,6 +7,7 @@ use App\Models\Resume;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use App\Http\Requests\StoreResume;
+use App\Http\Requests\UpdateResume;
 
 class ResumesController extends Controller
 {
@@ -59,7 +60,7 @@ class ResumesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreResume $request, $slug)
+    public function update(UpdateResume $request, $slug)
     {
         $resume = Resume::slug($slug);
         if ($resume->user->id == auth()->user()->id) {
