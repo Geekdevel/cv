@@ -14,6 +14,7 @@
         phone: null,
 
         bindProps: {
+          defaultCountry: 'UA',
           validCharactersOnly: true,
           enabledCountryCode: true,
           autocomplete: "on",
