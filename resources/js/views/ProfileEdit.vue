@@ -59,7 +59,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-12 text-center">
                                             <span class="be-sure-to-fill-out">*</span>
-                                            <button type="button" class="btn btn-info text-light" id="pick-avatar">Select an image</button>
+                                            <button type="button" class="btn btn-info text-light" id="pick-avatar" @click="chekError">Select an image</button>
                                         </div>
                                     </div>
                                         <avatar-cropper
@@ -286,33 +286,7 @@
                                                 <div class="error" v-if="!$v.educationform.$each[index][itemEducation].minLength">Field must have at least {{ $v.educationform.$each[index][itemEducation].$params.minLength.min }} characters.</div>
                                             </div>
                                         </template>
-<!--
-                                        <div class="col-4 text-center">
-                                            <label for="university">University: <span class="be-sure-to-fill-out">*</span></label>
-                                        </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].university.$error }">
-                                            <input class="form-control" type="text" name="university" v-model.trim="item.university">
-                                            <div class="error" v-if="$v.educationform.$each[index].university.$error && !$v.educationform.$each[index].university.required">Field is required.</div>
-                                            <div class="error" v-if="!$v.educationform.$each[index].university.minLength">Field must have at least {{ $v.educationform.$each[index].university.$params.minLength.min }} characters.</div>
-                                        </div>
 
-                                        <div class="col-4 text-center">
-                                            <label for="specialty">Specialty: <span class="be-sure-to-fill-out">*</span></label>
-                                        </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].specialty.$error }">
-                                            <input class="form-control" type="text" name="specialty" v-model.trim="item.specialty">
-                                            <div class="error" v-if="$v.educationform.$each[index].specialty.$error && !$v.educationform.$each[index].specialty.required">Field is required.</div>
-                                            <div class="error" v-if="!$v.educationform.$each[index].specialty.minLength">Field must have at least {{ $v.educationform.$each[index].specialty.$params.minLength.min }} characters.</div>
-                                        </div>
-
-                                        <div class="col-4 text-center">
-                                            <label for="diplom_level">Diplom level: <span class="be-sure-to-fill-out">*</span></label>
-                                        </div>
-                                        <div class="col-8 text-center" :class="{ 'form-group--error': $v.educationform.$each[index].degree.$error }">
-                                            <input class="form-control" type="text" name="diplom_level" v-model.trim="item.degree">
-                                            <div class="error" v-if="$v.educationform.$each[index].degree.$error && !$v.educationform.$each[index].degree.required">Field is required.</div>
-                                            <div class="error" v-if="!$v.educationform.$each[index].degree.minLength">Field must have at least {{ $v.educationform.$each[index].degree.$params.minLength.min }} characters.</div>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
@@ -390,24 +364,6 @@
                                                     <div class="error" v-if="!$v.experienceform.$each[index][itemExperience].minLength">Field must have at least {{ $v.experienceform.$each[index][itemExperience].$params.minLength.min }} characters.</div>
                                                 </div>
                                             </template>
-
-                                            <!-- <div class="col-4 text-center">
-                                                <label for="company">Company name: <span class="be-sure-to-fill-out">*</span></label>
-                                            </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].company.$error }">
-                                                <input class="form-control" type="text" name="company" v-model.trim="item.company">
-                                                <div class="error" v-if="$v.experienceform.$each[index].company.$error && !$v.experienceform.$each[index].company.required">Field is required.</div>
-                                                <div class="error" v-if="!$v.experienceform.$each[index].company.minLength">Field must have at least {{ $v.experienceform.$each[index].company.$params.minLength.min }} characters.</div>
-                                            </div>
-
-                                            <div class="col-4 text-center">
-                                                <label for="position">Position: <span class="be-sure-to-fill-out">*</span></label>
-                                            </div>
-                                            <div class="col-8 text-center" :class="{ 'form-group--error': $v.experienceform.$each[index].position.$error }">
-                                                <input class="form-control" type="text" name="position" v-model.trim="item.position">
-                                                <div class="error" v-if="$v.experienceform.$each[index].position.$error && !$v.experienceform.$each[index].position.required">Field is required.</div>
-                                                <div class="error" v-if="!$v.experienceform.$each[index].position.minLength">Field must have at least {{ $v.experienceform.$each[index].position.$params.minLength.min }} characters.</div>
-                                            </div> -->
 
                                             <div class="col-4 text-center">
                                                 <label for="start_work">Start: <span class="be-sure-to-fill-out">*</span></label>
@@ -518,7 +474,21 @@
 
                     <div class="row justify-content-center">
                         <div class="col-md-12 error">
-                            {{errormessages.error}}
+                            <div v-if="errormessages.error">
+                                <div v-if="errormessages.error.message">
+                                    {{errormessages.error.message}}
+                                </div>
+                                <div v-else>
+                                    {{errormessages.error}}
+                                </div>
+                                <div v-if="errormessages.error.errors">
+                                    <div v-for="(itemError, errors) in errormessages.error.errors" :key="errors">
+                                        <div v-for="(item, error) in itemError" :key="error">
+                                            {{item}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -777,6 +747,10 @@
         },
 
         methods: {
+            chekError() {
+                this.errormessages.error = null
+            },
+
             formRenderUrl( form, items ) {
                 for (var i = 0; i < this[items].length; i++) {
                     this[form][this[items][i]] = this.renderUrl (this[form][this[items][i]])
@@ -895,8 +869,7 @@
                         this.regions = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                     })
                     .catch(error =>{
-
-                        this.errormessages = error.response.data
+                        this.errormessages = {error: error.response.data}
                     })
             },
 
@@ -950,9 +923,10 @@
             },
 
             checkForm() {
+                this.chekError()
                 this.$v.$touch()
                 if (this.$v.$invalid || this.dateEducationError==1 || this.dateExperienceError==1) {
-                    this.errormessages = 'UUUPS!!!'
+                    this.errormessages.error = 'UUUPS!!!'
                 }
                 else {
                     this.formRenderUrl( 'profileform', 'accounts' )
@@ -976,7 +950,7 @@
                         })
                         .catch(error => {
 
-                            this.errormessages = error.response.data
+                            this.errormessages = {error: error.response.data}
                         })
                 }
             },
@@ -996,24 +970,21 @@
                     this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })
                 .catch(error => {
-
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
             axios.post('/api/levels/all')
                 .then(response => {
                     this.levels = response.data.levels
                 })
                 .catch(error => {
-
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
             axios.post('/api/skillLevels/all')
                 .then(response => {
                     this.skillLevels = response.data.skillLevels
                 })
                 .catch(error => {
-
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
         },
 
@@ -1026,8 +997,8 @@
                     }
 
                     this.form = response.data.user
-                    this.profileform = response.data.profile && response.data.profile.web_site ? response.data.profile : { web_site: null }
-
+                    this.profileform = response.data.profile
+                    //clean url
                     this.formRenderUrl( 'profileform', 'accounts' )
 
                     this.profileform.web_site = this.renderUrl (this.profileform.web_site)
@@ -1058,8 +1029,7 @@
                     this.loading = false
                 })
                 .catch(error => {
-
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
         },
     };

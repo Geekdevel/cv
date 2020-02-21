@@ -9,7 +9,21 @@
             <div class="main-wrapper">
                 <!-- left section -->
                     <div class="error">
-                        {{errormessages.error}}
+                        <div v-if="errormessages.error">
+                            <div v-if="errormessages.error.message">
+                                {{errormessages.error.message}}
+                            </div>
+                            <div v-else>
+                                {{errormessages.error}}
+                            </div>
+                            <div v-if="errormessages.error.errors">
+                                <div v-for="(itemError, errors) in errormessages.error.errors" :key="errors">
+                                    <div v-for="(item, error) in itemError" :key="error">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 <section class="section slug-section">
@@ -18,7 +32,7 @@
                         <input type="text" id="slug" name="slug" v-model.trim="$v.resumeform.slug.$model" @click="chekErrorMessages">
                         <div class="error" v-if="$v.resumeform.slug.$error && !$v.resumeform.slug.required">Must be completed and unique!</div>
                         <div class="error" v-if="!$v.resumeform.slug.minLength">Field must have at least {{ $v.resumeform.slug.$params.minLength.min }} characters.</div>
-                        <div class="error" v-if="!$v.resumeform.slug.alpha">The field can contain only large and small characters of the Latin alphabet</div>
+                        <div class="error" v-if="!$v.resumeform.slug.alpha">The field can contain only large and small characters of the Latin alphabet, and numbers</div>
                     </div>
                 </section>
 
@@ -70,7 +84,21 @@
                 </section>
 
                 <div class="error">
-                    {{errormessages.error}}
+                    <div v-if="errormessages.error">
+                        <div v-if="errormessages.error.message">
+                            {{errormessages.error.message}}
+                        </div>
+                        <div v-else>
+                            {{errormessages.error}}
+                        </div>
+                        <div v-if="errormessages.error.errors">
+                            <div v-for="(itemError, errors) in errormessages.error.errors" :key="errors">
+                                <div v-for="(item, error) in itemError" :key="error">
+                                    {{item}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="button-save" type="button" @click="checkForm">
@@ -146,7 +174,7 @@
 <script>
     import { VueEditor } from "vue2-editor";
     import { required, minLength, between, helpers } from 'vuelidate/lib/validators';
-    const alpha = helpers.regex('alpha', /^[a-zA-Z]*$/);
+    const alpha = helpers.regex('alpha', /^[0-9a-zA-Z]*$/);
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
     export default {
@@ -291,7 +319,7 @@
                             this.$router.push({name: 'resumes'})
                         })
                         .catch(error => {
-                            this.errormessages = error.response.data
+                            this.errormessages = {error: error.response.data}
                         })
                 }
             }
@@ -316,7 +344,8 @@
                     this.loading = false
                 })
                 .catch(error => {
-                    this.errormessages = error.response.data
+                    // this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
         }
     }

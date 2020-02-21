@@ -60,7 +60,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-12 text-center">
                                             <span class="be-sure-to-fill-out">*</span>
-                                            <button type="button" class="btn btn-info text-light" id="pick-avatar">Select an image</button>
+                                            <button type="button" class="btn btn-info text-light" id="pick-avatar" @click="chekError">Select an image</button>
                                         </div>
                                     </div>
                                         <avatar-cropper
@@ -470,7 +470,21 @@
 
                     <div class="row justify-content-center">
                         <div class="col-md-12 error">
-                            {{errormessages.error}}
+                            <div v-if="errormessages.error">
+                                <div v-if="errormessages.error.message">
+                                    {{errormessages.error.message}}
+                                </div>
+                                <div v-else>
+                                    {{errormessages.error}}
+                                </div>
+                                <div v-if="errormessages.error.errors">
+                                    <div v-for="(itemError, errors) in errormessages.error.errors" :key="errors">
+                                        <div v-for="(item, error) in itemError" :key="error">
+                                            {{item}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -739,6 +753,10 @@
         },
 
         methods: {
+            chekError() {
+                this.errormessages.error = null
+            },
+
             dataSelectValid(name, index, dateEdError) {
                 if (this[name][index].start && this[name][index].finish) {
                     let arr_start = this[name][index].start.split('-')
@@ -844,8 +862,7 @@
                         this.regions = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                     })
                     .catch(error =>{
-                        console.log(error.response.data.message ? error.response.data.message : error.response.data)
-                        this.errormessages = error.response.data
+                        this.errormessages = {error: error.response.data}
                     })
             },
 
@@ -903,9 +920,10 @@
             },
 
             checkForm() {
+                this.chekError()
                 this.$v.$touch()
                 if (this.$v.$invalid || this.dateEducationError==1 || this.dateExperienceError==1) {
-                    this.errormessages = 'UUUPS!!!'
+                    this.errormessages.error = 'UUUPS!!!'
                 }
                 else {
                     for (var y = 0; y < this.accounts.length; y++) {
@@ -930,7 +948,7 @@
                             this.$router.push({name: 'resumes'})
                         })
                         .catch(error => {
-                            this.errormessages = error.response.data
+                            this.errormessages = {error: error.response.data}
                         })
                 }
             }
@@ -942,21 +960,21 @@
                     this.countries = response.data.sort((a,b) => a.name > b.name ? 1 : -1)
                 })
                 .catch(error => {
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
             axios.post('/api/levels/all')
                 .then(response => {
                     this.levels = response.data.levels
                 })
                 .catch(error => {
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
             axios.post('/api/skillLevels/all')
                 .then(response => {
                     this.skillLevels = response.data.skillLevels
                 })
                 .catch(error => {
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
 
             this.loading = false
@@ -971,7 +989,7 @@
                     }
                 })
                 .catch(error => {
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
         },
     };
