@@ -43,7 +43,7 @@ class ResumesController extends Controller
             return response()->json(['success' => 'Resume '.$slug.' user`s '.$user->name.' created!'], 201);
         }
         else{
-            return response()->json(['error' => 'Resume '.$slug.' user`s '.$user->name.' no created! You already have three resumes!'], 409);
+            return response()->json(['message' => 'Resume '.$slug.' user`s '.$user->name.' no created! You already have three resumes!'], 409);
         }
     }
 
@@ -69,7 +69,7 @@ class ResumesController extends Controller
             return response()->json(['success' => 'Resume '.$resume->slug.' update!'], 201);
         }
         else {
-            return response()->json(['error' => 'Unauthorized!'], 401);
+            return response()->json(['message' => 'Unauthorized!'], 401);
         }
     }
 
@@ -87,7 +87,7 @@ class ResumesController extends Controller
             return $resumes;
         }
         else {
-            return response()->json(['error' => 'Unauthorized!'], 401);
+            return response()->json(['message' => 'Unauthorized!'], 401);
         }
 
     }
