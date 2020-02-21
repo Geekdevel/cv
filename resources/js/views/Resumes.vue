@@ -57,7 +57,21 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-12 error">
-                        {{errormessages.error}}
+                        <div v-if="errormessages.error">
+                            <div v-if="errormessages.error.message">
+                                {{errormessages.error.message}}
+                            </div>
+                            <div v-else>
+                                {{errormessages.error}}
+                            </div>
+                            <div v-if="errormessages.error.errors">
+                                <div v-for="(itemError, errors) in errormessages.error.errors" :key="errors">
+                                    <div v-for="(item, error) in itemError" :key="error">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,6 +103,10 @@
                     error: null
                 },
 
+                successmessages: {
+                    success: null
+                },
+
                 resumes: [],
             }
         },
@@ -100,7 +118,7 @@
                         this.resumes = response.data
                     })
                     .catch(error => {
-                        this.errormessages = error.response.data
+                        this.errormessages = {error: error.response.data}
                     })
             }
         },
@@ -111,7 +129,7 @@
                     this.resumes = response.data.resumes
                 })
                 .catch(error => {
-                    this.errormessages = error.response.data
+                    this.errormessages = {error: error.response.data}
                 })
             let url = window.location.toString()
             let arrUrl = url.split('/')
