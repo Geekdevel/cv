@@ -849,7 +849,7 @@
             },
 
             handleUploaded(resp) {
-                this.profileform.photo = resp;
+                this.profileform.photo = resp['url'];
               },
 
             changeCountry(country, changed) {

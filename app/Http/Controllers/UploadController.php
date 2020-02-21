@@ -12,11 +12,10 @@ class UploadController extends Controller
     {
         if ($request->hasFile('file')){
             $resp = $request->file->storeAs('/files/upload/image', date('dWmYB').'.'.$request->file->extension(), 'public');
-            // return response()->json(['/storage/'.$resp]);
-            return '/storage/'.$resp;
+            return response()->json(['url' => '/storage/'.$resp]);
         }
         else {
-            return response()->json(['error' => 'Uuups! Service Unavailable.'], 503);
+            return response()->json(['message' => 'Uuups! Service Unavailable.'], 503);
         }
     }
 
